@@ -9,10 +9,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import SafeImage from "./SafeImage";
-import AddToTripButton from "./AddToTripButton";
-import SeasonBadge from "./SeasonBadge";
-import { dayCost, type Destination } from "@/lib/destinations";
-import { formatINR } from "@/lib/format";
+import type { Destination } from "@/lib/destinations";
 
 function StackCard({
   destination,
@@ -25,84 +22,58 @@ function StackCard({
   total: number;
   progress: MotionValue<number>;
 }) {
-  // Earlier cards shrink a little as later cards cover them
-    const targetScale = 1 - (total - 1 - index) * 0.02;
+  // Earlier cards shrink a little as later cards slide over them
+  const targetScale = 1 - (total - 1 - index) * 0.02;
   const scale = useTransform(progress, [index / total, 1], [1, targetScale]);
   const isLast = index === total - 1;
 
   return (
     <div
-      className={`sticky ${isLast ? "" : "mb-[16vh]"}`}
-        style={{ top: `calc(6rem + ${index * 0.6}rem)` }}
+      className={`sticky ${isLast ? "" : "mb-[14vh]"}`}
+      style={{ top: `calc(6rem + ${index * 0.6}rem)` }}
     >
       <motion.article
         style={{ scale, transformOrigin: "top center" }}
-        className="flex h-[78vh] min-h-115 flex-col overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_30px_60px_-30px_rgba(20,24,28,0.6)] md:h-[64vh] md:flex-row"
+        className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_rgba(20,24,28,0.6)]"
       >
-        {/* Image */}
         <Link
           href={`/destination/${destination.id}`}
-          className="group relative h-2/5 shrink-0 overflow-hidden md:h-auto md:w-1/2"
+          aria-label={`Open ${destination.name}`}
+          className="group relative block h-[68vh] min-h-105 overflow-hidden"
         >
           <SafeImage
             src={destination.image}
             alt={destination.name}
             label={destination.name}
-            sizes="(min-width: 768px) 50vw, 100vw"
+            sizes="(min-width: 1152px) 1100px, 100vw"
             className="transition-transform duration-700 group-hover:scale-105"
           />
-        </Link>
 
-        {/* Text */}
-        <div className="flex flex-1 flex-col justify-center p-6 md:p-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-accent">
+          {/* Soft grey fade so the text is readable */}
+          <div className="absolute inset-0 bg-linear-to-t from-bg/85 via-bg/10 to-transparent" />
+
+          {/* Number */}
+          <span className="absolute left-6 top-6 text-xs uppercase tracking-[0.3em] text-fg/80 md:left-10 md:top-10">
             {String(index + 1).padStart(2, "0")} /{" "}
             {String(total).padStart(2, "0")}
-          </p>
+          </span>
 
-        <h3 className="mt-3 font-serif text-4xl leading-none md:mt-4 md:text-6xl">
-            <Link
-              href={`/destination/${destination.id}`}
-              className="transition-colors hover:text-accent"
-            >
-              {destination.name}
-            </Link>
-        </h3>
-          <p className="mt-2 text-muted md:mt-3">{destination.tagline}</p>
-
-          <div className="mt-3 md:mt-4">
-            <SeasonBadge id={destination.id} />
-          </div>
-
-          <p className="mt-4 line-clamp-3 max-w-md leading-relaxed text-fg/90 md:mt-6 md:line-clamp-none">
-            {destination.description}
-          </p>
-
-          <div className="mt-4 hidden gap-8 text-sm sm:flex md:mt-6">
+          {/* Name and tagline */}
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-10">
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
-                Best season
+              <h3 className="font-serif text-5xl leading-none md:text-7xl">
+                {destination.name}
+              </h3>
+              <p className="mt-3 text-muted md:text-lg">
+                {destination.tagline}
               </p>
-              <p className="mt-1">{destination.bestSeason}</p>
             </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
-                Per day
-              </p>
-              <p className="mt-1">{formatINR(dayCost(destination))}</p>
-            </div>
-          </div>
 
-          <div className="mt-5 flex max-w-sm flex-col gap-3 md:mt-8">
-            <AddToTripButton id={destination.id} />
-            <Link
-              href={`/destination/${destination.id}`}
-              className="text-sm text-accent transition-colors hover:text-accent-hover"
-            >
-              Explore {destination.name} →
-            </Link>
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-lg text-bg transition-transform duration-300 group-hover:scale-110 md:h-14 md:w-14">
+              ↗
+            </span>
           </div>
-        </div>
+        </Link>
       </motion.article>
     </div>
   );
