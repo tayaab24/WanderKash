@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import DestinationCard from "@/components/DestinationCard";
+import StackedDestinations from "@/components/StackedDestinations";
 import { getAll } from "@/lib/destinations";
 
 const steps = [
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-line px-6 py-28">
+      <section className="border-t border-line px-6 pb-28 pt-28">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -56,11 +56,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((d, i) => (
-              <DestinationCard key={d.id} destination={d} index={i} />
-            ))}
-          </div>
+          <StackedDestinations destinations={featured} />
         </div>
       </section>
 
