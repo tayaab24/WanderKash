@@ -39,7 +39,7 @@ function StackCard({
         <Link
           href={`/destination/${destination.id}`}
           aria-label={`Open ${destination.name}`}
-          className="group relative block h-[68vh] min-h-105 overflow-hidden"
+          className="group relative block h-[60vh] min-h-105 overflow-hidden"
         >
           <SafeImage
             src={destination.image}
