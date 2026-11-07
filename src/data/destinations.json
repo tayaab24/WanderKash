@@ -1,0 +1,82 @@
+[
+  {
+    "id": "dal-lake",
+    "name": "Dal Lake",
+    "tagline": "Mirror of the valley",
+    "image": "/images/dal-lake.jpg",
+    "description": "Srinagar's floating heart: shikara rides at sunrise, lotus beds, and houseboats moored along quiet water. Wander the floating vegetable market before the day warms up.",
+    "bestSeason": "Apr to Oct",
+    "highlights": ["Sunrise shikara ride", "Floating vegetable market", "Houseboat stay"],
+    "costPerDay": { "stay": 3500, "food": 800, "transport": 600 }
+  },
+  {
+    "id": "gulmarg",
+    "name": "Gulmarg",
+    "tagline": "Meadow of flowers",
+    "image": "/images/gulmarg.jpg",
+    "description": "A high-altitude meadow ringed by pine forest. Wildflowers in summer, deep snow and skiing in winter, and a gondola that climbs above the tree line.",
+    "bestSeason": "Dec to Mar, Jun to Aug",
+    "highlights": ["Gulmarg Gondola", "Skiing and snowboarding", "Apharwat Peak views"],
+    "costPerDay": { "stay": 4500, "food": 900, "transport": 1200 }
+  },
+  {
+    "id": "pahalgam",
+    "name": "Pahalgam",
+    "tagline": "Valley of shepherds",
+    "image": "/images/pahalgam.jpg",
+    "description": "A river-cut valley of meadows and pine, and the base for treks and day trips. The Lidder River runs clear right through the town.",
+    "bestSeason": "Apr to Oct",
+    "highlights": ["Betaab Valley", "Aru Valley", "Lidder River walks"],
+    "costPerDay": { "stay": 3800, "food": 850, "transport": 1100 }
+  },
+  {
+    "id": "sonamarg",
+    "name": "Sonamarg",
+    "tagline": "Meadow of gold",
+    "image": "/images/sonamarg.jpg",
+    "description": "A broad Himalayan valley surrounded by glaciers and snow peaks, and the gateway to high-altitude lakes. The Sindh River flows beside the main meadow.",
+    "bestSeason": "May to Oct",
+    "highlights": ["Thajiwas Glacier", "Sindh River", "Alpine lake treks"],
+    "costPerDay": { "stay": 3200, "food": 800, "transport": 1300 }
+  },
+  {
+    "id": "gurez",
+    "name": "Gurez Valley",
+    "tagline": "The hidden valley",
+    "image": "/images/gurez.jpg",
+    "description": "A remote valley along the Kishanganga River, with traditional wooden villages and a slow pace. Reaching it is part of the journey.",
+    "bestSeason": "Jun to Sep",
+    "highlights": ["Habba Khatoon Peak", "Kishanganga River", "Wooden village walks"],
+    "costPerDay": { "stay": 2800, "food": 700, "transport": 1500 }
+  },
+  {
+    "id": "yusmarg",
+    "name": "Yusmarg",
+    "tagline": "Meadow of Jesus",
+    "image": "/images/yusmarg.jpg",
+    "description": "A quiet pine-fringed meadow, calmer than the bigger hill stations. Good for easy walks and a long picnic.",
+    "bestSeason": "Apr to Oct",
+    "highlights": ["Nilnag Lake", "Pine forest walks", "Meadow picnics"],
+    "costPerDay": { "stay": 2200, "food": 600, "transport": 900 }
+  },
+  {
+    "id": "doodhpathri",
+    "name": "Doodhpathri",
+    "tagline": "Valley of milk",
+    "image": "/images/doodhpathri.jpg",
+    "description": "A grassy bowl with a stream running through it, named for its milk-white water. A short drive from Srinagar and ideal for a day trip.",
+    "bestSeason": "Apr to Oct",
+    "highlights": ["Shaliganga stream", "Open meadows", "Easy day trip from Srinagar"],
+    "costPerDay": { "stay": 2000, "food": 600, "transport": 1000 }
+  },
+  {
+    "id": "mughal-gardens",
+    "name": "Mughal Gardens",
+    "tagline": "Terraces above the lake",
+    "image": "/images/mughal-gardens.jpg",
+    "description": "Terraced gardens built by the Mughals along the Dal Lake shoreline. Chinar trees, fountains and long views across the water.",
+    "bestSeason": "Apr to Oct",
+    "highlights": ["Nishat Bagh", "Shalimar Bagh", "Chashme Shahi"],
+    "costPerDay": { "stay": 3000, "food": 700, "transport": 500 }
+  }
+]

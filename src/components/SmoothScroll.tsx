@@ -1,0 +1,78 @@
+"use client";
+
+import { useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import Lenis from "lenis";
+
+let lenis: Lenis | null = null;
+
+export default function SmoothScroll({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  // Start Lenis once
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduceMotion) return;
+
+    lenis = new Lenis({ lerp: 0.1 });
+    let frame = requestAnimationFrame(function raf(time) {
+      lenis?.raf(time);
+      frame = requestAnimationFrame(raf);
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      lenis?.destroy();
+      lenis = null;
+    };
+  }, []);
+
+  // Smooth-scroll links that point to a #section on the current page
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as HTMLElement).closest("a");
+      if (!link || !lenis) return;
+
+      const url = new URL(link.href, window.location.href);
+      const samePage =
+        url.origin === window.location.origin &&
+        url.pathname === window.location.pathname;
+      if (!samePage || !url.hash) return;
+
+      const el = document.querySelector(url.hash) as HTMLElement | null;
+      if (!el) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      lenis.scrollTo(el);
+      window.history.pushState(null, "", url.hash);
+    };
+
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
+  // On page change: go to the #anchor if there is one, otherwise to top
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hash = window.location.hash;
+      const el = hash
+        ? (document.querySelector(hash) as HTMLElement | null)
+        : null;
+
+      if (el) {
+        if (lenis) lenis.scrollTo(el);
+        else el.scrollIntoView({ behavior: "smooth" });
+      } else if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  return <>{children}</>;
+}
