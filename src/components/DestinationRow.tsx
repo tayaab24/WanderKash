@@ -7,6 +7,7 @@ import SafeImage from "./SafeImage";
 import AddToTripButton from "./AddToTripButton";
 import { dayCost, type Destination } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
+import SeasonBadge from "./SeasonBadge";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -78,6 +79,9 @@ export default function DestinationRow({
           {destination.name}
         </h2>
         <p className="mt-3 text-muted">{destination.tagline}</p>
+        <div className="mt-4">
+          <SeasonBadge id={destination.id} />
+        </div>
 
         <p className="mt-6 max-w-md leading-relaxed text-fg/90">
           {destination.description}

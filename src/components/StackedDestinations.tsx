@@ -26,14 +26,14 @@ function StackCard({
   progress: MotionValue<number>;
 }) {
   // Earlier cards shrink a little as later cards cover them
-  const targetScale = 1 - (total - 1 - index) * 0.05;
+    const targetScale = 1 - (total - 1 - index) * 0.02;
   const scale = useTransform(progress, [index / total, 1], [1, targetScale]);
   const isLast = index === total - 1;
 
   return (
     <div
-      className={`sticky ${isLast ? "" : "mb-[22vh]"}`}
-      style={{ top: `calc(6rem + ${index * 1.25}rem)` }}
+      className={`sticky ${isLast ? "" : "mb-[16vh]"}`}
+        style={{ top: `calc(6rem + ${index * 0.6}rem)` }}
     >
       <motion.article
         style={{ scale, transformOrigin: "top center" }}
@@ -60,9 +60,14 @@ function StackCard({
             {String(total).padStart(2, "0")}
           </p>
 
-          <h3 className="mt-3 font-serif text-4xl leading-none md:mt-4 md:text-6xl">
-            {destination.name}
-          </h3>
+        <h3 className="mt-3 font-serif text-4xl leading-none md:mt-4 md:text-6xl">
+            <Link
+              href={`/destination/${destination.id}`}
+              className="transition-colors hover:text-accent"
+            >
+              {destination.name}
+            </Link>
+        </h3>
           <p className="mt-2 text-muted md:mt-3">{destination.tagline}</p>
 
           <div className="mt-3 md:mt-4">

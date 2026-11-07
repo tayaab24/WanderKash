@@ -10,12 +10,16 @@ import {
 } from "react";
 
 export type Day = { day: number; stops: string[] };
-export type Trip = { travelers: number; days: Day[] };
+export type Trip = { travelers: number; days: Day[]; month: number | null };
 
 const KEY = "wanderkash-trip";
 const MAX_DAYS = 10;
 
-const emptyTrip: Trip = { travelers: 2, days: [{ day: 1, stops: [] }] };
+const emptyTrip: Trip = {
+  travelers: 2,
+  days: [{ day: 1, stops: [] }],
+  month: null,
+};
 
 type State = { trip: Trip; ready: boolean };
 
@@ -27,6 +31,7 @@ type Action =
   | { type: "addDay" }
   | { type: "removeDay"; day: number }
   | { type: "travelers"; n: number }
+  | { type: "month"; m: number | null }
   | { type: "clear" };
 
 const renumber = (days: Day[]): Day[] =>
@@ -98,6 +103,9 @@ function reducer(state: State, action: Action): State {
         trip: { ...trip, travelers: Math.min(10, Math.max(1, action.n)) },
       };
 
+    case "month":
+      return { ...state, trip: { ...trip, month: action.m } };
+
     case "clear":
       return { ...state, trip: emptyTrip };
 
@@ -117,8 +125,13 @@ function loadTrip(): Trip {
         ? Math.min(10, Math.max(1, parsed.travelers))
         : 2;
 
+    const month =
+      Number.isInteger(parsed.month) && parsed.month >= 1 && parsed.month <= 12
+        ? parsed.month
+        : null;
+
     if (!Array.isArray(parsed.days) || parsed.days.length === 0) {
-      return { travelers, days: emptyTrip.days };
+      return { travelers, days: emptyTrip.days, month };
     }
 
     const days: Day[] = parsed.days
@@ -130,7 +143,7 @@ function loadTrip(): Trip {
           : [],
       }));
 
-    return { travelers, days };
+    return { travelers, days, month };
   } catch {
     return emptyTrip;
   }
@@ -147,6 +160,7 @@ type TripContextValue = {
   addDay: () => void;
   removeDay: (day: number) => void;
   setTravelers: (n: number) => void;
+  setMonth: (m: number | null) => void;
   clearTrip: () => void;
 };
 
@@ -186,6 +200,7 @@ export function TripProvider({ children }: { children: ReactNode }) {
       addDay: () => dispatch({ type: "addDay" }),
       removeDay: (day) => dispatch({ type: "removeDay", day }),
       setTravelers: (n) => dispatch({ type: "travelers", n }),
+      setMonth: (m) => dispatch({ type: "month", m }),
       clearTrip: () => dispatch({ type: "clear" }),
     };
   }, [state]);

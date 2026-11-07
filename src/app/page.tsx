@@ -22,7 +22,7 @@ const steps = [
 ];
 
 export default function Home() {
-  const featured = getAll().slice(0, 3);
+  const destinations = getAll();
 
   return (
     <>
@@ -42,21 +42,21 @@ export default function Home() {
           <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
-                Featured
+                Destinations
               </p>
               <h2 className="max-w-2xl font-serif text-4xl md:text-5xl">
-                Start with the classics
+                Eight places to begin
               </h2>
             </div>
             <Link
               href="/destinations"
               className="text-sm text-accent transition-colors hover:text-accent-hover"
             >
-              View all destinations →
+              Search and filter →
             </Link>
           </div>
 
-          <StackedDestinations destinations={featured} />
+          <StackedDestinations destinations={destinations} />
         </div>
       </section>
 

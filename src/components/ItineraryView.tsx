@@ -3,10 +3,19 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useTrip } from "@/context/TripContext";
-import { dayCost, getAll, getById } from "@/lib/destinations";
+import {
+  MONTHS,
+  dayCost,
+  getAll,
+  getById,
+  seasonStatus,
+  type Destination,
+} from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
 import SafeImage from "./SafeImage";
 import BudgetSummary from "./BudgetSummary";
+import MonthPicker from "./MonthPicker";
+import SeasonBadge from "./SeasonBadge";
 
 const selectClass =
   "rounded-full border border-line bg-surface px-3 py-1.5 text-xs text-fg outline-none transition-colors hover:bg-surface-hover";
@@ -31,6 +40,15 @@ export default function ItineraryView() {
   if (!ready) return <div className="min-h-screen" />;
 
   const available = getAll().filter((d) => !isInTrip(d.id));
+    const month = trip.month;
+  const offSeason = month
+    ? trip.days
+        .flatMap((d) => d.stops)
+        .map((id) => getById(id))
+        .filter(
+          (d): d is Destination => !!d && seasonStatus(d, month) === "off"
+        )
+    : [];
 
   return (
     <section className="mx-auto min-h-screen max-w-6xl px-6 pb-28 pt-36">
@@ -83,7 +101,7 @@ export default function ItineraryView() {
                 </button>
               </div>
             </div>
-
+            <MonthPicker />
             <div className="ml-auto">
               {confirmClear ? (
                 <div className="flex items-center gap-3 text-sm">
@@ -114,7 +132,21 @@ export default function ItineraryView() {
               )}
             </div>
           </div>
-
+            {month && offSeason.length > 0 && (
+            <div className="mt-8 rounded-2xl border border-warn/40 bg-warn/10 p-5 text-sm">
+              <p className="font-medium text-warn">
+                Heads up for {MONTHS[month - 1]}
+              </p>
+              <ul className="mt-2 space-y-1 text-muted">
+                {offSeason.map((d) => (
+                  <li key={d.id}>
+                    {d.name} is outside its best season ({d.bestSeason}). Check
+                    road and weather conditions before you go.
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="mt-8 grid gap-10 lg:grid-cols-3">
             {/* Days */}
             <div className="space-y-6 lg:col-span-2">
@@ -191,7 +223,11 @@ export default function ItineraryView() {
                               </Link>
                               <p className="mt-0.5 text-xs text-muted">
                                 {formatINR(dayCost(d))} per person
-                              </p>
+                              </p>                              
+                            <div className="mt-2">
+                                <SeasonBadge id={d.id} />
+                            </div>
+
                             </div>
 
                             <div className="flex flex-col items-end gap-2">
