@@ -8,8 +8,14 @@ import SafeImage from "./SafeImage";
 const words = "Plan Your Kashmir, Day by Day.".split(" ");
 const ease = [0.22, 1, 0.36, 1] as const;
 
+// Timing (seconds)
+const START = 0.4; // wait before the first word drops
+const STAGGER = 0.14; // gap between words
+const AFTER = START + words.length * STAGGER + 0.5; // when the rest appears
+
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -24,7 +30,7 @@ export default function Hero() {
       ref={ref}
       className="relative flex min-h-screen items-end overflow-hidden"
     >
-      {/* Parallax background */}
+      {/* Parallax background photo */}
       <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110">
         <SafeImage
           src="/images/hero.jpg"
@@ -42,14 +48,15 @@ export default function Hero() {
         className="relative mx-auto w-full max-w-6xl px-6 pb-28"
       >
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease }}
           className="mb-5 text-xs uppercase tracking-[0.3em] text-accent"
         >
           Kashmir travel planner
         </motion.p>
 
+        {/* Headline: each word drops down from above, one by one */}
         <h1 className="max-w-4xl font-serif text-5xl leading-[1.05] sm:text-7xl md:text-8xl">
           {words.map((word, i) => (
             <span
@@ -58,9 +65,13 @@ export default function Hero() {
             >
               <motion.span
                 className="inline-block"
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, delay: 0.25 + i * 0.08, ease }}
+                initial={{ y: "-110%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.9,
+                  delay: START + i * STAGGER,
+                  ease,
+                }}
               >
                 {word}
               </motion.span>
@@ -69,18 +80,18 @@ export default function Hero() {
         </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1, ease }}
+          transition={{ duration: 0.8, delay: AFTER, ease }}
           className="mt-6 max-w-xl text-lg text-muted"
         >
           Pick your destinations, shape your itinerary, know your budget.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.3, ease }}
+          transition={{ duration: 0.8, delay: AFTER + 0.25, ease }}
           className="mt-10 flex flex-wrap gap-4"
         >
           <Link
@@ -102,7 +113,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
+        transition={{ delay: AFTER + 0.6 }}
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted"
       >
         Scroll
