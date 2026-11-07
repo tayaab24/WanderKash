@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DestinationCard from "@/components/DestinationCard";
+import DestinationRow from "@/components/DestinationRow";
 import { getAll } from "@/lib/destinations";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export default function DestinationsPage() {
   const destinations = getAll();
 
   return (
-    <section className="mx-auto min-h-screen max-w-6xl px-6 pb-28 pt-36">
+    <section className="mx-auto min-h-screen max-w-6xl overflow-x-clip px-6 pb-20 pt-36">
       <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
         Destinations
       </p>
@@ -19,12 +19,18 @@ export default function DestinationsPage() {
         Where will you wander?
       </h1>
       <p className="mt-6 max-w-xl text-lg text-muted">
-        Open any destination to see what it offers, then add it to your trip.
+        Scroll to meet each destination, then add the ones you love to your
+        trip.
       </p>
 
-      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 divide-y divide-line">
         {destinations.map((d, i) => (
-          <DestinationCard key={d.id} destination={d} index={i} />
+          <DestinationRow
+            key={d.id}
+            destination={d}
+            index={i}
+            total={destinations.length}
+          />
         ))}
       </div>
     </section>
