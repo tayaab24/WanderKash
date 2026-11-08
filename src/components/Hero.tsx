@@ -1,9 +1,16 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import SafeImage from "./SafeImage";
+import { getImageProps } from "next/image";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Plan Your Kashmir, Day by Day.".split(" ");
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -13,6 +20,30 @@ const START = 0.4; // wait before the first word drops
 const STAGGER = 0.14; // gap between words
 const AFTER = START + words.length * STAGGER + 0.5; // when the rest appears
 
+// Art direction: landscape crop for landscape screens, the full portrait photo otherwise.
+// Several viewports have different LCP images, so no preload; fetchPriority/eager instead.
+const ALT =
+  "A shikara crossing Dal Lake at sunset, with Hari Parbat on the horizon and the sun low on the right";
+const common = { alt: ALT, sizes: "100vw" };
+const {
+  props: { srcSet: landscapeSrcSet },
+} = getImageProps({
+  ...common,
+  src: "/images/hero.jpg",
+  width: 3200,
+  height: 1800,
+});
+const { props: portraitImg } = getImageProps({
+  ...common,
+  src: "/images/hero-mobile.jpg",
+  width: 1200,
+  height: 1800,
+  loading: "eager",
+  fetchPriority: "high",
+});
+
+const MOUSE_SHIFT = 4; // max px of mouse parallax each way
+
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
 
@@ -21,94 +52,143 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
+  const reduceMotion = usePrefersReducedMotion();
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Very subtle mouse parallax: desktop with a fine pointer only, never for reduced motion
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 40, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 40, damping: 20 });
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    if (reduceMotion || !desktop.matches) {
+      mouseX.set(0);
+      mouseY.set(0);
+      return;
+    }
+    const onMove = (e: MouseEvent) => {
+      mouseX.set((0.5 - e.clientX / window.innerWidth) * 2 * MOUSE_SHIFT);
+      mouseY.set((0.5 - e.clientY / window.innerHeight) * 2 * MOUSE_SHIFT);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [reduceMotion, mouseX, mouseY]);
+
   return (
     <section
       ref={ref}
-      className="relative flex min-h-screen items-end overflow-hidden"
+      className="hero-height relative flex items-end overflow-hidden"
     >
-      {/* Parallax background photo */}
-      <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110">
-        {/* Desktop: keep the sun rays over the ridge. Phone: centre on the boatman */}
-        <SafeImage
-          src="/images/hero.jpg"
-          alt="Sunrise rays over the mountains above Dal Lake, a lone fisherman casting his net from a wooden boat"
-          preload
-          sizes="100vw"
-          className="object-[60%_50%] md:object-[50%_35%]"
-        />
+      {/* Layers: scroll parallax > mouse parallax > slow Ken Burns > photo */}
+      <motion.div
+        style={reduceMotion ? undefined : { y: imageY }}
+        className="absolute inset-0"
+      >
+        <motion.div
+          style={reduceMotion ? undefined : { x: springX, y: springY }}
+          className="absolute -inset-2"
+        >
+          <div className="animate-kenburns absolute inset-0 motion-reduce:animate-none">
+            {/* Sun ~88% across, shikara ~64-88% across: bias right so both stay in frame */}
+            <picture>
+              <source
+                media="(orientation: landscape)"
+                srcSet={landscapeSrcSet}
+                sizes="100vw"
+              />
+              <img
+                {...portraitImg}
+                alt={ALT}
+                className="absolute inset-0 h-full w-full object-cover object-[80%_70%] landscape:object-[70%_50%]"
+              />
+            </picture>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* Soft gradient: dark (bg token, never black) only at the bottom, behind the text */}
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-bg/95 via-bg/45 via-30% to-transparent to-60%" />
+      {/* Overlays (bg token, never black): bottom fade + a soft pool behind the headline.
+          The top fade for the navbar comes from the navbar's own scrim. */}
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-bg/90 via-bg/35 via-25% to-transparent to-50%" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_0%_100%,rgb(43_48_54/0.75),transparent_75%)] landscape:bg-[radial-gradient(ellipse_85%_90%_at_0%_100%,rgb(43_48_54/0.88),rgb(43_48_54/0.45)_45%,transparent_75%)]" />
+      {/* Pool behind the headline itself (measured: fg text >= 3.7:1 at the worst 5% of word area).
+          Portrait: over the clouds, top-left. Landscape: centred on the headline, clear of the sun. */}
+      <div className="pointer-events-none absolute inset-0 portrait:bg-[radial-gradient(ellipse_140%_45%_at_10%_20%,rgb(43_48_54/0.9),rgb(43_48_54/0.55)_50%,transparent_85%)] landscape:bg-[radial-gradient(ellipse_60%_60%_at_28%_62%,rgb(43_48_54/0.8),rgb(43_48_54/0.45)_55%,transparent_82%)]" />
 
+      {/* Landscape: everything sits bottom-left. Portrait: headline at the top over the
+          dark clouds, subline + buttons at the bottom over the water, so the horizon,
+          sun and shikara stay clear in the middle. */}
       <motion.div
-        style={{ y: textY, opacity: textOpacity }}
-        className="relative mx-auto w-full max-w-6xl px-6 pb-28"
+        style={reduceMotion ? undefined : { y: textY, opacity: textOpacity }}
+        className="relative mx-auto w-full max-w-6xl px-6 pb-28 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
       >
-        <motion.p
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-          className="mb-5 text-xs uppercase tracking-[0.3em] text-accent"
-        >
-          Kashmir travel planner
-        </motion.p>
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
+            className="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
+          >
+            Kashmir travel planner
+          </motion.p>
 
-        {/* Headline: each word drops down from above, one by one */}
-        <h1 className="max-w-4xl font-serif text-5xl leading-[1.05] sm:text-7xl md:text-8xl">
-          {words.map((word, i) => (
-            <span
-              key={i}
-              className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom"
-            >
-              <motion.span
-                className="inline-block"
-                initial={{ y: "-110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.9,
-                  delay: START + i * STAGGER,
-                  ease,
-                }}
+          {/* Headline: each word drops down from above, one by one */}
+          <h1 className="max-w-4xl font-serif text-5xl leading-[1.05] text-shadow-lg text-shadow-bg/50 sm:text-7xl md:text-8xl">
+            {words.map((word, i) => (
+              <span
+                key={i}
+                className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom"
               >
-                {word}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: "-110%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: START + i * STAGGER,
+                    ease,
+                  }}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: AFTER, ease }}
-          className="mt-6 max-w-xl text-lg text-muted"
-        >
-          Pick your destinations, shape your itinerary, know your budget.
-        </motion.p>
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: AFTER, ease }}
+            className="mt-6 max-w-xl text-lg text-fg/85 text-shadow-sm text-shadow-bg/60"
+          >
+            Pick your destinations, shape your itinerary, know your budget.
+          </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: AFTER + 0.25, ease }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <Link
-            href="/destinations"
-            className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: AFTER + 0.25, ease }}
+            className="mt-10 flex flex-wrap gap-4"
           >
-            Start Planning
-          </Link>
-          <Link
-            href="/itinerary"
-            className="rounded-full border border-line px-7 py-3 text-sm text-fg transition-colors hover:bg-surface"
-          >
-            View My Trip
-          </Link>
-        </motion.div>
+            <Link
+              href="/plan"
+              className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+            >
+              Start planning
+            </Link>
+            <Link
+              href="/itinerary"
+              className="rounded-full border border-line px-7 py-3 text-sm text-fg transition-colors hover:bg-surface"
+            >
+              View My Trip
+            </Link>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Scroll indicator */}
@@ -116,7 +196,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: AFTER + 0.6 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted"
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden"
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">

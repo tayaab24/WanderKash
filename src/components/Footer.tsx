@@ -79,18 +79,8 @@ export default function Footer() {
               © <CurrentYear /> WanderKash. A concept project. Costs are sample estimates.
             </p>
             <p className="flex flex-wrap gap-x-4 gap-y-1">
-              <span>
-                Hero photo by{" "}
-                <a
-                  href="https://www.pexels.com/photo/serene-sunrise-fishing-at-dal-lake-kashmir-31543900/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-accent"
-                >
-                  Shah Faizan
-                </a>{" "}
-                on Pexels
-              </span>
+              {/* TODO: replace <credit> with the hero photographer's name */}
+              <span>{"Hero photo: <credit>"}</span>
               <span>
                 Dal Lake photo by{" "}
                 <a

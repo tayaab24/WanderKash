@@ -53,9 +53,9 @@ export default function QuickPlanner({
   const toggleVibe = (t: string) =>
     setVibes((v) => (v.includes(t) ? v.filter((x) => x !== t) : [...v, t]));
 
-  const applyPlan = () => {
+  const applyPlan = async () => {
     if (!month) return;
-    const ok = loadTrip({
+    const ok = await loadTrip({
       days: plan.map((s) => [s.destination.id]),
       suggestedMonth: month,
     });

@@ -2,8 +2,13 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import SafeImage from "./SafeImage";
+import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
 import AddToTripButton from "./AddToTripButton";
 import { dayCost, type Destination } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
@@ -29,6 +34,7 @@ export default function DestinationRow({
     offset: ["start end", "end start"],
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const reduceMotion = usePrefersReducedMotion();
 
   // Image enters from its own side, text from the opposite side
   const imageFrom = flip ? 140 : -140;
@@ -51,7 +57,10 @@ export default function DestinationRow({
           href={`/destination/${destination.id}`}
           className="group relative block aspect-4/3 overflow-hidden rounded-2xl border border-line"
         >
-          <motion.div style={{ y: imageY }} className="absolute -inset-[10%]">
+          <motion.div
+            style={reduceMotion ? undefined : { y: imageY }}
+            className="absolute -inset-[10%]"
+          >
             <SafeImage
               src={destination.image}
               alt={destination.name}

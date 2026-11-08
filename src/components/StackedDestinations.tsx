@@ -4,11 +4,12 @@ import { useRef } from "react";
 import Link from "next/link";
 import {
   motion,
-  useScroll,
+  useScroll,
   useTransform,
   type MotionValue,
 } from "framer-motion";
 import SafeImage from "./SafeImage";
+import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
 import type { Destination } from "@/lib/destinations";
 
 function StackCard({
@@ -25,6 +26,7 @@ function StackCard({
   // Earlier cards shrink a little as later cards slide over them
   const targetScale = 1 - (total - 1 - index) * 0.02;
   const scale = useTransform(progress, [index / total, 1], [1, targetScale]);
+  const reduceMotion = usePrefersReducedMotion();
   const isLast = index === total - 1;
 
   return (
@@ -33,7 +35,7 @@ function StackCard({
       style={{ top: `calc(6rem + ${index * 0.6}rem)` }}
     >
       <motion.article
-        style={{ scale, transformOrigin: "top center" }}
+        style={reduceMotion ? undefined : { scale, transformOrigin: "top center" }}
         className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_rgba(20,24,28,0.6)]"
       >
         <Link

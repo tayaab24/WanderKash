@@ -19,9 +19,9 @@ export default function CreditsPage() {
         Photography
       </h1>
       <p className="mt-6 text-muted">
-        The hero and Dal Lake photos come from Pexels (Pexels License). The
-        rest come from Wikimedia Commons under Creative Commons licences. All
-        have been resized and compressed for the web.
+        The Dal Lake photo comes from Pexels (Pexels License) and the rest of
+        the destination photos from Wikimedia Commons under Creative Commons
+        licences. All have been resized and compressed for the web.
       </p>
 
       <ul className="mt-12 divide-y divide-line border-y border-line">
@@ -32,20 +32,23 @@ export default function CreditsPage() {
           >
             <span className="font-serif text-2xl">
               {c.image === "/images/hero.jpg"
-                ? "Home hero: sunrise over Dal Lake"
+                ? "Home hero: sunset over Dal Lake"
                 : (names.get(c.image) ?? c.image)}
             </span>
             <span className="text-sm text-muted">
-              <a
-                href={c.source}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-fg underline decoration-line underline-offset-4 transition-colors hover:text-accent"
-              >
-                {c.author}
-              </a>
-              {" · "}
-              {c.license}
+              {c.source ? (
+                <a
+                  href={c.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-fg underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+                >
+                  {c.author}
+                </a>
+              ) : (
+                <span className="text-fg">{c.author}</span>
+              )}
+              {c.license && <>{" · "}{c.license}</>}
             </span>
           </li>
         ))}

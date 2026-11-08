@@ -22,3 +22,7 @@ export function useMediaQuery(query: string) {
     () => false
   );
 }
+
+/** Hydration-safe reduced-motion flag (false during SSR/hydration, then live). */
+export const usePrefersReducedMotion = () =>
+  useMediaQuery("(prefers-reduced-motion: reduce)");

@@ -1,12 +1,14 @@
 "use client";
 
 import type { SampleTrip } from "@/data/sampleTrips";
+import ConfirmDialog from "@/components/ConfirmDialog";
 import {
   createContext,
   useContext,
   useEffect,
   useMemo,
   useReducer,
+  useState,
   type ReactNode,
 } from "react";
 
@@ -178,7 +180,9 @@ type TripContextValue = {
   setMonth: (m: number | null) => void;
   clearTrip: () => void;
   /** Replaces the current trip; asks first if it has stops. Returns false if cancelled. */
-  loadTrip: (trip: Pick<SampleTrip, "days" | "suggestedMonth">) => boolean;
+  loadTrip: (
+    trip: Pick<SampleTrip, "days" | "suggestedMonth">
+  ) => Promise<boolean>;
 };
 
 const TripContext = createContext<TripContextValue | null>(null);
@@ -204,6 +208,15 @@ export function TripProvider({ children }: { children: ReactNode }) {
     }
   }, [state.trip, state.ready]);
 
+  // Pending "replace your trip?" confirmation, resolved by the dialog buttons
+  const [confirm, setConfirm] = useState<{
+    resolve: (ok: boolean) => void;
+  } | null>(null);
+  const settle = (ok: boolean) => {
+    confirm?.resolve(ok);
+    setConfirm(null);
+  };
+
   const value = useMemo<TripContextValue>(() => {
     const ids = state.trip.days.flatMap((d) => d.stops);
     return {
@@ -219,12 +232,12 @@ export function TripProvider({ children }: { children: ReactNode }) {
       setTravelers: (n) => dispatch({ type: "travelers", n }),
       setMonth: (m) => dispatch({ type: "month", m }),
       clearTrip: () => dispatch({ type: "clear" }),
-      loadTrip: (t) => {
-        if (
-          ids.length > 0 &&
-          !window.confirm("This will replace your current trip. Continue?")
-        ) {
-          return false;
+      loadTrip: async (t) => {
+        if (ids.length > 0) {
+          const ok = await new Promise<boolean>((resolve) =>
+            setConfirm({ resolve })
+          );
+          if (!ok) return false;
         }
         dispatch({ type: "load", days: t.days, month: t.suggestedMonth });
         return true;
@@ -232,7 +245,19 @@ export function TripProvider({ children }: { children: ReactNode }) {
     };
   }, [state]);
 
-  return <TripContext.Provider value={value}>{children}</TripContext.Provider>;
+  return (
+    <TripContext.Provider value={value}>
+      {children}
+      <ConfirmDialog
+        open={confirm !== null}
+        title="Replace your current trip?"
+        message="This will replace the stops and month in your current trip. Your number of travellers stays the same."
+        confirmLabel="Replace trip"
+        onConfirm={() => settle(true)}
+        onCancel={() => settle(false)}
+      />
+    </TripContext.Provider>
+  );
 }
 
 export function useTrip() {

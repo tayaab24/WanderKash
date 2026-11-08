@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import SafeImage from "./SafeImage";
+import SectionHeading from "./SectionHeading";
 import { MONTHS, getAll, seasonStatus } from "@/lib/destinations";
 
 const SEASON_LINES: Record<number, string> = {
@@ -33,6 +34,7 @@ const listNames = (names: string[]) =>
 function Skeleton() {
   return (
     <div aria-hidden className="animate-pulse motion-reduce:animate-none">
+      <div className="mb-3 h-3 w-24 rounded bg-surface" />
       <div className="h-10 w-80 max-w-full rounded-lg bg-surface" />
       <div className="mt-4 h-5 w-120 max-w-full rounded bg-surface" />
       <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -55,6 +57,10 @@ export default function RightNow() {
   const good = all.filter((d) => seasonStatus(d, month) === "good");
   const edge = all.filter((d) => seasonStatus(d, month) === "shoulder");
   const off = all.filter((d) => seasonStatus(d, month) === "off");
+  // If nothing is at its peak (e.g. November), feature the edge-of-season places instead
+  const peak = good.length > 0;
+  const featured = peak ? good : edge;
+  const listed = peak ? edge : [];
 
   return (
     <motion.div
@@ -65,14 +71,31 @@ export default function RightNow() {
         reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
       }
     >
-      <h2 className="font-serif text-4xl md:text-5xl">
-        Right now in Kashmir <span className="text-accent">·</span> {name}
-      </h2>
-      <p className="mt-4 max-w-2xl text-lg text-muted">{SEASON_LINES[month]}</p>
+      <SectionHeading
+        className=""
+        eyebrow="This month"
+        title={
+          <>
+            Right now in Kashmir <span className="text-accent">·</span> {name}
+          </>
+        }
+        subline={SEASON_LINES[month]}
+      />
 
-      {good.length > 0 ? (
-        <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {good.map((d) => (
+      {!peak && featured.length > 0 && (
+        <p className="mt-10 text-fg">
+          Nothing is at its absolute peak in {name}, but these are close, and
+          quieter than usual:
+        </p>
+      )}
+
+      {featured.length > 0 && (
+        <ul
+          className={`grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 ${
+            peak ? "mt-10" : "mt-6"
+          }`}
+        >
+          {featured.map((d) => (
             <li key={d.id}>
               <Link
                 href={`/destination/${d.id}`}
@@ -89,22 +112,22 @@ export default function RightNow() {
                 </div>
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
                   <span className="font-serif text-lg">{d.name}</span>
-                  <span className="text-xs text-accent">✓ In season</span>
+                  {peak ? (
+                    <span className="text-xs text-accent">✓ In season</span>
+                  ) : (
+                    <span className="text-xs text-muted">Edge of season</span>
+                  )}
                 </div>
               </Link>
             </li>
           ))}
         </ul>
-      ) : (
-        <p className="mt-10 text-fg">
-          Nothing is at its absolute peak in {name}, but plenty is close.
-        </p>
       )}
 
-      {edge.length > 0 && (
+      {listed.length > 0 && (
         <p className="mt-6 text-sm text-muted">
           <span className="text-fg">Edge of season:</span>{" "}
-          {edge.map((d, i) => (
+          {listed.map((d, i) => (
             <span key={d.id}>
               <Link
                 href={`/destination/${d.id}`}
@@ -112,7 +135,7 @@ export default function RightNow() {
               >
                 {d.name}
               </Link>
-              {i < edge.length - 1 && ", "}
+              {i < listed.length - 1 && ", "}
             </span>
           ))}
         </p>

@@ -49,3 +49,33 @@ body {
 .animate-marquee {
   animation: marquee 70s linear infinite;
 }
+
+/* Hero height: 100svh fits mobile screens with browser bars; 100vh is the fallback */
+.hero-height {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/* Slow, calm Ken Burns for the hero photo (transform only, GPU-friendly).
+   Origin sits near the sun and shikara so the zoom never pushes them out. */
+@keyframes kenburns {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1%, -0.6%, 0);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 22s ease-in-out infinite alternate;
+  transform-origin: 80% 60%;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-marquee {
+    animation: none;
+  }
+}

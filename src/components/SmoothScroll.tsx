@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
+import { MotionConfig } from "framer-motion";
 
 let lenis: Lenis | null = null;
 
@@ -72,7 +73,11 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
         : null;
 
       if (el) {
-        if (lenis) lenis.scrollTo(el);
+        // New page may be taller than the last: refresh Lenis's cached limits first
+        if (lenis) {
+          lenis.resize();
+          lenis.scrollTo(el);
+        }
         else el.scrollIntoView({ behavior: "smooth" });
       } else if (lenis) {
         lenis.scrollTo(0, { immediate: true });
@@ -83,5 +88,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     return () => clearTimeout(timer);
   }, [pathname]);
 
-  return <>{children}</>;
+  // reducedMotion="user": framer animations drop movement for reduced-motion users
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

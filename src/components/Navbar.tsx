@@ -89,7 +89,11 @@ export default function Navbar() {
                   href={l.href}
                   aria-current={active ? "page" : undefined}
                   className={`group flex items-center gap-2 text-base font-medium text-shadow-sm text-shadow-bg/60 transition-colors lg:text-lg ${
-                    active ? "text-accent" : "text-fg hover:text-accent"
+                    active
+                      ? solid
+                        ? "text-accent"
+                        : "text-accent-hover"
+                      : "text-fg hover:text-accent"
                   }`}
                 >
                   <span className="relative">

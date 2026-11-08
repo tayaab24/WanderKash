@@ -6,7 +6,7 @@ import SafeImage from "./SafeImage";
 import { useTrip } from "@/context/TripContext";
 import { sampleTrips, type SampleTrip } from "@/data/sampleTrips";
 import { computeBudget } from "@/lib/budget";
-import { MONTHS } from "@/lib/destinations";
+import { MONTHS, getById, seasonStatus } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
 
 function TripCard({
@@ -22,14 +22,19 @@ function TripCard({
   const { loadTrip } = useTrip();
 
   const stops = trip.days.reduce((n, d) => n + d.length, 0);
+  const offSeason = trip.days
+    .flat()
+    .map((id) => getById(id))
+    .filter((d) => d && seasonStatus(d, trip.suggestedMonth) === "off")
+    .map((d) => d!.name);
   const { perPersonTotal } = computeBudget({
     travelers: 1,
     month: trip.suggestedMonth,
     days: trip.days.map((s, i) => ({ day: i + 1, stops: s })),
   });
 
-  const use = () => {
-    if (loadTrip(trip)) router.push("/itinerary");
+  const use = async () => {
+    if (await loadTrip(trip)) router.push("/itinerary");
   };
 
   return (
@@ -65,7 +70,7 @@ function TripCard({
 
           <dl className="mb-6 mt-5 space-y-1.5 text-sm">
             <div className="flex justify-between gap-4">
-              <dt className="text-muted">Best month</dt>
+              <dt className="text-muted">Suggested month</dt>
               <dd>{MONTHS[trip.suggestedMonth - 1]}</dd>
             </div>
             <div className="flex justify-between gap-4">
@@ -75,6 +80,14 @@ function TripCard({
               </dd>
             </div>
           </dl>
+
+          {offSeason.length > 0 && (
+            <p className="-mt-3 mb-5 text-xs leading-relaxed text-warn">
+              {offSeason.join(" and ")} {offSeason.length === 1 ? "is" : "are"}{" "}
+              off-season in {MONTHS[trip.suggestedMonth - 1]}: expect snow and
+              possible road closures.
+            </p>
+          )}
 
           <button
             type="button"
