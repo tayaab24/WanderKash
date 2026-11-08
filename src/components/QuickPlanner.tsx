@@ -90,7 +90,7 @@ export default function QuickPlanner({
                 }`}
               />
               <span
-                className={`mt-2 block text-xs uppercase tracking-[0.2em] ${
+                className={`mt-2 block text-[13px] font-bold uppercase tracking-[0.2em] ${
                   current ? "text-accent" : done ? "text-fg" : "text-muted"
                 }`}
               >
@@ -127,7 +127,7 @@ export default function QuickPlanner({
                       type="button"
                       aria-pressed={days === n}
                       onClick={() => setDays(n)}
-                      className={`rounded-2xl border py-5 font-display text-3xl tabular-nums transition-colors ${
+                      className={`rounded-2xl border py-5 text-2xl font-bold tabular-nums transition-colors ${
                         days === n
                           ? "border-accent bg-accent text-bg"
                           : "border-line text-fg hover:border-accent hover:text-accent"
@@ -197,7 +197,7 @@ export default function QuickPlanner({
                 </h2>
                 <p className="mt-2 text-muted">
                   Est. per person{" "}
-                  <span className="text-accent">≈ {formatINR(perPerson)}</span>{" "}
+                  <span className="tabular-nums text-accent">≈ {formatINR(perPerson)}</span>{" "}
                   · sample costs for stay, food and transport
                 </p>
 
@@ -215,7 +215,7 @@ export default function QuickPlanner({
                       key={`${s.destination.id}-${i}`}
                       className="flex items-center gap-4 rounded-xl border border-line bg-bg/40 p-3"
                     >
-                      <span className="w-14 shrink-0 text-xs uppercase tracking-[0.2em] text-muted">
+                      <span className="w-14 shrink-0 text-[13px] font-bold uppercase tracking-[0.2em] text-muted">
                         Day {i + 1}
                       </span>
                       <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg">

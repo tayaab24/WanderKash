@@ -31,7 +31,7 @@ function isActive(href: string, pathname: string) {
 function Badge({ count, ready }: { count: number; ready: boolean }) {
   return (
     <span
-      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-semibold tabular-nums text-bg text-shadow-none transition-opacity ${
+      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-[13px] font-bold tabular-nums text-bg text-shadow-none transition-opacity ${
         ready ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -83,7 +83,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className="flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.03em] text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
+          className="flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.015em] text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
         >
           Wander<span className="text-accent">Kash</span>
         </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-base font-medium text-shadow-sm text-shadow-bg/60 transition-colors lg:text-lg ${
+                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-[15px] font-bold tracking-[0.01em] text-shadow-sm text-shadow-bg/60 transition-colors lg:text-base ${
                     active
                       ? solid
                         ? "text-accent"
@@ -173,7 +173,7 @@ export default function Navbar() {
                       href={l.href}
                       aria-current={active ? "page" : undefined}
                       onClick={() => setMenuPath(null)}
-                      className={`flex items-center justify-between py-4 font-display text-2xl transition-colors ${
+                      className={`flex items-center justify-between py-4 text-xl font-bold tracking-[0.01em] transition-colors ${
                         active ? "text-accent" : "text-fg hover:text-accent"
                       }`}
                     >

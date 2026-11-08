@@ -61,7 +61,7 @@ function TripCard({
             className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
           <div className="absolute inset-0 bg-linear-to-t from-bg/60 to-transparent" />
-          <span className="absolute bottom-3 left-4 text-xs uppercase tracking-[0.2em] text-fg">
+          <span className="absolute bottom-3 left-4 text-[13px] font-bold uppercase tracking-[0.2em] text-fg">
             {trip.days.length} days · {stops} stops
           </span>
         </div>
@@ -78,7 +78,7 @@ function TripCard({
             <div className="flex justify-between gap-4">
               <dt className="text-muted">Est. per person</dt>
               <dd>
-                <span className="text-accent">≈ {formatINR(perPersonTotal)}</span>
+                <span className="tabular-nums text-accent">≈ {formatINR(perPersonTotal)}</span>
               </dd>
             </div>
           </dl>

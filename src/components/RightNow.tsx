@@ -115,9 +115,9 @@ export default function RightNow() {
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
                   <span className="font-display text-lg">{d.name}</span>
                   {peak ? (
-                    <span className="text-xs text-accent">✓ In season</span>
+                    <span className="text-[13px] font-bold text-accent">✓ In season</span>
                   ) : (
-                    <span className="text-xs text-muted">Edge of season</span>
+                    <span className="text-[13px] font-bold text-muted">Edge of season</span>
                   )}
                 </div>
               </Link>

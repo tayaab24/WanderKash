@@ -19,7 +19,7 @@ export default function SectionHeading({
       className={`flex flex-wrap items-end justify-between gap-6 ${className}`}
     >
       <div className="max-w-2xl">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
+        <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
           {eyebrow}
         </p>
         <h2 className="font-display text-[clamp(2rem,4vw_+_1rem,3rem)] leading-[1.1]">

@@ -2,6 +2,11 @@
 
 # WanderKash: design notes
 
+## Fonts
+
+Headings: Playfair Display (`font-display`, weight 600-700). Body: Lato (`font-sans`, 400 and 700 only;
+never use `font-medium`/`font-semibold` on Lato text). Prices and numbers use `tabular-nums`.
+
 ## Palette: "Dal Lake at dusk"
 
 Deep blue-teal grounds that contrast with the warm sunset photography. All colours are

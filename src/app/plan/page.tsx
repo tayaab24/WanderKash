@@ -25,11 +25,13 @@ async function PlannerWithParams({ searchParams }: Props) {
 export default function PlanPage({ searchParams }: Props) {
   return (
     <section className="min-h-screen-safe mx-auto max-w-3xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
+      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
         Quick planner
       </p>
       <h1 className="font-display text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1]">
-        Plan in 30 seconds
+        {/* Fixed phone break: same 2 lines in the fallback and in Playfair, so nothing shifts when it loads */}
+        Plan in 30 <br className="sm:hidden" />
+        seconds
       </h1>
       <p className="mb-12 mt-5 max-w-xl text-lg text-muted">
         Three questions. We&apos;ll match places to your month and mood, then you
@@ -37,7 +39,7 @@ export default function PlanPage({ searchParams }: Props) {
       </p>
       <Suspense
         fallback={
-          <div className="h-120 animate-pulse rounded-3xl border border-line bg-surface motion-reduce:animate-none" />
+          <div className="h-[520px] animate-pulse rounded-3xl border border-line bg-surface motion-reduce:animate-none sm:h-[552px]" />
         }
       >
         <PlannerWithParams searchParams={searchParams} />

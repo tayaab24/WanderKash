@@ -82,7 +82,7 @@ export default function DestinationRow({
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 1, delay: 0.15, ease }}
       >
-        <p className="text-xs uppercase tracking-[0.3em] text-accent">
+        <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
 
@@ -102,7 +102,7 @@ export default function DestinationRow({
           {destination.highlights.map((h) => (
             <li
               key={h}
-              className="rounded-full border border-line px-3 py-1 text-sm text-muted"
+              className="rounded-full border border-line px-3 py-1 text-[13px] font-bold text-muted"
             >
               {h}
             </li>
@@ -111,16 +111,16 @@ export default function DestinationRow({
 
         <div className="mt-6 flex gap-8 text-sm">
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted">
+            <p className="text-[13px] font-bold uppercase tracking-widest text-muted">
               Best season
             </p>
             <p className="mt-1">{destination.bestSeason}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted">
+            <p className="text-[13px] font-bold uppercase tracking-widest text-muted">
               Per day
             </p>
-            <p className="mt-1">{formatINR(dayCost(destination))}</p>
+            <p className="mt-1 tabular-nums">{formatINR(dayCost(destination))}</p>
           </div>
         </div>
 

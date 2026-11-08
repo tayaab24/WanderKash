@@ -7,7 +7,7 @@ import CurrentYear from "./footer/CurrentYear";
 
 const link =
   "inline-flex min-h-11 items-center text-muted transition-colors hover:text-accent";
-const heading = "mb-5 text-xs uppercase tracking-[0.3em] text-accent";
+const heading = "mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent";
 
 const plan = [
   { href: "/itinerary", label: "My Trip" },
@@ -28,7 +28,7 @@ export default function Footer() {
           <Link
             href="/"
             aria-label="WanderKash home"
-            className="block font-display text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-fg"
+            className="block font-display text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[0.95] tracking-[-0.02em] text-fg"
           >
             Wander<span className="text-accent">Kash</span>
           </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-6 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-6 border-t border-line pt-6 text-[13px] text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © <CurrentYear /> WanderKash. A concept project. Costs are sample
             estimates.

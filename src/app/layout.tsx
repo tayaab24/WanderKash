@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Lato, Playfair_Display } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -7,11 +7,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { TripProvider } from "@/context/TripContext";
 
-const manrope = Manrope({
+// Body and UI. Lato ships only 400 and 700 (plus italics), so nothing may ask for 500/600.
+const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-manrope",
+  variable: "--font-lato",
+});
+
+// Headings and display text (variable font: any weight 400-900)
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const viewport: Viewport = {
@@ -40,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${lato.variable} ${playfair.variable}`}>
       <body>
         <TripProvider>
           <SmoothScroll>

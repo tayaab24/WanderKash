@@ -36,7 +36,7 @@ function Answer({ blocks }: { blocks: Block[] }) {
           </p>
         ) : (
           <div key={i}>
-            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-accent">
+            <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.2em] text-accent">
               {b.title}
             </p>
             <ul className="space-y-1.5">

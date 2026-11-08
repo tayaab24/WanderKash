@@ -130,13 +130,13 @@ export default function Hero() {
         <div>
           <p
             style={{ "--d": "0.1s", "--dur": "0.7s", "--from-y": "-12px" } as CSSProperties}
-            className="hero-in mb-5 text-xs font-medium uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
+            className="hero-in mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
           >
             Kashmir travel planner
           </p>
 
           {/* Headline: each word drops down from above, one by one */}
-          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.03em] text-shadow-lg text-shadow-bg/50">
+          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.015em] text-shadow-lg text-shadow-bg/50">
             {words.map((word, i) => (
               <Fragment key={i}>
               <span className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom">
@@ -185,7 +185,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         style={{ "--d": `${AFTER + 0.6}s`, "--dur": "0.6s", "--from-y": "0px" } as CSSProperties}
-        className="hero-in-fade absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
+        className="hero-in-fade absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[13px] font-bold uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">

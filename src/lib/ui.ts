@@ -5,13 +5,13 @@
  * Timing comes from the theme defaults (200ms, --ease-soft).
  */
 const base =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-7 text-sm transition-[color,background-color,border-color,transform] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40";
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-7 text-[15px] tracking-[0.01em] transition-[color,background-color,border-color,transform] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40";
 
 export const btn = {
   /** Solid accent: the main action on a screen */
-  primary: `${base} bg-accent font-semibold text-bg hover:bg-accent-hover`,
+  primary: `${base} bg-accent font-bold text-bg hover:bg-accent-hover`,
   /** Outline: secondary actions */
-  secondary: `${base} border border-fg bg-transparent font-medium text-fg hover:border-accent hover:text-accent`,
+  secondary: `${base} border border-fg bg-transparent font-bold text-fg hover:border-accent hover:text-accent`,
 };
 
 /** Standard card surface. */

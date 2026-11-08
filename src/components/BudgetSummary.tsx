@@ -28,7 +28,7 @@ export default function BudgetSummary() {
 
       {/* Per day */}
       <div className="mt-7">
-        <h3 className="text-xs uppercase tracking-[0.25em] text-accent">
+        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
           By day
         </h3>
         <dl className="mt-4 space-y-2.5">
@@ -37,12 +37,12 @@ export default function BudgetSummary() {
               <dt className="text-muted">
                 Day {d.day}
                 {d.stops > 0 && (
-                  <span className="ml-2 text-xs">
+                  <span className="ml-2 text-[13px]">
                     ({d.stops} {d.stops === 1 ? "stop" : "stops"})
                   </span>
                 )}
               </dt>
-              <dd>{formatINR(d.total * n)}</dd>
+              <dd className="tabular-nums">{formatINR(d.total * n)}</dd>
             </div>
           ))}
         </dl>
@@ -50,14 +50,14 @@ export default function BudgetSummary() {
 
       {/* By category */}
       <div className="mt-7 border-t border-line pt-7">
-        <h3 className="text-xs uppercase tracking-[0.25em] text-accent">
+        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
           By category
         </h3>
         <dl className="mt-4 space-y-2.5">
           {categories.map((c) => (
             <div key={c.label} className="flex justify-between text-sm">
               <dt className="text-muted">{c.label}</dt>
-              <dd>{formatINR(c.value)}</dd>
+              <dd className="tabular-nums">{formatINR(c.value)}</dd>
             </div>
           ))}
         </dl>
@@ -72,10 +72,10 @@ export default function BudgetSummary() {
           </span>
         </div>
         <div className="mt-4">
-          <span className="text-xs uppercase tracking-[0.25em] text-accent">
+          <span className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
             Total
           </span>
-          <p className="mt-1 font-display text-[clamp(2.25rem,7vw,2.75rem)] font-bold tabular-nums text-fg">
+          <p className="mt-1 font-display text-[clamp(2.25rem,7vw,2.75rem)] font-bold leading-tight tabular-nums text-fg">
             <AnimatedNumber value={b.grandTotal} format={formatINR} />
           </p>
         </div>

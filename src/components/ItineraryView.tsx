@@ -57,7 +57,7 @@ export default function ItineraryView() {
 
   return (
     <section className="min-h-screen-safe mx-auto max-w-6xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
+      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
         My trip
       </p>
       <h1 className="max-w-3xl font-display text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1]">
@@ -139,7 +139,7 @@ export default function ItineraryView() {
           </div>
             {month && offSeason.length > 0 && (
             <div className="mt-8 rounded-2xl border border-warn/40 bg-warn/10 p-5 text-base">
-              <p className="font-medium text-warn">
+              <p className="font-bold text-warn">
                 Heads up for {MONTHS[month - 1]}
               </p>
               <ul className="mt-2 space-y-1 text-muted">
@@ -226,7 +226,7 @@ export default function ItineraryView() {
                               >
                                 {d.name}
                               </Link>
-                              <p className="mt-0.5 text-sm text-muted">
+                              <p className="mt-0.5 text-sm tabular-nums text-muted">
                                 {formatINR(dayCost(d))} per person
                               </p>                              
                             <div className="mt-2">
@@ -320,10 +320,10 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-xs uppercase tracking-[0.2em] text-accent">
+          <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-accent">
             Estimated total
           </p>
-          <p className="font-display text-xl font-bold leading-tight tabular-nums">
+          <p className="text-xl font-bold leading-tight tabular-nums">
             {formatINR(b.grandTotal)}
             <span className="ml-2 font-sans text-sm text-muted">
               {formatINR(b.perPersonTotal)} pp
