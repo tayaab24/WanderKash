@@ -55,7 +55,7 @@ function StackCard({
           <div className="absolute inset-0 bg-linear-to-t from-deep/60 via-deep/10 to-transparent" />
 
           {/* Number */}
-          <span className="absolute left-6 top-6 text-[13px] font-bold uppercase tracking-[0.3em] text-fg/80 md:left-10 md:top-10">
+          <span className="absolute left-6 top-6 text-[13px] font-medium uppercase tracking-[0.3em] text-fg/80 md:left-10 md:top-10">
             {String(index + 1).padStart(2, "0")} /{" "}
             {String(total).padStart(2, "0")}
           </span>
@@ -63,7 +63,7 @@ function StackCard({
           {/* Name and tagline */}
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-10">
             <div>
-              <h3 className="font-display text-[clamp(2rem,5vw_+_1rem,4rem)] font-bold leading-[1.05] tracking-[-0.015em]">
+              <h3 className="text-[clamp(2rem,5vw_+_1rem,4rem)] font-bold leading-[1.1] tracking-[-0.02em]">
                 {destination.name}
               </h3>
               <p className="mt-3 text-muted md:text-lg">

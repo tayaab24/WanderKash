@@ -25,11 +25,11 @@ async function PlannerWithParams({ searchParams }: Props) {
 export default function PlanPage({ searchParams }: Props) {
   return (
     <section className="min-h-screen-safe mx-auto max-w-3xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+      <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         Quick planner
       </p>
-      <h1 className="font-display text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1]">
-        {/* Fixed phone break: same 2 lines in the fallback and in Playfair, so nothing shifts when it loads */}
+      <h1 className="text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+        {/* Fixed phone break: same 2 lines in the fallback font and in Roboto, so nothing shifts when it loads */}
         Plan in 30 <br className="sm:hidden" />
         seconds
       </h1>

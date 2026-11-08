@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Lato, Playfair_Display } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -7,20 +7,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { TripProvider } from "@/context/TripContext";
 
-// Body and UI. Lato ships only 400 and 700 (plus italics), so nothing may ask for 500/600.
-const lato = Lato({
+// The only font family: Roboto (400 body, 500 UI and labels, 700 headings)
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "700"],
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-lato",
-});
-
-// Headings and display text (variable font: any weight 400-900)
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-playfair",
+  variable: "--font-roboto",
 });
 
 export const viewport: Viewport = {
@@ -49,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lato.variable} ${playfair.variable}`}>
+    <html lang="en" className={roboto.variable}>
       <body>
         <TripProvider>
           <SmoothScroll>

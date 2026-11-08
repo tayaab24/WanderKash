@@ -19,10 +19,10 @@ export default function SectionHeading({
       className={`flex flex-wrap items-end justify-between gap-6 ${className}`}
     >
       <div className="max-w-2xl">
-        <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+        <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
           {eyebrow}
         </p>
-        <h2 className="font-display text-[clamp(2rem,4vw_+_1rem,3rem)] leading-[1.1]">
+        <h2 className="text-[clamp(2rem,4vw_+_1rem,3rem)] leading-[1.1] font-bold tracking-[-0.02em]">
           {title}
         </h2>
         {subline && <p className="mt-4 text-lg text-muted">{subline}</p>}

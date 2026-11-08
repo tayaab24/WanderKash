@@ -61,7 +61,7 @@ export default async function DestinationPage({ params }: Props) {
           >
             ← All destinations
           </Link>
-          <h1 className="font-display text-[clamp(2.75rem,9vw,5.5rem)] font-bold leading-[1.05] tracking-[-0.015em]">
+          <h1 className="text-[clamp(2.75rem,9vw,5.5rem)] font-bold leading-[1.1] tracking-[-0.02em]">
             {destination.name}
           </h1>
           <p className="mt-4 text-lg text-muted">{destination.tagline}</p>
@@ -71,16 +71,16 @@ export default async function DestinationPage({ params }: Props) {
       {/* Body */}
       <section className="mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 py-20 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
             About
           </p>
-          <p className="mt-5 font-display text-2xl font-medium leading-snug md:text-3xl">
+          <p className="mt-5 text-2xl font-medium leading-snug md:text-3xl tracking-[-0.02em]">
             {destination.description}
           </p>
 
           <div className="mt-14 grid gap-10 sm:grid-cols-2">
             <div>
-              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+              <h2 className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
                 Highlights
               </h2>
               <ul className="mt-5 space-y-3">
@@ -93,7 +93,7 @@ export default async function DestinationPage({ params }: Props) {
               </ul>
             </div>
             <div>
-              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+              <h2 className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
                 Best season
               </h2>
               <p className="mt-5 text-fg">{destination.bestSeason}</p>
@@ -103,7 +103,7 @@ export default async function DestinationPage({ params }: Props) {
 
         {/* Cost card */}
         <aside className="h-fit rounded-2xl border border-line bg-surface p-7 lg:sticky lg:top-28">
-          <h2 className="font-display text-2xl">Cost per day</h2>
+          <h2 className="text-2xl font-bold leading-[1.1] tracking-[-0.02em]">Cost per day</h2>
           <p className="mt-1 text-sm text-muted">
             Per person, sample estimates
           </p>
@@ -132,10 +132,10 @@ export default async function DestinationPage({ params }: Props) {
       {/* Next destination */}
       <section className="border-t border-line px-6 py-20">
         <div className="mx-auto max-w-6xl">
-          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-muted">Next</p>
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-muted">Next</p>
           <Link
             href={`/destination/${next.id}`}
-            className="mt-4 inline-block font-display text-5xl transition-colors hover:text-accent-text md:text-7xl"
+            className="mt-4 inline-block text-5xl transition-colors hover:text-accent-text md:text-7xl font-bold leading-[1.1] tracking-[-0.02em]"
           >
             {next.name} →
           </Link>

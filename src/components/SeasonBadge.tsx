@@ -41,7 +41,7 @@ export default function SeasonBadge({
   return (
     <div>
       <span
-        className={`inline-block rounded-full border px-3 py-1 text-[13px] font-bold ${styles}`}
+        className={`inline-block rounded-full border px-3 py-1 text-[13px] font-medium ${styles}`}
       >
         {label}
       </span>

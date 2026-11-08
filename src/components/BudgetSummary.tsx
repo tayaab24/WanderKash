@@ -21,14 +21,14 @@ export default function BudgetSummary() {
       id="budget"
       className="h-fit min-w-0 scroll-mt-24 rounded-2xl border border-line bg-surface p-6 sm:p-7 lg:sticky lg:top-28"
     >
-      <h2 className="font-display text-3xl">Budget</h2>
+      <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Budget</h2>
       <p className="mt-1 text-base text-muted">
         For {n} {n === 1 ? "traveler" : "travelers"}, sample estimates
       </p>
 
       {/* Per day */}
       <div className="mt-7">
-        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
+        <h3 className="text-[13px] font-medium uppercase tracking-[0.25em] text-accent-text">
           By day
         </h3>
         <dl className="mt-4 space-y-2.5">
@@ -50,7 +50,7 @@ export default function BudgetSummary() {
 
       {/* By category */}
       <div className="mt-7 border-t border-line pt-7">
-        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
+        <h3 className="text-[13px] font-medium uppercase tracking-[0.25em] text-accent-text">
           By category
         </h3>
         <dl className="mt-4 space-y-2.5">
@@ -72,10 +72,10 @@ export default function BudgetSummary() {
           </span>
         </div>
         <div className="mt-4">
-          <span className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
+          <span className="text-[13px] font-medium uppercase tracking-[0.25em] text-accent-text">
             Total
           </span>
-          <p className="mt-1 font-display text-[clamp(2.25rem,7vw,2.75rem)] font-bold leading-tight tabular-nums text-fg">
+          <p className="mt-1 text-[clamp(2.25rem,7vw,2.75rem)] font-bold leading-[1.1] tabular-nums text-fg tracking-[-0.02em]">
             <AnimatedNumber value={b.grandTotal} format={formatINR} />
           </p>
         </div>

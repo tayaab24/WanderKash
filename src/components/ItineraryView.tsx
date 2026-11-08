@@ -57,16 +57,16 @@ export default function ItineraryView() {
 
   return (
     <section className="min-h-screen-safe mx-auto max-w-6xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+      <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         My trip
       </p>
-      <h1 className="max-w-3xl font-display text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1]">
+      <h1 className="max-w-3xl text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1] font-bold tracking-[-0.02em]">
         Your Kashmir Itinerary
       </h1>
 
       {totalStops === 0 ? (
         <div className="mt-16 rounded-2xl border border-line bg-surface p-12 text-center">
-          <h2 className="font-display text-3xl">Your trip is empty</h2>
+          <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Your trip is empty</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
             Browse the destinations and add the ones you want to visit. They
             will appear here, ready to be planned day by day.
@@ -161,7 +161,7 @@ export default function ItineraryView() {
                   className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h2 className="font-display text-3xl">Day {day.day}</h2>
+                    <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Day {day.day}</h2>
                     <div className="flex flex-wrap items-center gap-2">
                       {available.length > 0 && (
                         <select
@@ -222,7 +222,7 @@ export default function ItineraryView() {
                             <div className="min-w-0 flex-1">
                               <Link
                                 href={`/destination/${d.id}`}
-                                className="font-display text-xl transition-colors hover:text-accent-text"
+                                className="text-xl transition-colors hover:text-accent-text font-bold leading-[1.1] tracking-[-0.02em]"
                               >
                                 {d.name}
                               </Link>
@@ -320,7 +320,7 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-accent-text">
+          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-accent-text">
             Estimated total
           </p>
           <p className="text-xl font-bold leading-tight tabular-nums">

@@ -110,7 +110,7 @@ export default function Home() {
           ]}
         />
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-display text-2xl font-medium leading-snug text-fg md:text-4xl">
+          <p className="text-2xl font-medium leading-snug text-fg md:text-4xl tracking-[-0.02em]">
             From the still water of Dal Lake to the high meadows of Gulmarg,
             build a trip that fits your days and your budget.
           </p>
@@ -131,7 +131,7 @@ export default function Home() {
           action={
             <Link
               href="/destinations"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-accent-text transition-colors hover:underline"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-accent-text transition-colors hover:underline"
             >
               Search and filter →
             </Link>
@@ -205,8 +205,8 @@ export default function Home() {
               key={s.n}
               className="rounded-2xl border border-line bg-surface p-8"
             >
-              <span className="font-display text-4xl font-bold tabular-nums text-accent-text">{s.n}</span>
-              <h3 className="mt-6 font-display text-2xl">{s.title}</h3>
+              <span className="text-4xl font-bold tabular-nums text-accent-text leading-[1.1] tracking-[-0.02em]">{s.n}</span>
+              <h3 className="mt-6 text-2xl font-bold leading-[1.1] tracking-[-0.02em]">{s.title}</h3>
               <p className="mt-3 text-muted">{s.text}</p>
             </div>
           ))}

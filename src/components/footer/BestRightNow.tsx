@@ -34,7 +34,7 @@ export default function BestRightNow({
 
   return (
     <p className="min-h-6 text-base text-muted" aria-live="polite">
-      <span className="mr-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+      <span className="mr-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         Best right now
       </span>
       {month !== null && (

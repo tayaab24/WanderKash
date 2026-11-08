@@ -36,7 +36,7 @@ function Answer({ blocks }: { blocks: Block[] }) {
           </p>
         ) : (
           <div key={i}>
-            <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.2em] text-accent-text">
+            <p className="mb-2 text-[13px] font-medium uppercase tracking-[0.2em] text-accent-text">
               {b.title}
             </p>
             <ul className="space-y-1.5">
@@ -80,7 +80,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 className="group flex w-full items-center justify-between gap-6 py-6 text-left"
               >
                 <span
-                  className={`font-display text-xl transition-colors md:text-2xl ${
+                  className={`text-xl font-bold leading-[1.1] tracking-[-0.02em] transition-colors md:text-2xl ${
                     open ? "text-accent-text" : "text-fg group-hover:text-accent-text"
                   }`}
                 >

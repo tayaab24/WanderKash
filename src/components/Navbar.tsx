@@ -31,7 +31,7 @@ function isActive(href: string, pathname: string) {
 function Badge({ count, ready }: { count: number; ready: boolean }) {
   return (
     <span
-      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-[13px] font-bold tabular-nums text-on-accent text-shadow-none transition-opacity ${
+      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-[13px] font-medium tabular-nums text-on-accent text-shadow-none transition-opacity ${
         ready ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -88,7 +88,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className={`flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.015em] text-fg md:text-3xl ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""}`}
+          className={`flex min-h-11 items-center text-[25px] font-bold leading-[1.1] tracking-[-0.01em] text-fg md:text-[30px] ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""}`}
         >
           Wander<span className="text-accent-text">Kash</span>
         </Link>
@@ -102,7 +102,7 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-[15px] font-bold tracking-[0.01em] transition-colors lg:text-base ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""} ${
+                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-[15px] font-medium tracking-[0.01em] transition-colors lg:text-base ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""} ${
                     active ? "text-accent-text" : "text-fg hover:text-accent-text"
                   }`}
                 >
@@ -174,7 +174,7 @@ export default function Navbar() {
                       href={l.href}
                       aria-current={active ? "page" : undefined}
                       onClick={() => setMenuPath(null)}
-                      className={`flex items-center justify-between py-4 text-xl font-bold tracking-[0.01em] transition-colors ${
+                      className={`flex items-center justify-between py-4 text-xl font-medium tracking-[0.01em] transition-colors ${
                         active ? "text-accent-text" : "text-fg hover:text-accent-text"
                       }`}
                     >

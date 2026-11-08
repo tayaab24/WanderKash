@@ -8,7 +8,7 @@ import MountainDivider from "./atmosphere/MountainDivider";
 
 const link =
   "inline-flex min-h-11 items-center text-muted transition-colors hover:text-accent-text";
-const heading = "mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text";
+const heading = "mb-5 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text";
 
 const plan = [
   { href: "/itinerary", label: "My Trip" },
@@ -31,7 +31,7 @@ export default function Footer() {
           <Link
             href="/"
             aria-label="WanderKash home"
-            className="block font-display text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[0.95] tracking-[-0.02em] text-fg"
+            className="block text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-fg"
           >
             Wander<span className="text-accent-text">Kash</span>
           </Link>

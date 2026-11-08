@@ -61,13 +61,13 @@ function TripCard({
             className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
           <div className="absolute inset-0 bg-linear-to-t from-deep/55 to-transparent" />
-          <span className="on-dark absolute bottom-3 left-4 text-[13px] font-bold uppercase tracking-[0.2em] text-fg">
+          <span className="on-dark absolute bottom-3 left-4 text-[13px] font-medium uppercase tracking-[0.2em] text-fg">
             {trip.days.length} days · {stops} stops
           </span>
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="font-display text-2xl leading-tight">{trip.title}</h3>
+          <h3 className="text-2xl leading-[1.1] font-bold tracking-[-0.02em]">{trip.title}</h3>
           <p className="mt-2 text-base text-muted">{trip.tagline}</p>
 
           <dl className="mb-6 mt-5 space-y-1.5 text-sm">

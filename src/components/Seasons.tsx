@@ -66,10 +66,10 @@ function Panel({ season }: { season: Season }) {
 
       <div className="relative flex h-full flex-col justify-end px-6 pb-24 pt-28 md:px-16 md:pb-32">
         <div className="mx-auto w-full max-w-6xl">
-          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+          <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
             {season.range}
           </p>
-          <h3 className="mt-3 font-display text-6xl font-bold leading-none tracking-[-0.015em] md:text-8xl lg:text-9xl">
+          <h3 className="mt-3 text-6xl font-bold leading-[1.1] tracking-[-0.02em] md:text-8xl lg:text-9xl">
             {season.name}
           </h3>
           <p className="mt-5 max-w-xl text-lg text-fg/90 md:text-xl">
@@ -80,7 +80,7 @@ function Panel({ season }: { season: Season }) {
               <li key={d.id}>
                 <Link
                   href={`/destination/${d.id}`}
-                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-deep/55 px-4 text-sm font-bold text-fg transition-colors hover:border-accent hover:text-accent-text"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-deep/55 px-4 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent-text"
                 >
                   {d.name}
                 </Link>
@@ -124,13 +124,13 @@ function PinnedSeasons() {
 
         {/* Title + progress indicator */}
         <div className="pointer-events-none absolute inset-x-0 top-24 px-16">
-          <p className="mx-auto max-w-6xl text-[13px] font-bold uppercase tracking-[0.3em] text-fg/80">
+          <p className="mx-auto max-w-6xl text-[13px] font-medium uppercase tracking-[0.3em] text-fg/80">
             Kashmir through the seasons
           </p>
         </div>
         <div className="absolute inset-x-0 bottom-10 px-16">
           <div className="mx-auto flex max-w-6xl items-center gap-6">
-            <ol className="flex gap-6 text-[13px] font-bold uppercase tracking-[0.2em]">
+            <ol className="flex gap-6 text-[13px] font-medium uppercase tracking-[0.2em]">
               {seasons.map((s, i) => (
                 <li
                   key={s.name}
@@ -163,7 +163,7 @@ function StackedSeasons({ reduceMotion }: { reduceMotion: boolean }) {
       aria-label="Kashmir through the seasons"
       className="bg-surface"
     >
-      <p className="px-6 pt-20 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
+      <p className="px-6 pt-20 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         <span className="mx-auto block max-w-6xl">
           Kashmir through the seasons
         </span>

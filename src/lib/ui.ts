@@ -9,9 +9,9 @@ const base =
 
 export const btn = {
   /** Solid accent: the main action on a screen */
-  primary: `${base} bg-accent font-bold text-on-accent hover:bg-accent-hover`,
+  primary: `${base} bg-accent font-medium text-on-accent hover:bg-accent-hover`,
   /** Outline: fg border on light; deep-fg inside .on-dark (bands, photos) */
-  secondary: `${base} border border-fg bg-transparent font-bold text-fg hover:border-accent-text hover:text-accent-text`,
+  secondary: `${base} border border-fg bg-transparent font-medium text-fg hover:border-accent-text hover:text-accent-text`,
 };
 
 /** Standard card surface. */

@@ -4,8 +4,9 @@
 
 ## Fonts
 
-Headings: Playfair Display (`font-display`, weight 600-700). Body: Lato (`font-sans`, 400 and 700 only;
-never use `font-medium`/`font-semibold` on Lato text). Prices and numbers use `tabular-nums`.
+Roboto for everything (`font-sans`, loaded in `layout.tsx`). Weights: 400 body, 500 buttons /
+navbar links / small labels, 700 headings (-0.02em tracking, ~1.1 line height). Logo: 25px mobile,
+30px md+, 700, -0.01em. Prices and numbers use `tabular-nums`.
 
 ## Palette: "Sunset over Dal Lake"
 

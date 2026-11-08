@@ -23,8 +23,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-lato), system-ui, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
 }
 
 /* One motion system (mirrors src/lib/motion.ts): soft ease-out, 200ms default */
@@ -45,12 +44,7 @@
   --text-4xl--line-height: 1.1;
 }
 
-/* Headings and display text: Playfair Display 600, a touch of negative tracking */
-@utility font-display {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
+
 
 html {
   background: var(--color-bg);
