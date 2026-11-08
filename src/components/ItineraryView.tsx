@@ -20,7 +20,7 @@ import MonthPicker from "./MonthPicker";
 import SeasonBadge from "./SeasonBadge";
 
 const selectClass =
-  "min-h-11 rounded-full border border-line bg-surface px-4 py-2 text-base text-fg outline-none transition-colors hover:bg-surface-hover sm:text-sm";
+  "min-h-11 rounded-full border border-muted/60 bg-surface px-4 py-2 text-base text-fg outline-none transition-colors hover:bg-surface-hover sm:text-sm";
 const quietButton =
   "inline-flex min-h-11 items-center px-2 text-sm text-muted transition-colors hover:text-fg";
 
@@ -84,7 +84,7 @@ export default function ItineraryView() {
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted">Travelers</span>
-              <div className="flex items-center rounded-full border border-line bg-surface">
+              <div className="flex items-center rounded-full border border-muted/60 bg-surface">
                 <button
                   onClick={() => setTravelers(trip.travelers - 1)}
                   disabled={trip.travelers <= 1}

@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
+/* "Dal Lake at dusk": deep blue-teal grounds that let the warm sunset photos glow */
 @theme {
-  --color-bg: #2b3036;
-  --color-surface: #343a41;
-  --color-surface-hover: #3c434b;
-  --color-line: #4a525b;
-  --color-fg: #eceae5;
-  --color-muted: #a8afb7;
-  --color-accent: #d2b074;
-  --color-accent-hover: #e0c28a;
-  --color-warn: #d9967a;
+  --color-bg: #0e1a22; /* deep lake blue: page background */
+  --color-surface: #15252f; /* cards, navbar, panels */
+  --color-surface-hover: #1c303c; /* hover states */
+  --color-line: #2a4150; /* borders, dividers */
+  --color-fg: #f1ece2; /* main text, warm cream */
+  --color-muted: #9fb0ba; /* secondary text, cool grey-blue */
+  --color-accent: #e3b26a; /* saffron: buttons, links, highlights */
+  --color-accent-hover: #eec585;
+  --color-warn: #e08b67; /* off-season warnings */
+
+  /* Helpers derived from the palette */
+  --color-bg-lift: #12222c; /* slightly lighter teal for background depth */
+  --color-teal: #2e6a7a; /* cool ambient glow */
+  --color-shade: #071016; /* deepest lake tone, for shadows (never pure black) */
 }
 
 @theme inline {
@@ -42,7 +48,18 @@
 }
 
 html {
-  background: var(--color-bg);
+  /* Not one flat colour: a very subtle bg -> lifted teal -> bg rhythm down the page */
+  background: linear-gradient(
+      180deg,
+      var(--color-bg) 0%,
+      var(--color-bg-lift) 22%,
+      var(--color-bg) 45%,
+      var(--color-bg-lift) 70%,
+      var(--color-bg) 100%
+    )
+    var(--color-bg);
+  /* Native controls (select menus, checkboxes, scrollbars) render in dark mode */
+  color-scheme: dark;
 }
 
 /* No body background: <html> paints the bg, so page-level glows can sit behind content */

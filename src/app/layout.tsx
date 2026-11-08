@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -13,6 +13,11 @@ const manrope = Manrope({
   display: "swap",
   variable: "--font-manrope",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#0e1a22", // = --color-bg (meta tags can't read CSS variables)
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   // Absolute base for Open Graph image URLs; set NEXT_PUBLIC_SITE_URL when deploying

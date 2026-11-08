@@ -11,7 +11,7 @@ export const btn = {
   /** Solid accent: the main action on a screen */
   primary: `${base} bg-accent font-semibold text-bg hover:bg-accent-hover`,
   /** Outline: secondary actions */
-  secondary: `${base} border border-line font-medium text-fg hover:border-accent hover:text-accent`,
+  secondary: `${base} border border-fg bg-transparent font-medium text-fg hover:border-accent hover:text-accent`,
 };
 
 /** Standard card surface. */

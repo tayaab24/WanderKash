@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 /**
  * Fixed page-level glow behind everything on the home page: warm gold near the top,
- * easing to a cooler slate further down. Only opacity changes with scroll.
+ * easing to cool teal further down. Only opacity changes with scroll.
  */
 export default function ScrollWarmth() {
   const { scrollYProgress } = useScroll();
@@ -15,11 +15,11 @@ export default function ScrollWarmth() {
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-20">
       <motion.div
         style={{ opacity: warm }}
-        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_30%_15%,color-mix(in_srgb,var(--color-accent)_9%,transparent),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_30%_15%,color-mix(in_srgb,var(--color-accent)_8%,transparent),transparent_70%)]"
       />
       <motion.div
         style={{ opacity: cool }}
-        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_70%_85%,color-mix(in_srgb,var(--color-muted)_8%,transparent),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_70%_85%,color-mix(in_srgb,var(--color-teal)_12%,transparent),transparent_70%)]"
       />
     </div>
   );

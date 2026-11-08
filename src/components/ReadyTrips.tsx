@@ -49,7 +49,7 @@ function TripCard({
           ? { duration: 0 }
           : { duration: 0.7, delay: index * 0.1, ease: EASE }
       }
-      className="group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_rgba(20,24,28,0.7)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
+      className="group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--color-shade)_85%,transparent)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
     >
       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,background-color] duration-300 group-hover:-translate-y-1.5 group-hover:bg-surface-hover motion-reduce:transition-colors motion-reduce:group-hover:translate-y-0">
         <div className="relative aspect-4/3 overflow-hidden">

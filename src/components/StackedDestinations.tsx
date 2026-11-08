@@ -36,7 +36,7 @@ function StackCard({
     >
       <motion.article
         style={reduceMotion ? undefined : { scale, transformOrigin: "top center" }}
-        className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_rgba(20,24,28,0.6)]"
+        className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-shade)_80%,transparent)]"
       >
         <Link
           href={`/destination/${destination.id}`}

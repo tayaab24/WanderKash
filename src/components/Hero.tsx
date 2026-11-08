@@ -115,10 +115,10 @@ export default function Hero() {
       {/* Overlays (bg token, never black): bottom fade + a soft pool behind the headline.
           The top fade for the navbar comes from the navbar's own scrim. */}
       <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-bg/90 via-bg/35 via-25% to-transparent to-50%" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_0%_100%,rgb(43_48_54/0.75),transparent_75%)] landscape:bg-[radial-gradient(ellipse_85%_90%_at_0%_100%,rgb(43_48_54/0.88),rgb(43_48_54/0.45)_45%,transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_0%_100%,color-mix(in_srgb,var(--color-bg)_75%,transparent),transparent_75%)] landscape:bg-[radial-gradient(ellipse_85%_90%_at_0%_100%,color-mix(in_srgb,var(--color-bg)_88%,transparent),color-mix(in_srgb,var(--color-bg)_45%,transparent)_45%,transparent_75%)]" />
       {/* Pool behind the headline itself (measured: fg text >= 3.7:1 at the worst 5% of word area).
           Portrait: over the clouds, top-left. Landscape: centred on the headline, clear of the sun. */}
-      <div className="pointer-events-none absolute inset-0 portrait:bg-[radial-gradient(ellipse_140%_45%_at_10%_20%,rgb(43_48_54/0.9),rgb(43_48_54/0.55)_50%,transparent_85%)] landscape:bg-[radial-gradient(ellipse_60%_60%_at_28%_62%,rgb(43_48_54/0.8),rgb(43_48_54/0.45)_55%,transparent_82%)]" />
+      <div className="pointer-events-none absolute inset-0 portrait:bg-[radial-gradient(ellipse_140%_45%_at_10%_20%,color-mix(in_srgb,var(--color-bg)_90%,transparent),color-mix(in_srgb,var(--color-bg)_55%,transparent)_50%,transparent_85%)] landscape:bg-[radial-gradient(ellipse_60%_60%_at_28%_62%,color-mix(in_srgb,var(--color-bg)_80%,transparent),color-mix(in_srgb,var(--color-bg)_45%,transparent)_55%,transparent_82%)]" />
 
       {/* Landscape: everything sits bottom-left. Portrait: headline at the top over the
           dark clouds, subline + buttons at the bottom over the water, so the horizon,

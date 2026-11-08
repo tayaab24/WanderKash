@@ -67,7 +67,7 @@ export default function DestinationsExplorer({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search destinations, e.g. lake, snow, meadow"
             aria-label="Search destinations"
-            className="min-h-11 w-full min-w-0 flex-1 rounded-full border border-line bg-bg px-5 py-2.5 text-base text-fg sm:min-w-60 sm:text-sm outline-none placeholder:text-muted focus:border-accent"
+            className="min-h-11 w-full min-w-0 flex-1 rounded-full border border-muted/60 bg-bg px-5 py-2.5 text-base text-fg sm:min-w-60 sm:text-sm outline-none placeholder:text-muted focus:border-accent"
           />
           <MonthPicker />
         </div>
