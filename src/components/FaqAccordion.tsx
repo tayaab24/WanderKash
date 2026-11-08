@@ -2,7 +2,58 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import type { FaqItem } from "@/data/faq";
+import Link from "next/link";
+import type { Block, FaqItem, Inline } from "@/data/faq";
+
+function Parts({ parts }: { parts: Inline[] }) {
+  return (
+    <>
+      {parts.map((x, i) =>
+        typeof x === "string" ? (
+          <span key={i}>{x}</span>
+        ) : (
+          <Link
+            key={i}
+            href={x.href}
+            className="text-fg underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+          >
+            {x.text}
+          </Link>
+        )
+      )}
+    </>
+  );
+}
+
+function Answer({ blocks }: { blocks: Block[] }) {
+  return (
+    <div className="max-w-3xl space-y-4 pb-6 leading-relaxed text-muted">
+      {blocks.map((b, i) =>
+        b.type === "p" ? (
+          <p key={i}>
+            <Parts parts={b.parts} />
+          </p>
+        ) : (
+          <div key={i}>
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-accent">
+              {b.title}
+            </p>
+            <ul className="space-y-1.5">
+              {b.items.map((item, j) => (
+                <li key={j} className="flex gap-3">
+                  <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-line" />
+                  <span>
+                    <Parts parts={item} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      )}
+    </div>
+  );
+}
 
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -61,9 +112,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                   transition={{ duration, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="max-w-3xl pb-6 leading-relaxed text-muted">
-                    {item.answer}
-                  </p>
+                  <Answer blocks={item.answer} />
                 </motion.div>
               )}
             </AnimatePresence>

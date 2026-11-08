@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DestinationRow from "./DestinationRow";
 import MonthPicker from "./MonthPicker";
 import { useTrip } from "@/context/TripContext";
@@ -11,8 +11,18 @@ export default function DestinationsExplorer({
 }: {
   destinations: Destination[];
 }) {
-  const { trip } = useTrip();
+  const { trip, ready, setMonth } = useTrip();
   const month = trip.month;
+
+  // ?month=1..12 preselects the travel month (e.g. from the FAQ's winter link).
+  // Applied once, after the saved trip has loaded, so it isn't overwritten.
+  const appliedUrlMonth = useRef(false);
+  useEffect(() => {
+    if (!ready || appliedUrlMonth.current) return;
+    appliedUrlMonth.current = true;
+    const m = Number(new URLSearchParams(window.location.search).get("month"));
+    if (Number.isInteger(m) && m >= 1 && m <= 12) setMonth(m);
+  }, [ready, setMonth]);
 
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");

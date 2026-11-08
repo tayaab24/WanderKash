@@ -73,34 +73,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-6 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-1.5">
-            <p>
-              © <CurrentYear /> WanderKash. A concept project. Costs are sample estimates.
-            </p>
-            <p className="flex flex-wrap gap-x-4 gap-y-1">
-              {/* TODO: replace <credit> with the hero photographer's name */}
-              <span>{"Hero photo: <credit>"}</span>
-              <span>
-                Dal Lake photo by{" "}
-                <a
-                  href="https://www.pexels.com/photo/a-building-by-a-lake-7743323/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-accent"
-                >
-                  Syed Qaarif Andrabi
-                </a>{" "}
-                on Pexels
-              </span>
-              <Link
-                href="/credits"
-                className="underline decoration-line underline-offset-4 transition-colors hover:text-accent"
-              >
-                All photo credits
-              </Link>
-            </p>
-          </div>
+        <div className="flex flex-col gap-6 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © <CurrentYear /> WanderKash. A concept project. Costs are sample
+            estimates.
+          </p>
           <BackToTop />
         </div>
       </FooterReveal>

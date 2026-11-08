@@ -9,7 +9,7 @@ import CultureMarquee from "@/components/CultureMarquee";
 import FaqAccordion from "@/components/FaqAccordion";
 import ClosingCta from "@/components/ClosingCta";
 import SectionHeading from "@/components/SectionHeading";
-import { faq } from "@/data/faq";
+import { answerToText, faq } from "@/data/faq";
 import { getAll } from "@/lib/destinations";
 
 const steps = [
@@ -37,7 +37,7 @@ const faqJsonLd = {
   mainEntity: faq.map((f) => ({
     "@type": "Question",
     name: f.question,
-    acceptedAnswer: { "@type": "Answer", text: f.answer },
+    acceptedAnswer: { "@type": "Answer", text: answerToText(f.answer) },
   })),
 };
 
