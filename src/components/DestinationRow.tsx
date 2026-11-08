@@ -86,7 +86,7 @@ export default function DestinationRow({
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
 
-        <h2 className="mt-4 text-[clamp(2.25rem,4vw_+_1rem,3.5rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+        <h2 className="mt-4 text-[clamp(1.85rem,3.3vw_+_0.85rem,2.9rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
           {destination.name}
         </h2>
         <p className="mt-3 text-muted">{destination.tagline}</p>

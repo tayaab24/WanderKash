@@ -61,7 +61,7 @@ export default async function DestinationPage({ params }: Props) {
           >
             ← All destinations
           </Link>
-          <h1 className="text-[clamp(2.75rem,9vw,5.5rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+          <h1 className="text-[clamp(2.25rem,7.5vw,4.5rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
             {destination.name}
           </h1>
           <p className="mt-4 text-lg text-muted">{destination.tagline}</p>
@@ -74,7 +74,7 @@ export default async function DestinationPage({ params }: Props) {
           <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
             About
           </p>
-          <p className="mt-5 text-2xl font-medium leading-snug md:text-3xl tracking-[-0.02em]">
+          <p className="mt-5 text-2xl font-medium leading-snug tracking-[-0.01em] md:text-3xl">
             {destination.description}
           </p>
 
@@ -103,7 +103,7 @@ export default async function DestinationPage({ params }: Props) {
 
         {/* Cost card */}
         <aside className="h-fit rounded-2xl border border-line bg-surface p-7 lg:sticky lg:top-28">
-          <h2 className="text-2xl font-bold leading-[1.1] tracking-[-0.02em]">Cost per day</h2>
+          <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em]">Cost per day</h2>
           <p className="mt-1 text-sm text-muted">
             Per person, sample estimates
           </p>
@@ -135,7 +135,7 @@ export default async function DestinationPage({ params }: Props) {
           <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-muted">Next</p>
           <Link
             href={`/destination/${next.id}`}
-            className="mt-4 inline-block text-5xl transition-colors hover:text-accent-text md:text-7xl font-bold leading-[1.1] tracking-[-0.02em]"
+            className="mt-4 inline-block text-4xl transition-colors hover:text-accent-text md:text-6xl font-display font-semibold leading-[1.15] tracking-[0.03em]"
           >
             {next.name} →
           </Link>

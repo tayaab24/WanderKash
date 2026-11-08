@@ -80,7 +80,7 @@ export default function Navbar() {
       {/* Scrim: a darker backdrop at the top of any hero photo, only while transparent */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-deep/55 via-deep/20 to-transparent transition-opacity duration-300 ${
+        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-deep/85 via-deep/50 to-transparent transition-opacity duration-300 ${
           overPhoto ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -88,7 +88,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className={`flex min-h-11 items-center text-[25px] font-bold leading-[1.1] tracking-[-0.01em] text-fg md:text-[30px] ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""}`}
+          className={`flex min-h-11 items-center font-display text-[25px] font-semibold leading-[1.15] tracking-[0.03em] text-fg md:text-[30px] ${overPhoto ? "text-shadow-md text-shadow-deep/70" : ""}`}
         >
           Wander<span className="text-accent-text">Kash</span>
         </Link>

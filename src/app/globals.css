@@ -23,7 +23,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  /* font-display: Cinzel for display headings only (never under 20px, numbers or long text) */
+  --font-display: var(--font-cinzel), Georgia, serif;
 }
 
 /* One motion system (mirrors src/lib/motion.ts): soft ease-out, 200ms default */

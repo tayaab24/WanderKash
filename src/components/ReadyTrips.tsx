@@ -67,7 +67,7 @@ function TripCard({
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="text-2xl leading-[1.1] font-bold tracking-[-0.02em]">{trip.title}</h3>
+          <h3 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em]">{trip.title}</h3>
           <p className="mt-2 text-base text-muted">{trip.tagline}</p>
 
           <dl className="mb-6 mt-5 space-y-1.5 text-sm">

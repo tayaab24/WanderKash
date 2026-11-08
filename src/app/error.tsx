@@ -15,7 +15,7 @@ export default function Error({
         <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
           Something went wrong
         </p>
-        <h1 className="max-w-2xl text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+        <h1 className="max-w-2xl text-[clamp(2.1rem,5vw_+_0.85rem,3.75rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
           We hit a snowdrift.
         </h1>
         <p className="mt-6 max-w-xl text-lg text-muted">

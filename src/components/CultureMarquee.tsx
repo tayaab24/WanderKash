@@ -103,7 +103,7 @@ function Card({ e }: { e: Experience }) {
   return (
     <article className="on-light flex h-full flex-col rounded-2xl border border-line bg-surface p-7">
       <span className="text-accent-text">{e.icon}</span>
-      <h3 className="mt-6 text-2xl leading-[1.1] font-bold tracking-[-0.02em]">{e.title}</h3>
+      <h3 className="mt-6 text-2xl font-semibold leading-[1.2] tracking-[-0.01em]">{e.title}</h3>
       <p className="mt-3 text-base leading-relaxed text-muted">{e.text}</p>
     </article>
   );

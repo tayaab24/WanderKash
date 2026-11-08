@@ -80,7 +80,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 className="group flex w-full items-center justify-between gap-6 py-6 text-left"
               >
                 <span
-                  className={`text-xl font-bold leading-[1.1] tracking-[-0.02em] transition-colors md:text-2xl ${
+                  className={`text-xl font-semibold leading-[1.25] transition-colors md:text-2xl ${
                     open ? "text-accent-text" : "text-fg group-hover:text-accent-text"
                   }`}
                 >

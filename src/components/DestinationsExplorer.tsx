@@ -107,7 +107,7 @@ export default function DestinationsExplorer({
       {/* Results */}
       {results.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-line bg-surface p-12 text-center">
-          <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Nothing matches</h2>
+          <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.01em]">Nothing matches</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
             Try a different search, another category, or turn off the in-season
             filter.

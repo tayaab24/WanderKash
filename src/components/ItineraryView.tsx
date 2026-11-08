@@ -60,13 +60,13 @@ export default function ItineraryView() {
       <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         My trip
       </p>
-      <h1 className="max-w-3xl text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+      <h1 className="max-w-3xl text-[clamp(2.1rem,5vw_+_0.85rem,3.75rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
         Your Kashmir Itinerary
       </h1>
 
       {totalStops === 0 ? (
         <div className="mt-16 rounded-2xl border border-line bg-surface p-12 text-center">
-          <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Your trip is empty</h2>
+          <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.01em]">Your trip is empty</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
             Browse the destinations and add the ones you want to visit. They
             will appear here, ready to be planned day by day.
@@ -161,7 +161,7 @@ export default function ItineraryView() {
                   className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h2 className="text-3xl font-bold leading-[1.1] tracking-[-0.02em]">Day {day.day}</h2>
+                    <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.01em] tabular-nums">Day {day.day}</h2>
                     <div className="flex flex-wrap items-center gap-2">
                       {available.length > 0 && (
                         <select
@@ -222,7 +222,7 @@ export default function ItineraryView() {
                             <div className="min-w-0 flex-1">
                               <Link
                                 href={`/destination/${d.id}`}
-                                className="text-xl transition-colors hover:text-accent-text font-bold leading-[1.1] tracking-[-0.02em]"
+                                className="text-xl font-semibold leading-[1.2] transition-colors hover:text-accent-text"
                               >
                                 {d.name}
                               </Link>

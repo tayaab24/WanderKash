@@ -15,7 +15,7 @@ export default function DestinationsPage() {
       <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         Destinations
       </p>
-      <h1 className="max-w-3xl text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+      <h1 className="max-w-3xl text-[clamp(2.1rem,5vw_+_0.85rem,3.75rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
         Where will you wander?
       </h1>
       <p className="mt-6 max-w-xl text-lg text-muted">

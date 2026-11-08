@@ -31,7 +31,7 @@ export default function Footer() {
           <Link
             href="/"
             aria-label="WanderKash home"
-            className="block text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-fg"
+            className="block text-[clamp(2.25rem,10vw,7rem)] font-display font-semibold leading-[1.15] tracking-[0.03em] text-fg"
           >
             Wander<span className="text-accent-text">Kash</span>
           </Link>

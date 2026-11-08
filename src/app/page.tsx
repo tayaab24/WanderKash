@@ -110,7 +110,7 @@ export default function Home() {
           ]}
         />
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-2xl font-medium leading-snug text-fg md:text-4xl tracking-[-0.02em]">
+          <p className="text-2xl font-medium leading-snug tracking-[-0.01em] text-fg md:text-4xl">
             From the still water of Dal Lake to the high meadows of Gulmarg,
             build a trip that fits your days and your budget.
           </p>
@@ -162,7 +162,13 @@ export default function Home() {
           <SectionHeading
             className=""
             eyebrow="Quick planner"
-            title="Plan in 30 seconds"
+            title={
+              <>
+                {/* Numbers stay in Archivo (Cinzel is for words only) */}
+                Plan in <span className="font-sans font-semibold tabular-nums">30</span>{" "}
+                seconds
+              </>
+            }
             subline="Tell us how many days, which month and what you love. We'll match places that are in season and build your days for you."
           />
           <Link
@@ -205,8 +211,8 @@ export default function Home() {
               key={s.n}
               className="rounded-2xl border border-line bg-surface p-8"
             >
-              <span className="text-4xl font-bold tabular-nums text-accent-text leading-[1.1] tracking-[-0.02em]">{s.n}</span>
-              <h3 className="mt-6 text-2xl font-bold leading-[1.1] tracking-[-0.02em]">{s.title}</h3>
+              <span className="text-4xl font-bold leading-[1.1] tabular-nums text-accent-text">{s.n}</span>
+              <h3 className="mt-6 text-2xl font-semibold leading-[1.2] tracking-[-0.01em]">{s.title}</h3>
               <p className="mt-3 text-muted">{s.text}</p>
             </div>
           ))}

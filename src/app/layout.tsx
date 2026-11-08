@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import { Archivo, Cinzel } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -7,13 +7,21 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { TripProvider } from "@/context/TripContext";
 
-// The only font family: Roboto (400 body, 500 UI and labels, 700 headings)
-const roboto = Roboto({
+// Display headings only (logo, hero, section headings, destination and season names)
+const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  variable: "--font-cinzel",
+});
+
+// Everything else: body, UI, labels, prices, small titles
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-roboto",
+  variable: "--font-archivo",
 });
 
 export const viewport: Viewport = {
@@ -42,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto.variable}>
+    <html lang="en" className={`${cinzel.variable} ${archivo.variable}`}>
       <body>
         <TripProvider>
           <SmoothScroll>

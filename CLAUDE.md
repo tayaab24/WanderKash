@@ -4,9 +4,12 @@
 
 ## Fonts
 
-Roboto for everything (`font-sans`, loaded in `layout.tsx`). Weights: 400 body, 500 buttons /
-navbar links / small labels, 700 headings (-0.02em tracking, ~1.1 line height). Logo: 25px mobile,
-30px md+, 700, -0.01em. Prices and numbers use `tabular-nums`.
+Headings: Cinzel (`font-display`, 600 for section headings and names, 700 for the hero and CTA;
+letter-spacing ~0.03em, never negative; line-height ~1.15). Use it only for the logo, hero, page
+`h1`s and section `h2`s, destination and season names, the CTA and the footer wordmark; never
+under 20px, for numbers, or for long sentences. Body: Archivo (`font-sans`) for everything else:
+400 body (line-height 1.65), 500 buttons/nav/labels, 600 small titles, 700 totals.
+Prices and numbers use `tabular-nums`.
 
 ## Palette: "Sunset over Dal Lake"
 

@@ -69,7 +69,7 @@ function Panel({ season }: { season: Season }) {
           <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
             {season.range}
           </p>
-          <h3 className="mt-3 text-6xl font-bold leading-[1.1] tracking-[-0.02em] md:text-8xl lg:text-9xl">
+          <h3 className="mt-3 text-5xl md:text-[5rem] lg:text-[6.5rem] font-display font-semibold leading-[1.15] tracking-[0.03em]">
             {season.name}
           </h3>
           <p className="mt-5 max-w-xl text-lg text-fg/90 md:text-xl">

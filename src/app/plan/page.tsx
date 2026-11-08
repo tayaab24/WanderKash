@@ -28,9 +28,10 @@ export default function PlanPage({ searchParams }: Props) {
       <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
         Quick planner
       </p>
-      <h1 className="text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1] font-bold tracking-[-0.02em]">
-        {/* Fixed phone break: same 2 lines in the fallback font and in Roboto, so nothing shifts when it loads */}
-        Plan in 30 <br className="sm:hidden" />
+      <h1 className="text-[clamp(2.1rem,4.2vw_+_0.85rem,3.1rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
+        {/* Fixed phone break: same 2 lines in the fallback font and in Cinzel, so nothing shifts when it loads */}
+        Plan in <span className="font-sans font-semibold tabular-nums">30</span>{" "}
+        <br className="sm:hidden" />
         seconds
       </h1>
       <p className="mb-12 mt-5 max-w-xl text-lg text-muted">

@@ -116,7 +116,7 @@ export default function QuickPlanner({
           >
             {step === 0 && (
               <fieldset>
-                <legend className="text-3xl sm:text-4xl font-bold leading-[1.1] tracking-[-0.02em]">
+                <legend className="text-3xl sm:text-4xl font-semibold leading-[1.2] tracking-[-0.01em]">
                   How many days?
                 </legend>
                 <p className="mt-2 text-muted">One stop per day.</p>
@@ -142,7 +142,7 @@ export default function QuickPlanner({
 
             {step === 1 && (
               <div>
-                <h2 className="text-3xl sm:text-4xl font-bold leading-[1.1] tracking-[-0.02em]">
+                <h2 className="text-3xl sm:text-4xl font-semibold leading-[1.2] tracking-[-0.01em]">
                   Which month?
                 </h2>
                 <p className="mt-2 text-muted">
@@ -160,7 +160,7 @@ export default function QuickPlanner({
 
             {step === 2 && (
               <fieldset>
-                <legend className="text-3xl sm:text-4xl font-bold leading-[1.1] tracking-[-0.02em]">
+                <legend className="text-3xl sm:text-4xl font-semibold leading-[1.2] tracking-[-0.01em]">
                   What&apos;s your vibe?
                 </legend>
                 <p className="mt-2 text-muted">
@@ -192,7 +192,7 @@ export default function QuickPlanner({
 
             {step === 3 && month && (
               <div>
-                <h2 className="text-3xl sm:text-4xl font-bold leading-[1.1] tracking-[-0.02em]">
+                <h2 className="text-3xl sm:text-4xl font-semibold leading-[1.2] tracking-[-0.01em]">
                   Your {days} days in {MONTHS[month - 1]}
                 </h2>
                 <p className="mt-2 text-muted">
@@ -228,7 +228,7 @@ export default function QuickPlanner({
                       <div className="min-w-0 flex-1">
                         <Link
                           href={`/destination/${s.destination.id}`}
-                          className="text-xl transition-colors hover:text-accent-text font-bold leading-[1.1] tracking-[-0.02em]"
+                          className="text-xl font-semibold leading-[1.2] transition-colors hover:text-accent-text"
                         >
                           {s.destination.name}
                         </Link>

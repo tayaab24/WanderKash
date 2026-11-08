@@ -113,7 +113,7 @@ export default function RightNow() {
                   />
                 </div>
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
-                  <span className="text-lg font-bold leading-[1.1] tracking-[-0.02em]">{d.name}</span>
+                  <span className="text-lg font-semibold leading-[1.2]">{d.name}</span>
                   {peak ? (
                     <span className="text-[13px] font-medium text-accent-text">✓ In season</span>
                   ) : (

@@ -55,7 +55,7 @@ export default function ClosingCta() {
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
         {/* Words rise in one by one, like the hero */}
-        <h2 className="max-w-3xl text-[clamp(2.25rem,5vw_+_1rem,4rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+        <h2 className="max-w-3xl text-[clamp(1.9rem,4.2vw_+_0.85rem,3.3rem)] font-display font-bold leading-[1.15] tracking-[0.03em]">
           {words.map((word, i) => (
             <span
               key={i}

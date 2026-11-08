@@ -45,7 +45,7 @@ export default function ConfirmDialog({
       className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-2xl border border-line bg-surface p-0 text-fg shadow-[0_30px_60px_-20px_color-mix(in_srgb,var(--color-fg)_12%,transparent)] backdrop:bg-deep/45 backdrop:backdrop-blur-sm"
     >
       <div className="p-7">
-        <h2 id="confirm-title" className="text-2xl font-bold leading-[1.1] tracking-[-0.02em]">
+        <h2 id="confirm-title" className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em]">
           {title}
         </h2>
         <p id="confirm-message" className="mt-3 text-sm leading-relaxed text-muted">

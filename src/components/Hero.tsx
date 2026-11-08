@@ -136,7 +136,7 @@ export default function Hero() {
           </p>
 
           {/* Headline: each word drops down from above, one by one */}
-          <h1 className="max-w-4xl text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-shadow-lg text-shadow-deep/50">
+          <h1 className="max-w-4xl text-[clamp(2rem,min(6.6vw,10svh)_+_0.4rem,4.1rem)] font-display font-bold leading-[1.15] tracking-[0.03em] text-shadow-lg text-shadow-deep/50">
             {words.map((word, i) => (
               <Fragment key={i}>
               <span className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom">

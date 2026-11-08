@@ -63,7 +63,7 @@ function StackCard({
           {/* Name and tagline */}
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-10">
             <div>
-              <h3 className="text-[clamp(2rem,5vw_+_1rem,4rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+              <h3 className="text-[clamp(1.7rem,4.2vw_+_0.85rem,3.3rem)] font-display font-semibold leading-[1.15] tracking-[0.03em]">
                 {destination.name}
               </h3>
               <p className="mt-3 text-muted md:text-lg">
