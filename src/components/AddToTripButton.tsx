@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { btn } from "@/lib/ui";
 import { useTrip } from "@/context/TripContext";
 
 export default function AddToTripButton({ id }: { id: string }) {
   const { ready, isInTrip, addStop, removeStop } = useTrip();
 
   // wait for the saved trip to load, to avoid a flash of the wrong button
-  if (!ready) return <div className="h-12" />;
+  if (!ready) return <div className="h-11" aria-hidden />;
 
   if (isInTrip(id)) {
     return (
@@ -18,7 +19,7 @@ export default function AddToTripButton({ id }: { id: string }) {
           </span>
           <button
             onClick={() => removeStop(id)}
-            className="rounded-full border border-line px-5 py-3 text-sm text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+            className={btn.secondary}
           >
             Remove
           </button>
@@ -36,7 +37,7 @@ export default function AddToTripButton({ id }: { id: string }) {
   return (
     <button
       onClick={() => addStop(id)}
-      className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+      className={`w-full ${btn.primary}`}
     >
       Add to my trip
     </button>

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import DestinationRow from "./DestinationRow";
 import MonthPicker from "./MonthPicker";
+import { btn } from "@/lib/ui";
 import { useTrip } from "@/context/TripContext";
 import { TAGS, seasonStatus, type Destination } from "@/lib/destinations";
 
@@ -106,14 +107,14 @@ export default function DestinationsExplorer({
       {/* Results */}
       {results.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-line bg-surface p-12 text-center">
-          <h2 className="font-serif text-3xl">Nothing matches</h2>
+          <h2 className="font-display text-3xl">Nothing matches</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
             Try a different search, another category, or turn off the in-season
             filter.
           </p>
           <button
             onClick={reset}
-            className="mt-8 rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+            className={`mt-8 ${btn.primary}`}
           >
             Reset filters
           </button>

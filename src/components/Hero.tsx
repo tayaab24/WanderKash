@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
+import { btn } from "@/lib/ui";
 import { getImageProps } from "next/image";
 import {
   motion,
@@ -13,7 +14,6 @@ import {
 import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Plan Your Kashmir, Day by Day.".split(" ");
-const ease = [0.22, 1, 0.36, 1] as const;
 
 // Timing (seconds)
 const START = 0.4; // wait before the first word drops
@@ -128,87 +128,70 @@ export default function Hero() {
         className="relative mx-auto w-full max-w-6xl px-6 pb-28 pt-28 [@media(max-height:500px)]:pb-12 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
       >
         <div>
-          <motion.p
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease }}
-            className="mb-5 text-xs font-medium uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
+          <p
+            style={{ "--d": "0.1s", "--dur": "0.7s", "--from-y": "-12px" } as CSSProperties}
+            className="hero-in mb-5 text-xs font-medium uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
           >
             Kashmir travel planner
-          </motion.p>
+          </p>
 
           {/* Headline: each word drops down from above, one by one */}
-          <h1 className="max-w-4xl font-serif text-[clamp(2.5rem,min(9vw,13svh)_+_0.5rem,6rem)] leading-[1.05] text-shadow-lg text-shadow-bg/50">
+          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.03em] text-shadow-lg text-shadow-bg/50">
             {words.map((word, i) => (
-              <span
-                key={i}
-                className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom"
-              >
-                <motion.span
-                  className="inline-block"
-                  initial={{ y: "-110%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    duration: 0.9,
-                    delay: START + i * STAGGER,
-                    ease,
-                  }}
+              <Fragment key={i}>
+              <span className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom">
+                <span
+                  style={{ "--d": `${START + i * STAGGER}s`, "--dur": "0.9s", "--from-y": "-110%" } as CSSProperties}
+                  className="hero-in inline-block"
                 >
                   {word}
-                </motion.span>
+                </span>
               </span>
+              {/* Deliberate break: "Plan Your Kashmir," / "Day by Day." */}
+              {word === "Kashmir," && <br />}
+              </Fragment>
             ))}
           </h1>
         </div>
 
         <div>
-          <motion.p
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: AFTER, ease }}
-            className="mt-6 max-w-xl text-lg text-fg/85 text-shadow-sm text-shadow-bg/60"
+          <p
+            style={{ "--d": `${AFTER}s`, "--dur": "0.8s", "--from-y": "-16px" } as CSSProperties}
+            className="hero-in mt-6 max-w-xl text-lg text-fg/85 text-shadow-sm text-shadow-bg/60"
           >
             Pick your destinations, shape your itinerary, know your budget.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: AFTER + 0.25, ease }}
-            className="mt-10 flex flex-wrap gap-4"
+          <div
+            style={{ "--d": `${AFTER + 0.25}s`, "--dur": "0.8s", "--from-y": "-16px" } as CSSProperties}
+            className="hero-in mt-10 flex flex-wrap gap-4"
           >
             <Link
               href="/plan"
-              className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+              className={btn.primary}
             >
               Start planning
             </Link>
             <Link
               href="/itinerary"
-              className="rounded-full border border-line px-7 py-3 text-sm text-fg transition-colors hover:bg-surface"
+              className={btn.secondary}
             >
               View My Trip
             </Link>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: AFTER + 0.6 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
+      <div
+        style={{ "--d": `${AFTER + 0.6}s`, "--dur": "0.6s", "--from-y": "0px" } as CSSProperties}
+        className="hero-in-fade absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">
-          <motion.span
-            className="absolute inset-x-0 top-0 h-4 bg-accent"
-            animate={{ y: [-16, 40] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          />
+          <span className="scroll-cue absolute inset-x-0 top-0 h-4 bg-accent" />
         </span>
-      </motion.div>
+      </div>
     </section>
   );
 }

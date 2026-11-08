@@ -27,7 +27,7 @@ export default function SafeImage({
       <div
         className={`absolute inset-0 flex items-center justify-center bg-linear-to-br from-surface-hover to-bg ${className}`}
       >
-        {label && <span className="font-serif text-2xl text-muted">{label}</span>}
+        {label && <span className="font-display text-2xl text-muted">{label}</span>}
       </div>
     );
   }

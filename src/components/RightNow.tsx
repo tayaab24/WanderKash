@@ -2,6 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
+import { btn } from "@/lib/ui";
 import { motion, useReducedMotion } from "framer-motion";
 import SafeImage from "./SafeImage";
 import SectionHeading from "./SectionHeading";
@@ -68,7 +70,7 @@ export default function RightNow() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={
-        reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+        reduceMotion ? { duration: 0 } : { duration: 0.8, ease: EASE }
       }
     >
       <SectionHeading
@@ -104,14 +106,14 @@ export default function RightNow() {
                 <div className="relative aspect-4/3 overflow-hidden">
                   <SafeImage
                     src={d.image}
-                    alt=""
+                    alt={d.name}
                     label={d.name}
                     sizes="(min-width: 1024px) 270px, 50vw"
                     className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 </div>
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
-                  <span className="font-serif text-lg">{d.name}</span>
+                  <span className="font-display text-lg">{d.name}</span>
                   {peak ? (
                     <span className="text-xs text-accent">✓ In season</span>
                   ) : (
@@ -151,7 +153,7 @@ export default function RightNow() {
       <div className="mt-10">
         <Link
           href={`/plan?month=${month}`}
-          className="inline-block rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+          className={btn.primary}
         >
           Plan a trip for {name}
         </Link>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
 import type { Block, FaqItem, Inline } from "@/data/faq";
 
 function Parts({ parts }: { parts: Inline[] }) {
@@ -79,7 +80,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 className="group flex w-full items-center justify-between gap-6 py-6 text-left"
               >
                 <span
-                  className={`font-serif text-xl transition-colors md:text-2xl ${
+                  className={`font-display text-xl transition-colors md:text-2xl ${
                     open ? "text-accent" : "text-fg group-hover:text-accent"
                   }`}
                 >
@@ -109,7 +110,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration, ease: EASE }}
                   className="overflow-hidden"
                 >
                   <Answer blocks={item.answer} />

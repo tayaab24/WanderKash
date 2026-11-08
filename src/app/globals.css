@@ -13,8 +13,32 @@
 }
 
 @theme inline {
-  --font-serif: var(--font-cormorant), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+}
+
+/* One motion system (mirrors src/lib/motion.ts): soft ease-out, 200ms default */
+@theme {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Type rhythm: body copy ~1.6, headings ~1.1 */
+@theme {
+  --text-sm--line-height: 1.55;
+  --text-base--line-height: 1.6;
+  --text-lg--line-height: 1.6;
+  --text-xl--line-height: 1.4;
+  --text-2xl--line-height: 1.25;
+  --text-3xl--line-height: 1.15;
+  --text-4xl--line-height: 1.1;
+}
+
+/* Headings and display text: Manrope 600, slightly tight tracking */
+@utility font-display {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 html {
@@ -26,6 +50,8 @@ body {
   margin: 0;
   color: var(--color-fg);
   font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -37,6 +63,14 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+/* Pressed feedback for anything tappable (opacity only, so it's cheap); replaces the grey tap flash */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+:where(a, button, summary, select, [role="button"]):active {
+  opacity: 0.85;
 }
 
 /* Culture section marquee: two identical tracks, so -50% loops seamlessly */
@@ -114,6 +148,76 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-drift {
+    animation: none;
+  }
+}
+
+/* Phones: glows stay put (fewer moving layers to composite while scrolling) */
+@media (max-width: 767px) {
+  .ambient-drift {
+    animation: none;
+  }
+}
+
+/* Route change: short fade-in that never blocks navigation (opacity only) */
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.page-fade {
+  animation: page-in 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+  }
+}
+
+/* Hero entrance in CSS: starts on first paint, no waiting for JavaScript.
+   Per-element timing via --d (delay), --dur (duration), --from-y (start offset). */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--from-y, -16px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hero-in-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.hero-in {
+  animation: hero-in var(--dur, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+.hero-in-fade {
+  animation: hero-in-fade var(--dur, 0.6s) ease var(--d, 0s) both;
+}
+@keyframes scroll-cue {
+  from {
+    transform: translate3d(0, -16px, 0);
+  }
+  to {
+    transform: translate3d(0, 40px, 0);
+  }
+}
+.scroll-cue {
+  animation: scroll-cue 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-in-fade,
+  .scroll-cue {
     animation: none;
   }
 }

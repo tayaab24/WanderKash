@@ -13,6 +13,7 @@ import {
 } from "@/lib/destinations";
 import { computeBudget } from "@/lib/budget";
 import { formatINR } from "@/lib/format";
+import { btn } from "@/lib/ui";
 import SafeImage from "./SafeImage";
 import BudgetSummary from "./BudgetSummary";
 import MonthPicker from "./MonthPicker";
@@ -59,20 +60,20 @@ export default function ItineraryView() {
       <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
         My trip
       </p>
-      <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-tight">
+      <h1 className="max-w-3xl font-display text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1]">
         Your Kashmir Itinerary
       </h1>
 
       {totalStops === 0 ? (
         <div className="mt-16 rounded-2xl border border-line bg-surface p-12 text-center">
-          <h2 className="font-serif text-3xl">Your trip is empty</h2>
+          <h2 className="font-display text-3xl">Your trip is empty</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">
             Browse the destinations and add the ones you want to visit. They
             will appear here, ready to be planned day by day.
           </p>
           <Link
             href="/destinations"
-            className="mt-8 inline-block rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+            className={`mt-8 ${btn.primary}`}
           >
             Browse destinations
           </Link>
@@ -115,7 +116,7 @@ export default function ItineraryView() {
                       clearTrip();
                       setConfirmClear(false);
                     }}
-                    className="min-h-11 rounded-full bg-accent px-5 text-bg"
+                    className={btn.primary}
                   >
                     Yes, clear
                   </button>
@@ -160,7 +161,7 @@ export default function ItineraryView() {
                   className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h2 className="font-serif text-3xl">Day {day.day}</h2>
+                    <h2 className="font-display text-3xl">Day {day.day}</h2>
                     <div className="flex flex-wrap items-center gap-2">
                       {available.length > 0 && (
                         <select
@@ -221,7 +222,7 @@ export default function ItineraryView() {
                             <div className="min-w-0 flex-1">
                               <Link
                                 href={`/destination/${d.id}`}
-                                className="font-serif text-xl transition-colors hover:text-accent"
+                                className="font-display text-xl transition-colors hover:text-accent"
                               >
                                 {d.name}
                               </Link>
@@ -312,7 +313,7 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
     <div
       aria-hidden={!visible}
       inert={!visible || undefined}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 px-6 pt-3 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none lg:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface px-6 pt-3 transition-transform duration-300 motion-reduce:transition-none lg:hidden ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
       style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
@@ -322,7 +323,7 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
           <p className="text-xs uppercase tracking-[0.2em] text-accent">
             Estimated total
           </p>
-          <p className="font-serif text-2xl leading-tight">
+          <p className="font-display text-xl font-bold leading-tight tabular-nums">
             {formatINR(b.grandTotal)}
             <span className="ml-2 font-sans text-sm text-muted">
               {formatINR(b.perPersonTotal)} pp
@@ -331,7 +332,7 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
         </div>
         <a
           href="#budget"
-          className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-line px-5 text-sm transition-colors hover:border-accent hover:text-accent"
+          className={`shrink-0 ${btn.secondary}`}
         >
           Breakdown
         </a>

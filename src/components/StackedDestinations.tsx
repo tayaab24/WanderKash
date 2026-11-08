@@ -41,7 +41,7 @@ function StackCard({
         <Link
           href={`/destination/${destination.id}`}
           aria-label={`Open ${destination.name}`}
-          className="group relative block h-[60vh] min-h-80 overflow-hidden supports-[height:1svh]:h-[60svh] md:min-h-105"
+          className="group relative block focus-visible:outline-offset-[-4px] h-[60vh] min-h-80 overflow-hidden supports-[height:1svh]:h-[60svh] md:min-h-105"
         >
           <SafeImage
             src={destination.image}
@@ -63,7 +63,7 @@ function StackCard({
           {/* Name and tagline */}
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-10">
             <div>
-              <h3 className="font-serif text-[clamp(2.25rem,6vw_+_1rem,4.5rem)] leading-none">
+              <h3 className="font-display text-[clamp(2rem,5vw_+_1rem,4rem)] font-bold leading-[1.05] tracking-[-0.03em]">
                 {destination.name}
               </h3>
               <p className="mt-3 text-muted md:text-lg">

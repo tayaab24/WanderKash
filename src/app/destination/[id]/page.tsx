@@ -19,7 +19,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${d.name} | WanderKash`,
     description: d.description,
-    openGraph: { title: `${d.name} | WanderKash`, description: d.tagline },
+    openGraph: {
+      title: `${d.name} | WanderKash`,
+      description: d.tagline,
+      images: [{ url: d.image, alt: d.name }],
+    },
   };
 }
 
@@ -57,7 +61,7 @@ export default async function DestinationPage({ params }: Props) {
           >
             ← All destinations
           </Link>
-          <h1 className="font-serif text-[clamp(3rem,10vw,6rem)] leading-none">
+          <h1 className="font-display text-[clamp(2.75rem,9vw,5.5rem)] font-bold leading-[1.05] tracking-[-0.03em]">
             {destination.name}
           </h1>
           <p className="mt-4 text-lg text-muted">{destination.tagline}</p>
@@ -70,7 +74,7 @@ export default async function DestinationPage({ params }: Props) {
           <p className="text-xs uppercase tracking-[0.3em] text-accent">
             About
           </p>
-          <p className="mt-5 font-serif text-3xl leading-snug md:text-4xl">
+          <p className="mt-5 font-display text-2xl font-medium leading-snug md:text-3xl">
             {destination.description}
           </p>
 
@@ -99,7 +103,7 @@ export default async function DestinationPage({ params }: Props) {
 
         {/* Cost card */}
         <aside className="h-fit rounded-2xl border border-line bg-surface p-7 lg:sticky lg:top-28">
-          <h2 className="font-serif text-2xl">Cost per day</h2>
+          <h2 className="font-display text-2xl">Cost per day</h2>
           <p className="mt-1 text-sm text-muted">
             Per person, sample estimates
           </p>
@@ -113,7 +117,7 @@ export default async function DestinationPage({ params }: Props) {
             ))}
             <div className="flex justify-between border-t border-line pt-4">
               <dt>Total</dt>
-              <dd className="font-serif text-2xl text-accent">
+              <dd className="font-display text-2xl tabular-nums text-accent">
                 {formatINR(dayCost(destination))}
               </dd>
             </div>
@@ -131,7 +135,7 @@ export default async function DestinationPage({ params }: Props) {
           <p className="text-xs uppercase tracking-[0.3em] text-muted">Next</p>
           <Link
             href={`/destination/${next.id}`}
-            className="mt-4 inline-block font-serif text-5xl transition-colors hover:text-accent md:text-7xl"
+            className="mt-4 inline-block font-display text-5xl transition-colors hover:text-accent md:text-7xl"
           >
             {next.name} →
           </Link>

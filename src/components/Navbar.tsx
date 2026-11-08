@@ -3,8 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
 import { useTrip } from "@/context/TripContext";
+import { EASE } from "@/lib/motion";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -20,29 +27,31 @@ function isActive(href: string, pathname: string) {
   return pathname === href;
 }
 
-function Badge({ count }: { count: number }) {
+/** Space is reserved from the start; the number fades in once the saved trip has loaded. */
+function Badge({ count, ready }: { count: number; ready: boolean }) {
   return (
-    <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-semibold text-bg text-shadow-none">
-      {count}
+    <span
+      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-semibold tabular-nums text-bg text-shadow-none transition-opacity ${
+        ready ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {ready ? count : 0}
     </span>
   );
 }
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { totalStops } = useTrip();
+  const { totalStops, ready } = useTrip();
   const reduceMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   // The menu remembers which page it was opened on, so it closes on route change
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const open = menuPath === pathname;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Shares framer-motion's single scroll source (no extra listener); state only flips at 24px
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
 
   useEffect(() => {
     if (!open) return;
@@ -59,7 +68,7 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
         solid
-          ? "border-line bg-surface/85 backdrop-blur-md"
+          ? "border-line bg-surface/95 md:bg-surface/85 md:backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -74,7 +83,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className="flex min-h-11 items-center font-serif text-2xl font-semibold tracking-wide text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
+          className="flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.03em] text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
         >
           Wander<span className="text-accent">Kash</span>
         </Link>
@@ -105,7 +114,7 @@ export default function Navbar() {
                       }`}
                     />
                   </span>
-                  {"badge" in l && <Badge count={totalStops} />}
+                  {"badge" in l && <Badge count={totalStops} ready={ready} />}
                 </Link>
               </li>
             );
@@ -121,7 +130,7 @@ export default function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           className="relative flex h-11 w-11 items-center justify-center rounded-full text-fg md:hidden"
         >
-          {totalStops > 0 && !open && (
+          {ready && totalStops > 0 && !open && (
             <span className="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full bg-accent" />
           )}
           <span className="relative block h-4 w-6">
@@ -152,8 +161,8 @@ export default function Navbar() {
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
-            transition={{ duration: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-line bg-surface/95 backdrop-blur-md md:hidden"
+            transition={{ duration: reduceMotion ? 0 : 0.25, ease: EASE }}
+            className="border-t border-line bg-surface md:hidden"
           >
             <ul className="mx-auto flex max-w-6xl flex-col px-6 py-4">
               {LINKS.map((l) => {
@@ -164,12 +173,12 @@ export default function Navbar() {
                       href={l.href}
                       aria-current={active ? "page" : undefined}
                       onClick={() => setMenuPath(null)}
-                      className={`flex items-center justify-between py-4 font-serif text-3xl transition-colors ${
+                      className={`flex items-center justify-between py-4 font-display text-2xl transition-colors ${
                         active ? "text-accent" : "text-fg hover:text-accent"
                       }`}
                     >
                       {l.label}
-                      {"badge" in l && <Badge count={totalStops} />}
+                      {"badge" in l && <Badge count={totalStops} ready={ready} />}
                     </Link>
                   </li>
                 );

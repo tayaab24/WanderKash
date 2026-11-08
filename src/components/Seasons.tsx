@@ -56,7 +56,7 @@ function Panel({ season }: { season: Season }) {
     <div className="relative h-full w-full overflow-hidden">
       <SafeImage
         src={season.image}
-        alt=""
+        alt={`Kashmir in ${season.name.toLowerCase()}`}
         label={season.name}
         sizes="100vw"
       />
@@ -69,7 +69,7 @@ function Panel({ season }: { season: Season }) {
           <p className="text-xs uppercase tracking-[0.3em] text-accent">
             {season.range}
           </p>
-          <h3 className="mt-3 font-serif text-6xl leading-none md:text-8xl lg:text-9xl">
+          <h3 className="mt-3 font-display text-6xl font-bold leading-none tracking-[-0.03em] md:text-8xl lg:text-9xl">
             {season.name}
           </h3>
           <p className="mt-5 max-w-xl text-lg text-fg/90 md:text-xl">
@@ -80,7 +80,7 @@ function Panel({ season }: { season: Season }) {
               <li key={d.id}>
                 <Link
                   href={`/destination/${d.id}`}
-                  className="inline-block rounded-full border border-line bg-bg/50 px-4 py-1.5 text-sm text-fg backdrop-blur-sm transition-colors hover:border-accent hover:text-accent"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-bg/70 px-4 text-sm text-fg transition-colors hover:border-accent hover:text-accent"
                 >
                   {d.name}
                 </Link>

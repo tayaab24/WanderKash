@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import SafeImage from "./SafeImage";
+import { EASE } from "@/lib/motion";
+import { btn } from "@/lib/ui";
 import { useTrip } from "@/context/TripContext";
 import { sampleTrips, type SampleTrip } from "@/data/sampleTrips";
 import { computeBudget } from "@/lib/budget";
@@ -45,15 +47,15 @@ function TripCard({
       transition={
         reduceMotion
           ? { duration: 0 }
-          : { duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }
+          : { duration: 0.7, delay: index * 0.1, ease: EASE }
       }
-      className="h-full"
+      className="group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_rgba(20,24,28,0.7)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
     >
-      <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:bg-surface-hover hover:shadow-[0_24px_48px_-28px_rgba(20,24,28,0.7)] motion-reduce:transition-colors motion-reduce:hover:translate-y-0">
+      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,background-color] duration-300 group-hover:-translate-y-1.5 group-hover:bg-surface-hover motion-reduce:transition-colors motion-reduce:group-hover:translate-y-0">
         <div className="relative aspect-4/3 overflow-hidden">
           <SafeImage
             src={trip.cover}
-            alt=""
+            alt={`Cover photo for the ${trip.title} trip`}
             label={trip.title}
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
             className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -65,7 +67,7 @@ function TripCard({
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <h3 className="font-serif text-2xl leading-tight">{trip.title}</h3>
+          <h3 className="font-display text-2xl leading-tight">{trip.title}</h3>
           <p className="mt-2 text-base text-muted">{trip.tagline}</p>
 
           <dl className="mb-6 mt-5 space-y-1.5 text-sm">
@@ -92,7 +94,7 @@ function TripCard({
           <button
             type="button"
             onClick={use}
-            className="mt-auto min-h-11 w-full rounded-full border border-line py-2.5 text-sm transition-colors hover:border-accent hover:bg-accent hover:text-bg"
+            className={`mt-auto w-full ${btn.secondary}`}
           >
             Use this trip
           </button>

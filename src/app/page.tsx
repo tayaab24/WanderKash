@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import Link from "next/link";
+import { btn } from "@/lib/ui";
 import Hero from "@/components/Hero";
 import StackedDestinations from "@/components/StackedDestinations";
 import Seasons from "@/components/Seasons";
@@ -116,7 +117,7 @@ export default function Home() {
           ]}
         />
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-serif text-3xl leading-snug text-fg md:text-4xl">
+          <p className="font-display text-2xl font-medium leading-snug text-fg md:text-4xl">
             From the still water of Dal Lake to the high meadows of Gulmarg,
             build a trip that fits your days and your budget.
           </p>
@@ -124,7 +125,10 @@ export default function Home() {
       </section>
 
       {/* 3. Seasons (pinned on desktop) */}
-      <Seasons />
+      {/* Suspense boundaries let React hydrate each section separately (shorter main-thread tasks) */}
+      <Suspense fallback={null}>
+        <Seasons />
+      </Suspense>
 
       {/* 4. Stacked destinations */}
       <Section tone="surface">
@@ -140,7 +144,9 @@ export default function Home() {
             </Link>
           }
         />
-        <StackedDestinations destinations={destinations} />
+        <Suspense fallback={null}>
+          <StackedDestinations destinations={destinations} />
+        </Suspense>
       </Section>
 
       {/* 5. Ready-made trips */}
@@ -153,7 +159,9 @@ export default function Home() {
           title="Ready-made trips"
           subline="Start from a plan and make it yours."
         />
-        <ReadyTrips />
+        <Suspense fallback={null}>
+          <ReadyTrips />
+        </Suspense>
       </Section>
 
       {/* 6. Quick planner pitch */}
@@ -167,7 +175,7 @@ export default function Home() {
           />
           <Link
             href="/plan"
-            className="inline-block shrink-0 self-start rounded-full bg-accent px-8 py-4 text-sm font-medium text-bg transition-colors hover:bg-accent-hover md:self-center"
+            className={`shrink-0 self-start md:self-center ${btn.primary}`}
           >
             Plan my trip →
           </Link>
@@ -179,7 +187,9 @@ export default function Home() {
         tone="surface"
         glows={[{ tone: "cool", className: "-right-[15%] bottom-0 w-[65vw] max-w-[820px]", duration: 55 }]}
       >
-        <RightNow />
+        <Suspense fallback={null}>
+          <RightNow />
+        </Suspense>
       </Section>
 
       <MountainDivider />
@@ -207,8 +217,8 @@ export default function Home() {
               key={s.n}
               className="rounded-2xl border border-line bg-surface p-8"
             >
-              <span className="font-serif text-4xl text-accent">{s.n}</span>
-              <h3 className="mt-6 font-serif text-2xl">{s.title}</h3>
+              <span className="font-display text-4xl font-bold tabular-nums text-accent">{s.n}</span>
+              <h3 className="mt-6 font-display text-2xl">{s.title}</h3>
               <p className="mt-3 text-muted">{s.text}</p>
             </div>
           ))}
@@ -223,12 +233,16 @@ export default function Home() {
       >
         <SectionHeading eyebrow="FAQ" title="Good to know" />
         <div className="max-w-4xl">
-          <FaqAccordion items={faq} />
+          <Suspense fallback={null}>
+            <FaqAccordion items={faq} />
+          </Suspense>
         </div>
       </Section>
 
       {/* 11. Closing call to action; ridges rise out of it into the footer */}
-      <ClosingCta />
+      <Suspense fallback={null}>
+        <ClosingCta />
+      </Suspense>
       <MountainDivider className="z-10 -mt-16 md:-mt-28" />
     </>
   );

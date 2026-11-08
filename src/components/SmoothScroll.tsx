@@ -3,7 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig, cancelFrame, frame } from "framer-motion";
 
 let lenis: Lenis | null = null;
 
@@ -27,13 +27,13 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     if (reduceMotion) return;
 
     lenis = new Lenis({ lerp: 0.1 });
-    let frame = requestAnimationFrame(function raf(time) {
-      lenis?.raf(time);
-      frame = requestAnimationFrame(raf);
-    });
+    // Drive Lenis from framer-motion's frame loop so scrolling and scroll-linked
+    // animations update in the same frame (no second rAF loop, no fighting)
+    const update = ({ timestamp }: { timestamp: number }) => lenis?.raf(timestamp);
+    frame.update(update, true);
 
     return () => {
-      cancelAnimationFrame(frame);
+      cancelFrame(update);
       lenis?.destroy();
       lenis = null;
     };

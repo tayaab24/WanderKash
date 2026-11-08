@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
+import { btn } from "@/lib/ui";
 import {
   motion,
   useScroll,
@@ -11,7 +13,7 @@ import SafeImage from "./SafeImage";
 import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Your Kashmir starts here.".split(" ");
-const ease = [0.22, 1, 0.36, 1] as const;
+const ease = EASE;
 const STAGGER = 0.12;
 const AFTER = words.length * STAGGER + 0.3;
 
@@ -41,7 +43,7 @@ export default function ClosingCta() {
       >
         <SafeImage
           src="/images/pahalgam.jpg"
-          alt=""
+          alt="The Pahalgam valley: pine forest, a river and mountains"
           sizes="100vw"
           className="object-[50%_40%]"
         />
@@ -53,7 +55,7 @@ export default function ClosingCta() {
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
         {/* Words rise in one by one, like the hero */}
-        <h2 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.05]">
+        <h2 className="max-w-3xl font-display text-[clamp(2.25rem,5vw_+_1rem,4rem)] font-bold leading-[1.1] tracking-[-0.03em]">
           {words.map((word, i) => (
             <span
               key={i}
@@ -92,13 +94,13 @@ export default function ClosingCta() {
         >
           <Link
             href="/plan"
-            className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+            className={btn.primary}
           >
             Start planning
           </Link>
           <Link
             href="/destinations"
-            className="rounded-full border border-line px-7 py-3 text-sm text-fg transition-colors hover:bg-surface"
+            className={btn.secondary}
           >
             Browse destinations
           </Link>

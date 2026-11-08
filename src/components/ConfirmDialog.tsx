@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { btn } from "@/lib/ui";
 
 /** Small modal confirm built on <dialog> (focus trap, Escape and backdrop for free). */
 export default function ConfirmDialog({
@@ -44,7 +45,7 @@ export default function ConfirmDialog({
       className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-2xl border border-line bg-surface p-0 text-fg shadow-[0_30px_60px_-20px_rgba(20,24,28,0.7)] backdrop:bg-bg/70 backdrop:backdrop-blur-sm"
     >
       <div className="p-7">
-        <h2 id="confirm-title" className="font-serif text-2xl">
+        <h2 id="confirm-title" className="font-display text-2xl">
           {title}
         </h2>
         <p id="confirm-message" className="mt-3 text-sm leading-relaxed text-muted">
@@ -54,7 +55,7 @@ export default function ConfirmDialog({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-full border border-line px-5 py-2.5 text-sm transition-colors hover:bg-surface-hover"
+            className={btn.secondary}
           >
             {cancelLabel}
           </button>
@@ -62,7 +63,7 @@ export default function ConfirmDialog({
             type="button"
             autoFocus
             onClick={onConfirm}
-            className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+            className={btn.primary}
           >
             {confirmLabel}
           </button>

@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
+import { btn } from "@/lib/ui";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import MonthPicker from "./MonthPicker";
@@ -109,12 +111,12 @@ export default function QuickPlanner({
             exit={{ opacity: 0, x: -dir * offset }}
             transition={{
               duration: reduceMotion ? 0 : 0.35,
-              ease: [0.22, 1, 0.36, 1],
+              ease: EASE,
             }}
           >
             {step === 0 && (
               <fieldset>
-                <legend className="font-serif text-3xl sm:text-4xl">
+                <legend className="font-display text-3xl sm:text-4xl">
                   How many days?
                 </legend>
                 <p className="mt-2 text-muted">One stop per day.</p>
@@ -125,7 +127,7 @@ export default function QuickPlanner({
                       type="button"
                       aria-pressed={days === n}
                       onClick={() => setDays(n)}
-                      className={`rounded-2xl border py-5 font-serif text-3xl transition-colors ${
+                      className={`rounded-2xl border py-5 font-display text-3xl tabular-nums transition-colors ${
                         days === n
                           ? "border-accent bg-accent text-bg"
                           : "border-line text-fg hover:border-accent hover:text-accent"
@@ -140,7 +142,7 @@ export default function QuickPlanner({
 
             {step === 1 && (
               <div>
-                <h2 className="font-serif text-3xl sm:text-4xl">
+                <h2 className="font-display text-3xl sm:text-4xl">
                   Which month?
                 </h2>
                 <p className="mt-2 text-muted">
@@ -158,7 +160,7 @@ export default function QuickPlanner({
 
             {step === 2 && (
               <fieldset>
-                <legend className="font-serif text-3xl sm:text-4xl">
+                <legend className="font-display text-3xl sm:text-4xl">
                   What&apos;s your vibe?
                 </legend>
                 <p className="mt-2 text-muted">
@@ -190,7 +192,7 @@ export default function QuickPlanner({
 
             {step === 3 && month && (
               <div>
-                <h2 className="font-serif text-3xl sm:text-4xl">
+                <h2 className="font-display text-3xl sm:text-4xl">
                   Your {days} days in {MONTHS[month - 1]}
                 </h2>
                 <p className="mt-2 text-muted">
@@ -219,14 +221,14 @@ export default function QuickPlanner({
                       <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg">
                         <SafeImage
                           src={s.destination.image}
-                          alt=""
+                          alt={s.destination.name}
                           sizes="80px"
                         />
                       </div>
                       <div className="min-w-0 flex-1">
                         <Link
                           href={`/destination/${s.destination.id}`}
-                          className="font-serif text-xl transition-colors hover:text-accent"
+                          className="font-display text-xl transition-colors hover:text-accent"
                         >
                           {s.destination.name}
                         </Link>
@@ -257,7 +259,7 @@ export default function QuickPlanner({
             <button
               type="button"
               onClick={applyPlan}
-              className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
+              className={btn.primary}
             >
               Use this plan
             </button>
@@ -268,6 +270,7 @@ export default function QuickPlanner({
               type="button"
               onClick={() => go(step - 1)}
               disabled={step === 0}
+              aria-hidden={step === 0}
               className="text-sm text-muted transition-colors hover:text-accent disabled:invisible"
             >
               ← Back
@@ -276,7 +279,7 @@ export default function QuickPlanner({
               type="button"
               onClick={() => go(step + 1)}
               disabled={!canNext}
-              className="rounded-full bg-accent px-7 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
+              className={btn.primary}
             >
               {step === 2 ? "Show my plan" : "Next"}
             </button>

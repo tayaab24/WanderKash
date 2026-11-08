@@ -21,7 +21,7 @@ export default function BudgetSummary() {
       id="budget"
       className="h-fit min-w-0 scroll-mt-24 rounded-2xl border border-line bg-surface p-6 sm:p-7 lg:sticky lg:top-28"
     >
-      <h2 className="font-serif text-3xl">Budget</h2>
+      <h2 className="font-display text-3xl">Budget</h2>
       <p className="mt-1 text-base text-muted">
         For {n} {n === 1 ? "traveler" : "travelers"}, sample estimates
       </p>
@@ -67,7 +67,7 @@ export default function BudgetSummary() {
       <div className="mt-7 border-t border-line pt-7">
         <div className="flex items-baseline justify-between">
           <span className="text-sm text-muted">Per person</span>
-          <span className="text-lg">
+          <span className="text-lg tabular-nums">
             <AnimatedNumber value={b.perPersonTotal} format={formatINR} />
           </span>
         </div>
@@ -75,7 +75,7 @@ export default function BudgetSummary() {
           <span className="text-xs uppercase tracking-[0.25em] text-accent">
             Total
           </span>
-          <p className="mt-1 font-serif text-[clamp(2.5rem,8vw,3rem)] text-fg">
+          <p className="mt-1 font-display text-[clamp(2.25rem,7vw,2.75rem)] font-bold tabular-nums text-fg">
             <AnimatedNumber value={b.grandTotal} format={formatINR} />
           </p>
         </div>

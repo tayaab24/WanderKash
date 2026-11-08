@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE } from "@/lib/motion";
 
 /** Gentle fade-up when the footer scrolls into view; instant for reduced motion. */
 export default function FooterReveal({
@@ -22,7 +23,7 @@ export default function FooterReveal({
       transition={
         reduceMotion
           ? { duration: 0 }
-          : { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
+          : { duration: 0.9, ease: EASE }
       }
     >
       {children}

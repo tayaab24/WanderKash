@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { EASE } from "@/lib/motion";
 import {
   motion,
   useScroll,
@@ -14,7 +15,7 @@ import { dayCost, type Destination } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
 import SeasonBadge from "./SeasonBadge";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+const ease = EASE;
 
 export default function DestinationRow({
   destination,
@@ -85,7 +86,7 @@ export default function DestinationRow({
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
 
-        <h2 className="mt-4 font-serif text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-none">
+        <h2 className="mt-4 font-display text-[clamp(2.25rem,4vw_+_1rem,3.5rem)] font-bold leading-[1.05]">
           {destination.name}
         </h2>
         <p className="mt-3 text-muted">{destination.tagline}</p>

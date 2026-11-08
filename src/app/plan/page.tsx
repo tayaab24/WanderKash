@@ -28,7 +28,7 @@ export default function PlanPage({ searchParams }: Props) {
       <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
         Quick planner
       </p>
-      <h1 className="font-serif text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-tight">
+      <h1 className="font-display text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1]">
         Plan in 30 seconds
       </h1>
       <p className="mb-12 mt-5 max-w-xl text-lg text-muted">
