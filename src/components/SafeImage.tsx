@@ -7,7 +7,7 @@ type Props = {
   src: string;
   alt: string;
   className?: string;
-  priority?: boolean;
+  preload?: boolean;
   sizes?: string;
   label?: string;
 };
@@ -16,7 +16,7 @@ export default function SafeImage({
   src,
   alt,
   className = "",
-  priority,
+  preload,
   sizes = "100vw",
   label,
 }: Props) {
@@ -37,7 +37,7 @@ export default function SafeImage({
       src={src}
       alt={alt}
       fill
-      priority={priority}
+      preload={preload}
       sizes={sizes}
       onError={() => setFailed(true)}
       className={`object-cover ${className}`}

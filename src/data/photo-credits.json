@@ -1,0 +1,56 @@
+[
+  {
+    "image": "/images/hero.jpg",
+    "author": "Wanderwithhidayat",
+    "license": "Pexels License",
+    "source": "https://www.pexels.com/photo/sunset-sunlight-over-lake-18485298/"
+  },
+  {
+    "image": "/images/dal-lake.jpg",
+    "author": "Syed Qaarif Andrabi",
+    "license": "Pexels License",
+    "source": "https://www.pexels.com/photo/a-building-by-a-lake-7743323/"
+  },
+  {
+    "image": "/images/gulmarg.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gulmarg_2.jpg"
+  },
+  {
+    "image": "/images/pahalgam.jpg",
+    "author": "KennyOMG",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pahalgam_Valley.jpg"
+  },
+  {
+    "image": "/images/sonamarg.jpg",
+    "author": "Mohammad Iliyas khanday",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sonmarg_-_Paradise.jpg"
+  },
+  {
+    "image": "/images/gurez.jpg",
+    "author": "Journo Mohsin",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gurez_Valley_02.jpg"
+  },
+  {
+    "image": "/images/yusmarg.jpg",
+    "author": "Suhail Skindar Sofi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yousmarg.jpg"
+  },
+  {
+    "image": "/images/doodhpathri.jpg",
+    "author": "Ankur P from Pune, India",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Doodhpathri_southwest_Jammu_Kashmir_India_(4).jpg"
+  },
+  {
+    "image": "/images/mughal-gardens.jpg",
+    "author": "McKay Savage",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:India_-_Srinagar_-_023_-_Nishat_Bagh_Mughal_Gardens.jpg"
+  }
+]

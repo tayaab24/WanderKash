@@ -32,16 +32,18 @@ export default function Hero() {
     >
       {/* Parallax background photo */}
       <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110">
+        {/* Desktop: anchor to bottom to lift the shikara. Phone: centre on the sunburst */}
         <SafeImage
           src="/images/hero.jpg"
-          alt="Shikara boats on Dal Lake at sunrise"
-          priority
+          alt="Sunrise breaking over the mountains above Dal Lake, a lone shikara crossing the still water"
+          preload
           sizes="100vw"
+          className="object-[42%_50%] md:object-[50%_100%]"
         />
       </motion.div>
 
-      {/* Soft grey overlay (no black) */}
-      <div className="absolute inset-0 bg-linear-to-t from-bg via-bg/50 to-bg/20" />
+      {/* Soft gradient: dark (bg token, never black) only at the bottom, behind the text */}
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-bg/95 via-bg/45 via-30% to-transparent to-60%" />
 
       <motion.div
         style={{ y: textY, opacity: textOpacity }}

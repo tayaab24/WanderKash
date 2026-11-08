@@ -47,7 +47,7 @@ export default async function DestinationPage({ params }: Props) {
           src={destination.image}
           alt={destination.name}
           label={destination.name}
-          priority
+          preload
         />
         <div className="absolute inset-0 bg-linear-to-t from-bg via-bg/40 to-bg/20" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-14">

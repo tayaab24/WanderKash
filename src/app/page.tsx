@@ -60,7 +60,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-line px-6 py-28">
+      <section id="how-it-works" className="border-t border-line px-6 py-28">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
             How it works

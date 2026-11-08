@@ -6,6 +6,15 @@ import Lenis from "lenis";
 
 let lenis: Lenis | null = null;
 
+/** Smooth-scroll to the top via Lenis; instant jump for reduced motion. */
+export function scrollToTop() {
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (lenis && !reduceMotion) lenis.scrollTo(0);
+  else window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
