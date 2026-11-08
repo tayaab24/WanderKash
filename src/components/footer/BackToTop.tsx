@@ -7,7 +7,7 @@ export default function BackToTop() {
     <button
       type="button"
       onClick={scrollToTop}
-      className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent"
+      className="group inline-flex min-h-11 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent"
     >
       Back to top
       <span

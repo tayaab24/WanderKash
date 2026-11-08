@@ -9,6 +9,10 @@ import CultureMarquee from "@/components/CultureMarquee";
 import FaqAccordion from "@/components/FaqAccordion";
 import ClosingCta from "@/components/ClosingCta";
 import SectionHeading from "@/components/SectionHeading";
+import AmbientGlow, { type Glow } from "@/components/atmosphere/AmbientGlow";
+import ChinarLeaf from "@/components/atmosphere/ChinarLeaf";
+import MountainDivider from "@/components/atmosphere/MountainDivider";
+import ScrollWarmth from "@/components/atmosphere/ScrollWarmth";
 import { answerToText, faq } from "@/data/faq";
 import { getAll } from "@/lib/destinations";
 
@@ -41,18 +45,44 @@ const faqJsonLd = {
   })),
 };
 
-/** Standard home section: same rhythm (py-28), divider and content width everywhere. */
+/** Standard home section: same rhythm (py-28) and content width everywhere.
+ *  tone="surface" gives a soft band that fades in and out (no hard edges). */
 function Section({
   id,
   className = "",
+  tone = "bg",
+  bordered = true,
+  glows,
+  leaf,
   children,
 }: {
   id?: string;
   className?: string;
+  tone?: "bg" | "surface";
+  bordered?: boolean;
+  glows?: Glow[];
+  /** Position classes for a decorative chinar leaf in a corner */
+  leaf?: string;
   children: ReactNode;
 }) {
+  const surface = tone === "surface";
   return (
-    <section id={id} className={`border-t border-line px-6 py-28 ${className}`}>
+    <section
+      id={id}
+      className={`relative isolate overflow-x-clip px-6 py-28 ${
+        bordered && !surface ? "border-t border-line" : ""
+      } ${
+        surface
+          ? "bg-linear-to-b from-transparent via-surface/60 to-transparent"
+          : ""
+      } ${className}`}
+    >
+      {glows && <AmbientGlow glows={glows} />}
+      {leaf && (
+        <ChinarLeaf
+          className={`absolute -z-10 w-56 text-accent/8 md:w-80 ${leaf}`}
+        />
+      )}
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
@@ -70,11 +100,21 @@ export default function Home() {
         }}
       />
 
+      {/* Page-level glow: warm near the top, cooler further down */}
+      <ScrollWarmth />
+
       {/* 1. Hero */}
       <Hero />
+      <MountainDivider />
 
       {/* 2. Intro */}
-      <section className="px-6 py-28">
+      <section className="relative isolate overflow-x-clip px-6 pb-28 pt-16">
+        <AmbientGlow
+          glows={[
+            { tone: "warm", className: "-left-[15%] -top-[30%] w-[75vw] max-w-[900px]", duration: 50 },
+            { tone: "cool", className: "-right-[20%] top-[10%] w-[60vw] max-w-[760px]", duration: 38 },
+          ]}
+        />
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-serif text-3xl leading-snug text-fg md:text-4xl">
             From the still water of Dal Lake to the high meadows of Gulmarg,
@@ -87,14 +127,14 @@ export default function Home() {
       <Seasons />
 
       {/* 4. Stacked destinations */}
-      <Section>
+      <Section tone="surface">
         <SectionHeading
           eyebrow="Destinations"
           title="Eight places to begin"
           action={
             <Link
               href="/destinations"
-              className="text-sm text-accent transition-colors hover:text-accent-hover"
+              className="inline-flex min-h-11 items-center text-sm text-accent transition-colors hover:text-accent-hover"
             >
               Search and filter →
             </Link>
@@ -104,7 +144,10 @@ export default function Home() {
       </Section>
 
       {/* 5. Ready-made trips */}
-      <Section>
+      <Section
+        glows={[{ tone: "warm", className: "-right-[20%] -top-[10%] w-[70vw] max-w-[860px]", duration: 42 }]}
+        leaf="-right-10 top-8 rotate-[18deg] md:right-4"
+      >
         <SectionHeading
           eyebrow="Itineraries"
           title="Ready-made trips"
@@ -132,12 +175,21 @@ export default function Home() {
       </Section>
 
       {/* 7. Right now in Kashmir */}
-      <Section>
+      <Section
+        tone="surface"
+        glows={[{ tone: "cool", className: "-right-[15%] bottom-0 w-[65vw] max-w-[820px]", duration: 55 }]}
+      >
         <RightNow />
       </Section>
 
+      <MountainDivider />
+
       {/* 8. Beyond the views */}
-      <Section className="overflow-x-clip">
+      <Section
+        bordered={false}
+        className="pt-12"
+        glows={[{ tone: "warm", className: "-left-[20%] top-[5%] w-[70vw] max-w-[880px]", duration: 46 }]}
+      >
         <SectionHeading
           eyebrow="Culture"
           title="Beyond the views"
@@ -164,15 +216,20 @@ export default function Home() {
       </Section>
 
       {/* 10. FAQ */}
-      <Section>
+      <Section
+        tone="surface"
+        glows={[{ tone: "warm", className: "-right-[25%] bottom-[-10%] w-[70vw] max-w-[860px]", duration: 52 }]}
+        leaf="-left-14 bottom-6 -rotate-[24deg] md:left-0"
+      >
         <SectionHeading eyebrow="FAQ" title="Good to know" />
         <div className="max-w-4xl">
           <FaqAccordion items={faq} />
         </div>
       </Section>
 
-      {/* 11. Closing call to action (footer follows from the layout) */}
+      {/* 11. Closing call to action; ridges rise out of it into the footer */}
       <ClosingCta />
+      <MountainDivider className="z-10 -mt-16 md:-mt-28" />
     </>
   );
 }

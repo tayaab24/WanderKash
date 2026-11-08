@@ -5,7 +5,8 @@ import BestRightNow from "./footer/BestRightNow";
 import BackToTop from "./footer/BackToTop";
 import CurrentYear from "./footer/CurrentYear";
 
-const link = "text-muted transition-colors hover:text-accent";
+const link =
+  "inline-flex min-h-11 items-center text-muted transition-colors hover:text-accent";
 const heading = "mb-5 text-xs uppercase tracking-[0.3em] text-accent";
 
 const plan = [
@@ -18,14 +19,16 @@ export default function Footer() {
   const destinations = getAll();
 
   return (
-    <footer className="border-t border-line bg-bg">
+    <footer className="relative bg-bg">
+      {/* Soft hairline instead of a hard border; fades out at both ends */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-line to-transparent" />
       <FooterReveal className="mx-auto max-w-6xl px-6 pb-10 pt-20">
         {/* Wordmark */}
         <div className="border-b border-line pb-10">
           <Link
             href="/"
             aria-label="WanderKash home"
-            className="block font-serif text-6xl leading-[0.9] tracking-tight text-fg sm:text-8xl lg:text-[10rem]"
+            className="block font-serif text-[clamp(3.25rem,14vw,10rem)] leading-[0.9] tracking-tight text-fg"
           >
             Wander<span className="text-accent">Kash</span>
           </Link>
@@ -35,7 +38,7 @@ export default function Footer() {
         <div className="grid gap-12 py-14 sm:grid-cols-2 md:grid-cols-12">
           <nav aria-label="Explore destinations" className="md:col-span-5">
             <h2 className={heading}>Explore</h2>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+            <ul className="grid grid-cols-2 gap-x-6 text-sm">
               {destinations.map((d) => (
                 <li key={d.id}>
                   <Link href={`/destination/${d.id}`} className={link}>
@@ -48,7 +51,7 @@ export default function Footer() {
 
           <nav aria-label="Plan your trip" className="md:col-span-3">
             <h2 className={heading}>Plan</h2>
-            <ul className="space-y-3 text-sm">
+            <ul className="text-sm">
               {plan.map((p) => (
                 <li key={p.href}>
                   <Link href={p.href} className={link}>
@@ -61,7 +64,7 @@ export default function Footer() {
 
           <div className="sm:col-span-2 md:col-span-4">
             <h2 className={heading}>About</h2>
-            <p className="text-sm text-muted">
+            <p className="text-base text-muted">
               A Kashmir trip planner, built as a concept project.
             </p>
           </div>

@@ -74,7 +74,7 @@ export default function Navbar() {
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className="font-serif text-2xl font-semibold tracking-wide text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
+          className="flex min-h-11 items-center font-serif text-2xl font-semibold tracking-wide text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
         >
           Wander<span className="text-accent">Kash</span>
         </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group flex items-center gap-2 text-base font-medium text-shadow-sm text-shadow-bg/60 transition-colors lg:text-lg ${
+                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-base font-medium text-shadow-sm text-shadow-bg/60 transition-colors lg:text-lg ${
                     active
                       ? solid
                         ? "text-accent"

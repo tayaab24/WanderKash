@@ -33,7 +33,7 @@ export default function BestRightNow({
   }
 
   return (
-    <p className="min-h-6 text-sm text-muted" aria-live="polite">
+    <p className="min-h-6 text-base text-muted" aria-live="polite">
       <span className="mr-3 text-xs uppercase tracking-[0.3em] text-accent">
         Best right now
       </span>

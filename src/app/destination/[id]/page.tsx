@@ -42,7 +42,7 @@ export default async function DestinationPage({ params }: Props) {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex h-[70vh] min-h-115 items-end overflow-hidden">
+      <section className="relative flex h-[70vh] min-h-115 items-end overflow-hidden supports-[height:1svh]:h-[70svh]">
         <SafeImage
           src={destination.image}
           alt={destination.name}
@@ -53,11 +53,11 @@ export default async function DestinationPage({ params }: Props) {
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-14">
           <Link
             href="/destinations"
-            className="mb-6 inline-block text-sm text-muted transition-colors hover:text-fg"
+            className="mb-4 inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-fg"
           >
             ← All destinations
           </Link>
-          <h1 className="font-serif text-6xl leading-none md:text-8xl">
+          <h1 className="font-serif text-[clamp(3rem,10vw,6rem)] leading-none">
             {destination.name}
           </h1>
           <p className="mt-4 text-lg text-muted">{destination.tagline}</p>
@@ -65,7 +65,7 @@ export default async function DestinationPage({ params }: Props) {
       </section>
 
       {/* Body */}
-      <section className="mx-auto grid max-w-6xl gap-14 px-6 py-20 lg:grid-cols-3">
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 py-20 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <p className="text-xs uppercase tracking-[0.3em] text-accent">
             About

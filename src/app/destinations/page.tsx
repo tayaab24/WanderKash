@@ -11,11 +11,11 @@ export default function DestinationsPage() {
   const destinations = getAll();
 
   return (
-    <section className="mx-auto min-h-screen max-w-6xl overflow-x-clip px-6 pb-20 pt-36">
+    <section className="min-h-screen-safe mx-auto max-w-6xl overflow-x-clip px-6 pb-20 pt-28 md:pt-36">
       <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
         Destinations
       </p>
-      <h1 className="max-w-3xl font-serif text-5xl leading-tight md:text-7xl">
+      <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-tight">
         Where will you wander?
       </h1>
       <p className="mt-6 max-w-xl text-lg text-muted">

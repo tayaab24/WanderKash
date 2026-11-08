@@ -25,7 +25,7 @@ export default function AddToTripButton({ id }: { id: string }) {
         </div>
         <Link
           href="/itinerary"
-          className="block text-center text-sm text-accent transition-colors hover:text-accent-hover"
+          className="flex min-h-11 items-center justify-center text-sm text-accent transition-colors hover:text-accent-hover"
         >
           View my trip →
         </Link>

@@ -104,7 +104,7 @@ function Card({ e }: { e: Experience }) {
     <article className="flex h-full flex-col rounded-2xl border border-line bg-surface p-7">
       <span className="text-accent">{e.icon}</span>
       <h3 className="mt-6 font-serif text-2xl leading-tight">{e.title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-muted">{e.text}</p>
+      <p className="mt-3 text-base leading-relaxed text-muted">{e.text}</p>
     </article>
   );
 }

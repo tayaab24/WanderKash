@@ -22,7 +22,7 @@ export default function SectionHeading({
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
           {eyebrow}
         </p>
-        <h2 className="font-serif text-4xl leading-tight md:text-5xl">
+        <h2 className="font-serif text-[clamp(2rem,4vw_+_1rem,3rem)] leading-tight">
           {title}
         </h2>
         {subline && <p className="mt-4 text-lg text-muted">{subline}</p>}

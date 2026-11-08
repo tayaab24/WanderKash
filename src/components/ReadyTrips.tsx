@@ -66,7 +66,7 @@ function TripCard({
 
         <div className="flex flex-1 flex-col p-6">
           <h3 className="font-serif text-2xl leading-tight">{trip.title}</h3>
-          <p className="mt-2 text-sm text-muted">{trip.tagline}</p>
+          <p className="mt-2 text-base text-muted">{trip.tagline}</p>
 
           <dl className="mb-6 mt-5 space-y-1.5 text-sm">
             <div className="flex justify-between gap-4">
@@ -82,7 +82,7 @@ function TripCard({
           </dl>
 
           {offSeason.length > 0 && (
-            <p className="-mt-3 mb-5 text-xs leading-relaxed text-warn">
+            <p className="-mt-3 mb-5 text-base leading-relaxed text-warn">
               {offSeason.join(" and ")} {offSeason.length === 1 ? "is" : "are"}{" "}
               off-season in {MONTHS[trip.suggestedMonth - 1]}: expect snow and
               possible road closures.
@@ -92,7 +92,7 @@ function TripCard({
           <button
             type="button"
             onClick={use}
-            className="mt-auto w-full rounded-full border border-line py-2.5 text-sm transition-colors hover:border-accent hover:bg-accent hover:text-bg"
+            className="mt-auto min-h-11 w-full rounded-full border border-line py-2.5 text-sm transition-colors hover:border-accent hover:bg-accent hover:text-bg"
           >
             Use this trip
           </button>

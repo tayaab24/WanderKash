@@ -31,8 +31,8 @@ function StackCard({
 
   return (
     <div
-      className={`sticky ${isLast ? "" : "mb-[14vh]"}`}
-      style={{ top: `calc(6rem + ${index * 0.6}rem)` }}
+      className={`sticky top-[calc(5rem_+_var(--i)_*_0.4rem)] md:top-[calc(6rem_+_var(--i)_*_0.6rem)] ${isLast ? "" : "mb-[14vh]"}`}
+      style={{ "--i": index } as React.CSSProperties}
     >
       <motion.article
         style={reduceMotion ? undefined : { scale, transformOrigin: "top center" }}
@@ -41,7 +41,7 @@ function StackCard({
         <Link
           href={`/destination/${destination.id}`}
           aria-label={`Open ${destination.name}`}
-          className="group relative block h-[60vh] min-h-105 overflow-hidden"
+          className="group relative block h-[60vh] min-h-80 overflow-hidden supports-[height:1svh]:h-[60svh] md:min-h-105"
         >
           <SafeImage
             src={destination.image}
@@ -63,7 +63,7 @@ function StackCard({
           {/* Name and tagline */}
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-10">
             <div>
-              <h3 className="font-serif text-5xl leading-none md:text-7xl">
+              <h3 className="font-serif text-[clamp(2.25rem,6vw_+_1rem,4.5rem)] leading-none">
                 {destination.name}
               </h3>
               <p className="mt-3 text-muted md:text-lg">

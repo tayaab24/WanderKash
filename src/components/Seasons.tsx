@@ -69,7 +69,7 @@ function Panel({ season }: { season: Season }) {
           <p className="text-xs uppercase tracking-[0.3em] text-accent">
             {season.range}
           </p>
-          <h3 className="mt-3 font-serif text-6xl leading-none md:text-8xl lg:text-9xl">
+          <h3 className="mt-3 font-serif text-[clamp(3rem,10vw,8rem)] leading-none">
             {season.name}
           </h3>
           <p className="mt-5 max-w-xl text-lg text-fg/90 md:text-xl">
@@ -80,7 +80,7 @@ function Panel({ season }: { season: Season }) {
               <li key={d.id}>
                 <Link
                   href={`/destination/${d.id}`}
-                  className="inline-block rounded-full border border-line bg-bg/50 px-4 py-1.5 text-sm text-fg backdrop-blur-sm transition-colors hover:border-accent hover:text-accent"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-bg/50 px-4 text-sm text-fg backdrop-blur-sm transition-colors hover:border-accent hover:text-accent"
                 >
                   {d.name}
                 </Link>
@@ -113,7 +113,7 @@ function PinnedSeasons() {
       aria-label="Kashmir through the seasons"
       className="relative h-[400vh] border-t border-line"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="h-screen-safe sticky top-0 overflow-hidden">
         <motion.div style={{ x }} className="flex h-full w-[400%]">
           {seasons.map((s) => (
             <div key={s.name} className="h-full w-1/4 shrink-0">
@@ -176,7 +176,7 @@ function StackedSeasons({ reduceMotion }: { reduceMotion: boolean }) {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.8 }}
-            className="h-[80vh] min-h-120"
+            className="h-[80vh] min-h-120 supports-[height:1svh]:h-[80svh]"
           >
             <Panel season={s} />
           </motion.div>
@@ -187,7 +187,7 @@ function StackedSeasons({ reduceMotion }: { reduceMotion: boolean }) {
 }
 
 export default function Seasons() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px) and (min-height: 600px)");
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   return isDesktop && !reduceMotion ? (

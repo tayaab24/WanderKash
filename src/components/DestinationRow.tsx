@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import SafeImage from "./SafeImage";
-import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
+import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 import AddToTripButton from "./AddToTripButton";
 import { dayCost, type Destination } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
@@ -35,6 +35,7 @@ export default function DestinationRow({
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const reduceMotion = usePrefersReducedMotion();
+  const small = useIsSmallScreen(); // no image parallax on phones
 
   // Image enters from its own side, text from the opposite side
   const imageFrom = flip ? 140 : -140;
@@ -58,14 +59,14 @@ export default function DestinationRow({
           className="group relative block aspect-4/3 overflow-hidden rounded-2xl border border-line"
         >
           <motion.div
-            style={reduceMotion ? undefined : { y: imageY }}
+            style={reduceMotion || small ? undefined : { y: imageY }}
             className="absolute -inset-[10%]"
           >
             <SafeImage
               src={destination.image}
               alt={destination.name}
               label={destination.name}
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 768px) 60vw, 120vw"
               className="transition-transform duration-700 group-hover:scale-105"
             />
           </motion.div>
@@ -84,7 +85,7 @@ export default function DestinationRow({
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
 
-        <h2 className="mt-4 font-serif text-5xl leading-none md:text-6xl">
+        <h2 className="mt-4 font-serif text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-none">
           {destination.name}
         </h2>
         <p className="mt-3 text-muted">{destination.tagline}</p>
@@ -100,7 +101,7 @@ export default function DestinationRow({
           {destination.highlights.map((h) => (
             <li
               key={h}
-              className="rounded-full border border-line px-3 py-1 text-xs text-muted"
+              className="rounded-full border border-line px-3 py-1 text-sm text-muted"
             >
               {h}
             </li>
@@ -126,7 +127,7 @@ export default function DestinationRow({
           <AddToTripButton id={destination.id} />
           <Link
             href={`/destination/${destination.id}`}
-            className="text-sm text-accent transition-colors hover:text-accent-hover"
+            className="inline-flex min-h-11 items-center text-sm text-accent transition-colors hover:text-accent-hover"
           >
             Explore {destination.name} →
           </Link>

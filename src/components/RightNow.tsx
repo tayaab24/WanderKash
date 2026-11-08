@@ -142,7 +142,7 @@ export default function RightNow() {
       )}
 
       {off.length > 0 && (
-        <p className="mt-4 inline-block rounded-xl border border-warn/30 bg-warn/10 px-4 py-2 text-sm text-warn">
+        <p className="mt-4 inline-block rounded-xl border border-warn/30 bg-warn/10 px-4 py-2 text-base text-warn">
           {listNames(off.map((d) => d.name))} {off.length === 1 ? "is" : "are"}{" "}
           off-season now.
         </p>

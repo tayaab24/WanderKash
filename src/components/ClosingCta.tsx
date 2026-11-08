@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import SafeImage from "./SafeImage";
-import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
+import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Your Kashmir starts here.".split(" ");
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -18,6 +18,7 @@ const AFTER = words.length * STAGGER + 0.3;
 export default function ClosingCta() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = usePrefersReducedMotion();
+  const small = useIsSmallScreen(); // no parallax on phones
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -35,7 +36,7 @@ export default function ClosingCta() {
     >
       {/* Slight parallax background (static for reduced motion) */}
       <motion.div
-        style={reduceMotion ? undefined : { y: imageY }}
+        style={reduceMotion || small ? undefined : { y: imageY }}
         className="absolute -inset-y-[10%] inset-x-0"
       >
         <SafeImage
@@ -52,7 +53,7 @@ export default function ClosingCta() {
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
         {/* Words rise in one by one, like the hero */}
-        <h2 className="max-w-3xl font-serif text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
+        <h2 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.05]">
           {words.map((word, i) => (
             <span
               key={i}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTrip } from "@/context/TripContext";
 import {
   MONTHS,
@@ -11,6 +11,7 @@ import {
   seasonStatus,
   type Destination,
 } from "@/lib/destinations";
+import { computeBudget } from "@/lib/budget";
 import { formatINR } from "@/lib/format";
 import SafeImage from "./SafeImage";
 import BudgetSummary from "./BudgetSummary";
@@ -18,7 +19,9 @@ import MonthPicker from "./MonthPicker";
 import SeasonBadge from "./SeasonBadge";
 
 const selectClass =
-  "rounded-full border border-line bg-surface px-3 py-1.5 text-xs text-fg outline-none transition-colors hover:bg-surface-hover";
+  "min-h-11 rounded-full border border-line bg-surface px-4 py-2 text-base text-fg outline-none transition-colors hover:bg-surface-hover sm:text-sm";
+const quietButton =
+  "inline-flex min-h-11 items-center px-2 text-sm text-muted transition-colors hover:text-fg";
 
 export default function ItineraryView() {
   const {
@@ -35,9 +38,10 @@ export default function ItineraryView() {
     clearTrip,
   } = useTrip();
   const [confirmClear, setConfirmClear] = useState(false);
+  const showBar = useMobileBudgetBar(ready && totalStops > 0);
 
   // wait for the saved trip to load from the browser
-  if (!ready) return <div className="min-h-screen" />;
+  if (!ready) return <div className="min-h-screen-safe" />;
 
   const available = getAll().filter((d) => !isInTrip(d.id));
     const month = trip.month;
@@ -51,11 +55,11 @@ export default function ItineraryView() {
     : [];
 
   return (
-    <section className="mx-auto min-h-screen max-w-6xl px-6 pb-28 pt-36">
+    <section className="min-h-screen-safe mx-auto max-w-6xl px-6 pb-28 pt-28 md:pt-36">
       <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
         My trip
       </p>
-      <h1 className="max-w-3xl font-serif text-5xl leading-tight md:text-7xl">
+      <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-tight">
         Your Kashmir Itinerary
       </h1>
 
@@ -84,7 +88,7 @@ export default function ItineraryView() {
                   onClick={() => setTravelers(trip.travelers - 1)}
                   disabled={trip.travelers <= 1}
                   aria-label="Fewer travelers"
-                  className="h-9 w-9 text-lg text-muted transition-colors hover:text-fg disabled:opacity-30"
+                  className="h-11 w-11 text-lg text-muted transition-colors hover:text-fg disabled:opacity-30"
                 >
                   −
                 </button>
@@ -95,7 +99,7 @@ export default function ItineraryView() {
                   onClick={() => setTravelers(trip.travelers + 1)}
                   disabled={trip.travelers >= 10}
                   aria-label="More travelers"
-                  className="h-9 w-9 text-lg text-muted transition-colors hover:text-fg disabled:opacity-30"
+                  className="h-11 w-11 text-lg text-muted transition-colors hover:text-fg disabled:opacity-30"
                 >
                   +
                 </button>
@@ -104,20 +108,20 @@ export default function ItineraryView() {
             <MonthPicker />
             <div className="ml-auto">
               {confirmClear ? (
-                <div className="flex items-center gap-3 text-sm">
+                <div className="flex flex-wrap items-center gap-2 text-sm">
                   <span className="text-muted">Clear the whole trip?</span>
                   <button
                     onClick={() => {
                       clearTrip();
                       setConfirmClear(false);
                     }}
-                    className="rounded-full bg-accent px-4 py-1.5 text-bg"
+                    className="min-h-11 rounded-full bg-accent px-5 text-bg"
                   >
                     Yes, clear
                   </button>
                   <button
                     onClick={() => setConfirmClear(false)}
-                    className="text-muted hover:text-fg"
+                    className={quietButton}
                   >
                     Cancel
                   </button>
@@ -125,7 +129,7 @@ export default function ItineraryView() {
               ) : (
                 <button
                   onClick={() => setConfirmClear(true)}
-                  className="text-sm text-muted transition-colors hover:text-fg"
+                  className={quietButton}
                 >
                   Clear trip
                 </button>
@@ -133,7 +137,7 @@ export default function ItineraryView() {
             </div>
           </div>
             {month && offSeason.length > 0 && (
-            <div className="mt-8 rounded-2xl border border-warn/40 bg-warn/10 p-5 text-sm">
+            <div className="mt-8 rounded-2xl border border-warn/40 bg-warn/10 p-5 text-base">
               <p className="font-medium text-warn">
                 Heads up for {MONTHS[month - 1]}
               </p>
@@ -147,9 +151,9 @@ export default function ItineraryView() {
               </ul>
             </div>
           )}
-          <div className="mt-8 grid gap-10 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-3">
             {/* Days */}
-            <div className="space-y-6 lg:col-span-2">
+            <div className="min-w-0 space-y-6 lg:col-span-2">
               {trip.days.map((day) => (
                 <div
                   key={day.day}
@@ -157,7 +161,7 @@ export default function ItineraryView() {
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <h2 className="font-serif text-3xl">Day {day.day}</h2>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
                       {available.length > 0 && (
                         <select
                           aria-label={`Add a stop to day ${day.day}`}
@@ -179,7 +183,7 @@ export default function ItineraryView() {
                         <button
                           onClick={() => removeDay(day.day)}
                           title="Stops on this day move to Day 1"
-                          className="text-xs text-muted transition-colors hover:text-fg"
+                          className={quietButton}
                         >
                           Remove day
                         </button>
@@ -200,11 +204,11 @@ export default function ItineraryView() {
                         return (
                           <li
                             key={id}
-                            className="flex items-center gap-4 rounded-xl border border-line bg-bg/40 p-3"
+                            className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-line bg-bg/40 p-3"
                           >
                             <Link
                               href={`/destination/${d.id}`}
-                              className="relative h-20 w-24 shrink-0 overflow-hidden rounded-lg"
+                              className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-24"
                             >
                               <SafeImage
                                 src={d.image}
@@ -221,7 +225,7 @@ export default function ItineraryView() {
                               >
                                 {d.name}
                               </Link>
-                              <p className="mt-0.5 text-xs text-muted">
+                              <p className="mt-0.5 text-sm text-muted">
                                 {formatINR(dayCost(d))} per person
                               </p>                              
                             <div className="mt-2">
@@ -230,7 +234,7 @@ export default function ItineraryView() {
 
                             </div>
 
-                            <div className="flex flex-col items-end gap-2">
+                            <div className="flex w-full items-center justify-end gap-2 sm:w-auto sm:flex-col sm:items-end">
                               {trip.days.length > 1 && (
                                 <select
                                   aria-label={`Move ${d.name} to another day`}
@@ -249,7 +253,7 @@ export default function ItineraryView() {
                               )}
                               <button
                                 onClick={() => removeStop(id)}
-                                className="text-xs text-muted transition-colors hover:text-fg"
+                                className={quietButton}
                               >
                                 Remove
                               </button>
@@ -271,11 +275,67 @@ export default function ItineraryView() {
               </button>
             </div>
 
-            {/* Budget */}
+            {/* Budget: a bottom section on phones, a sticky sidebar on large screens */}
             <BudgetSummary />
           </div>
+
+          {/* Phones: compact sticky total; hides when the full budget or the footer is on screen */}
+          <MobileBudgetBar visible={showBar} />
         </>
       )}
     </section>
+  );
+}
+
+/** Show the mobile total bar unless the budget section or footer is in view. */
+function useMobileBudgetBar(enabled: boolean) {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    if (!enabled) return;
+    const targets = [document.getElementById("budget"), document.querySelector("footer")]
+      .filter((el): el is HTMLElement => !!el);
+    const seen = new Map<Element, boolean>();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) seen.set(e.target, e.isIntersecting);
+      setHidden([...seen.values()].some(Boolean));
+    });
+    targets.forEach((t) => io.observe(t));
+    return () => io.disconnect();
+  }, [enabled]);
+  return enabled && !hidden;
+}
+
+function MobileBudgetBar({ visible }: { visible: boolean }) {
+  const { trip } = useTrip();
+  const b = computeBudget(trip);
+  return (
+    <div
+      aria-hidden={!visible}
+      inert={!visible || undefined}
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 px-6 pt-3 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none lg:hidden ${
+        visible ? "translate-y-0" : "translate-y-full"
+      }`}
+      style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-xs uppercase tracking-[0.2em] text-accent">
+            Estimated total
+          </p>
+          <p className="font-serif text-2xl leading-tight">
+            {formatINR(b.grandTotal)}
+            <span className="ml-2 font-sans text-sm text-muted">
+              {formatINR(b.perPersonTotal)} pp
+            </span>
+          </p>
+        </div>
+        <a
+          href="#budget"
+          className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-line px-5 text-sm transition-colors hover:border-accent hover:text-accent"
+        >
+          Breakdown
+        </a>
+      </div>
+    </div>
   );
 }

@@ -26,3 +26,6 @@ export function useMediaQuery(query: string) {
 /** Hydration-safe reduced-motion flag (false during SSR/hydration, then live). */
 export const usePrefersReducedMotion = () =>
   useMediaQuery("(prefers-reduced-motion: reduce)");
+
+/** Phone-width screens: used to lighten scroll-linked parallax (false during hydration). */
+export const useIsSmallScreen = () => useMediaQuery("(max-width: 767px)");

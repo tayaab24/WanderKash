@@ -10,7 +10,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
+import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Plan Your Kashmir, Day by Day.".split(" ");
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -53,7 +53,9 @@ export default function Hero() {
   });
 
   const reduceMotion = usePrefersReducedMotion();
+  const small = useIsSmallScreen();
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const imageYSmall = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]); // lighter on phones
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
@@ -85,7 +87,7 @@ export default function Hero() {
     >
       {/* Layers: scroll parallax > mouse parallax > slow Ken Burns > photo */}
       <motion.div
-        style={reduceMotion ? undefined : { y: imageY }}
+        style={reduceMotion ? undefined : { y: small ? imageYSmall : imageY }}
         className="absolute inset-0"
       >
         <motion.div
@@ -123,7 +125,7 @@ export default function Hero() {
           sun and shikara stay clear in the middle. */}
       <motion.div
         style={reduceMotion ? undefined : { y: textY, opacity: textOpacity }}
-        className="relative mx-auto w-full max-w-6xl px-6 pb-28 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
+        className="relative mx-auto w-full max-w-6xl px-6 pb-28 pt-28 [@media(max-height:500px)]:pb-12 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
       >
         <div>
           <motion.p
@@ -136,7 +138,7 @@ export default function Hero() {
           </motion.p>
 
           {/* Headline: each word drops down from above, one by one */}
-          <h1 className="max-w-4xl font-serif text-5xl leading-[1.05] text-shadow-lg text-shadow-bg/50 sm:text-7xl md:text-8xl">
+          <h1 className="max-w-4xl font-serif text-[clamp(2.5rem,min(9vw,13svh)_+_0.5rem,6rem)] leading-[1.05] text-shadow-lg text-shadow-bg/50">
             {words.map((word, i) => (
               <span
                 key={i}
@@ -196,7 +198,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: AFTER + 0.6 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden"
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">

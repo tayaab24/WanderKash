@@ -17,9 +17,12 @@ export default function BudgetSummary() {
   ];
 
   return (
-    <aside className="h-fit rounded-2xl border border-line bg-surface p-7 lg:sticky lg:top-28">
+    <aside
+      id="budget"
+      className="h-fit min-w-0 scroll-mt-24 rounded-2xl border border-line bg-surface p-6 sm:p-7 lg:sticky lg:top-28"
+    >
       <h2 className="font-serif text-3xl">Budget</h2>
-      <p className="mt-1 text-sm text-muted">
+      <p className="mt-1 text-base text-muted">
         For {n} {n === 1 ? "traveler" : "travelers"}, sample estimates
       </p>
 
@@ -72,13 +75,13 @@ export default function BudgetSummary() {
           <span className="text-xs uppercase tracking-[0.25em] text-accent">
             Total
           </span>
-          <p className="mt-1 font-serif text-5xl text-fg">
+          <p className="mt-1 font-serif text-[clamp(2.5rem,8vw,3rem)] text-fg">
             <AnimatedNumber value={b.grandTotal} format={formatINR} />
           </p>
         </div>
       </div>
 
-      <p className="mt-6 text-xs leading-relaxed text-muted">
+      <p className="mt-6 text-sm leading-relaxed text-muted">
         Each stop counts as one day of costs, so one destination per day gives
         the most realistic estimate.
       </p>
