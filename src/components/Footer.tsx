@@ -14,13 +14,6 @@ const plan = [
   { href: "/#how-it-works", label: "How it works" },
 ];
 
-// TODO: replace the placeholder hrefs with your real profiles / address
-const social = [
-  { href: "#", label: "GitHub" },
-  { href: "#", label: "LinkedIn" },
-  { href: "#", label: "Email" },
-];
-
 export default function Footer() {
   const destinations = getAll();
 
@@ -71,16 +64,6 @@ export default function Footer() {
             <p className="text-sm text-muted">
               A Kashmir trip planner, built as a concept project.
             </p>
-            <p className="mt-5 text-sm text-fg">Built by Tayaab</p>
-            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-              {social.map((s) => (
-                <li key={s.label}>
-                  <a href={s.href} className={link}>
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 
