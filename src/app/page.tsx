@@ -4,6 +4,9 @@ import StackedDestinations from "@/components/StackedDestinations";
 import Seasons from "@/components/Seasons";
 import ReadyTrips from "@/components/ReadyTrips";
 import RightNow from "@/components/RightNow";
+import CultureMarquee from "@/components/CultureMarquee";
+import FaqAccordion from "@/components/FaqAccordion";
+import { faq } from "@/data/faq";
 import { getAll } from "@/lib/destinations";
 
 const steps = [
@@ -24,11 +27,28 @@ const steps = [
   },
 ];
 
+// FAQPage structured data, built from the same content as the accordion
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function Home() {
   const destinations = getAll();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Hero />
 
       <section className="px-6 py-28">
@@ -104,6 +124,16 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="overflow-x-clip border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-serif text-4xl md:text-5xl">Beyond the views</h2>
+          <p className="mb-14 mt-4 max-w-xl text-lg text-muted">
+            The Kashmir you taste, touch and remember.
+          </p>
+          <CultureMarquee />
+        </div>
+      </section>
+
       <section id="how-it-works" className="border-t border-line px-6 py-28">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
@@ -132,6 +162,16 @@ export default function Home() {
               Start Planning
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-4xl">
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
+            FAQ
+          </p>
+          <h2 className="mb-12 font-serif text-4xl md:text-5xl">Good to know</h2>
+          <FaqAccordion items={faq} />
         </div>
       </section>
     </>

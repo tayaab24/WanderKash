@@ -38,3 +38,14 @@ body {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
+
+/* Culture section marquee: two identical tracks, so -50% loops seamlessly */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 70s linear infinite;
+}
