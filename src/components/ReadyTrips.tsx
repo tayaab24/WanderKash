@@ -49,7 +49,7 @@ function TripCard({
           ? { duration: 0 }
           : { duration: 0.7, delay: index * 0.1, ease: EASE }
       }
-      className="group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--color-shade)_85%,transparent)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
+      className="on-light group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--color-fg)_10%,transparent)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
     >
       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,background-color] duration-300 group-hover:-translate-y-1.5 group-hover:bg-surface-hover motion-reduce:transition-colors motion-reduce:group-hover:translate-y-0">
         <div className="relative aspect-4/3 overflow-hidden">
@@ -60,8 +60,8 @@ function TripCard({
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
             className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-bg/60 to-transparent" />
-          <span className="absolute bottom-3 left-4 text-[13px] font-bold uppercase tracking-[0.2em] text-fg">
+          <div className="absolute inset-0 bg-linear-to-t from-deep/55 to-transparent" />
+          <span className="on-dark absolute bottom-3 left-4 text-[13px] font-bold uppercase tracking-[0.2em] text-fg">
             {trip.days.length} days · {stops} stops
           </span>
         </div>
@@ -78,7 +78,7 @@ function TripCard({
             <div className="flex justify-between gap-4">
               <dt className="text-muted">Est. per person</dt>
               <dd>
-                <span className="tabular-nums text-accent">≈ {formatINR(perPersonTotal)}</span>
+                <span className="tabular-nums text-accent-text">≈ {formatINR(perPersonTotal)}</span>
               </dd>
             </div>
           </dl>

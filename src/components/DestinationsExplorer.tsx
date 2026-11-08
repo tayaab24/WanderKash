@@ -52,7 +52,7 @@ export default function DestinationsExplorer({
   const chip = (active: boolean) =>
     `inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition-colors ${
       active
-        ? "border-accent bg-accent text-bg"
+        ? "border-accent bg-accent text-on-accent"
         : "border-line text-muted hover:bg-surface hover:text-fg"
     }`;
 
@@ -67,7 +67,7 @@ export default function DestinationsExplorer({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search destinations, e.g. lake, snow, meadow"
             aria-label="Search destinations"
-            className="min-h-11 w-full min-w-0 flex-1 rounded-full border border-muted/60 bg-bg px-5 py-2.5 text-base text-fg sm:min-w-60 sm:text-sm outline-none placeholder:text-muted focus:border-accent"
+            className="min-h-11 w-full min-w-0 flex-1 rounded-full border border-muted/80 bg-bg px-5 py-2.5 text-base text-fg sm:min-w-60 sm:text-sm outline-none placeholder:text-muted focus:border-accent"
           />
           <MonthPicker />
         </div>

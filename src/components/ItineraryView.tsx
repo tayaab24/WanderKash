@@ -20,7 +20,7 @@ import MonthPicker from "./MonthPicker";
 import SeasonBadge from "./SeasonBadge";
 
 const selectClass =
-  "min-h-11 rounded-full border border-muted/60 bg-surface px-4 py-2 text-base text-fg outline-none transition-colors hover:bg-surface-hover sm:text-sm";
+  "min-h-11 rounded-full border border-muted/80 bg-surface px-4 py-2 text-base text-fg outline-none transition-colors hover:bg-surface-hover sm:text-sm";
 const quietButton =
   "inline-flex min-h-11 items-center px-2 text-sm text-muted transition-colors hover:text-fg";
 
@@ -57,7 +57,7 @@ export default function ItineraryView() {
 
   return (
     <section className="min-h-screen-safe mx-auto max-w-6xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
         My trip
       </p>
       <h1 className="max-w-3xl font-display text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] leading-[1.1]">
@@ -84,7 +84,7 @@ export default function ItineraryView() {
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted">Travelers</span>
-              <div className="flex items-center rounded-full border border-muted/60 bg-surface">
+              <div className="flex items-center rounded-full border border-muted/80 bg-surface">
                 <button
                   onClick={() => setTravelers(trip.travelers - 1)}
                   disabled={trip.travelers <= 1}
@@ -222,7 +222,7 @@ export default function ItineraryView() {
                             <div className="min-w-0 flex-1">
                               <Link
                                 href={`/destination/${d.id}`}
-                                className="font-display text-xl transition-colors hover:text-accent"
+                                className="font-display text-xl transition-colors hover:text-accent-text"
                               >
                                 {d.name}
                               </Link>
@@ -270,7 +270,7 @@ export default function ItineraryView() {
               <button
                 onClick={addDay}
                 disabled={trip.days.length >= 10}
-                className="w-full rounded-2xl border border-dashed border-line py-4 text-sm text-muted transition-colors hover:border-accent hover:text-accent disabled:opacity-40"
+                className="w-full rounded-2xl border border-dashed border-line py-4 text-sm text-muted transition-colors hover:border-accent hover:text-accent-text disabled:opacity-40"
               >
                 + Add a day
               </button>
@@ -320,7 +320,7 @@ function MobileBudgetBar({ visible }: { visible: boolean }) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-accent">
+          <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-accent-text">
             Estimated total
           </p>
           <p className="text-xl font-bold leading-tight tabular-nums">

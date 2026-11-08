@@ -14,7 +14,7 @@ export default function AddToTripButton({ id }: { id: string }) {
     return (
       <div className="space-y-3">
         <div className="flex items-center gap-3">
-          <span className="flex-1 rounded-full border border-accent px-6 py-3 text-center text-sm text-accent">
+          <span className="flex-1 rounded-full border border-accent px-6 py-3 text-center text-sm text-accent-text">
             ✓ Added to your trip
           </span>
           <button
@@ -26,7 +26,7 @@ export default function AddToTripButton({ id }: { id: string }) {
         </div>
         <Link
           href="/itinerary"
-          className="flex min-h-11 items-center justify-center text-sm text-accent transition-colors hover:text-accent-hover"
+          className="flex min-h-11 items-center justify-center text-sm text-accent-text transition-colors hover:text-accent-text"
         >
           View my trip →
         </Link>

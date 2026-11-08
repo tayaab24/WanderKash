@@ -12,7 +12,7 @@ export default function Error({
   return (
     <section className="min-h-screen-safe flex items-center px-6 pb-20 pt-28">
       <div className="mx-auto w-full max-w-6xl">
-        <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+        <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
           Something went wrong
         </p>
         <h1 className="max-w-2xl font-display text-[clamp(2.5rem,6vw_+_1rem,4.5rem)] font-bold leading-[1.1] tracking-[-0.015em]">

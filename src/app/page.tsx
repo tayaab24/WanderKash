@@ -47,41 +47,34 @@ const faqJsonLd = {
 };
 
 /** Standard home section: same rhythm (py-28) and content width everywhere.
- *  tone="surface" gives a soft band that fades in and out (no hard edges). */
+ *  tone: "bg" / "surface" (light, alternate between neighbours) or "deep" (dark band). */
 function Section({
   id,
   className = "",
   tone = "bg",
-  bordered = true,
   glows,
   leaf,
   children,
 }: {
   id?: string;
   className?: string;
-  tone?: "bg" | "surface";
-  bordered?: boolean;
+  tone?: "bg" | "surface" | "deep";
+  /** Soft amber glows: light sections only */
   glows?: Glow[];
   /** Position classes for a decorative chinar leaf in a corner */
   leaf?: string;
   children: ReactNode;
 }) {
-  const surface = tone === "surface";
+  const toneClass = { bg: "bg-bg", surface: "bg-surface", deep: "on-dark bg-deep" }[tone];
   return (
     <section
       id={id}
-      className={`relative isolate overflow-x-clip px-6 py-28 ${
-        bordered && !surface ? "border-t border-line" : ""
-      } ${
-        surface
-          ? "bg-linear-to-b from-transparent via-surface/60 to-transparent"
-          : ""
-      } ${className}`}
+      className={`relative isolate overflow-x-clip px-6 py-28 ${toneClass} ${className}`}
     >
-      {glows && <AmbientGlow glows={glows} />}
+      {glows && tone !== "deep" && <AmbientGlow glows={glows} />}
       {leaf && (
         <ChinarLeaf
-          className={`absolute -z-10 w-56 text-accent/8 md:w-80 ${leaf}`}
+          className={`absolute -z-10 w-56 text-accent-text/10 md:w-80 ${leaf}`}
         />
       )}
       <div className="mx-auto max-w-6xl">{children}</div>
@@ -101,15 +94,15 @@ export default function Home() {
         }}
       />
 
-      {/* Page-level glow: warm near the top, cooler further down */}
+      {/* Page-level glow: soft amber near the top */}
       <ScrollWarmth />
 
-      {/* 1. Hero */}
+      {/* 1. Hero (photo); on larger screens cream ridges rise out of it into the page */}
       <Hero />
-      <MountainDivider />
+      <MountainDivider to="bg" className="z-10 hidden md:block md:-mt-28" />
 
-      {/* 2. Intro */}
-      <section className="relative isolate overflow-x-clip px-6 pb-28 pt-16">
+      {/* 2. Intro (light: bg) */}
+      <section className="relative isolate overflow-x-clip bg-bg px-6 pb-28 pt-16">
         <AmbientGlow
           glows={[
             { tone: "warm", className: "-left-[15%] -top-[30%] w-[75vw] max-w-[900px]", duration: 50 },
@@ -124,21 +117,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Seasons (pinned on desktop) */}
+      {/* 3. Seasons (light: surface; pinned on desktop) */}
       {/* Suspense boundaries let React hydrate each section separately (shorter main-thread tasks) */}
       <Suspense fallback={null}>
         <Seasons />
       </Suspense>
 
-      {/* 4. Stacked destinations */}
-      <Section tone="surface">
+      {/* 4. Stacked destinations (light: bg) */}
+      <Section tone="bg">
         <SectionHeading
           eyebrow="Destinations"
           title="Eight places to begin"
           action={
             <Link
               href="/destinations"
-              className="inline-flex min-h-11 items-center text-sm text-accent transition-colors hover:text-accent-hover"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-accent-text transition-colors hover:underline"
             >
               Search and filter →
             </Link>
@@ -149,11 +142,9 @@ export default function Home() {
         </Suspense>
       </Section>
 
-      {/* 5. Ready-made trips */}
-      <Section
-        glows={[{ tone: "warm", className: "-right-[20%] -top-[10%] w-[70vw] max-w-[860px]", duration: 42 }]}
-        leaf="-right-10 top-8 rotate-[18deg] md:right-4"
-      >
+      {/* 5. Ready-made trips (dark band) */}
+      <MountainDivider from="bg" to="deep" />
+      <Section tone="deep" className="pt-12" leaf="-right-10 top-8 rotate-[18deg] md:right-4">
         <SectionHeading
           eyebrow="Itineraries"
           title="Ready-made trips"
@@ -163,10 +154,11 @@ export default function Home() {
           <ReadyTrips />
         </Suspense>
       </Section>
+      <MountainDivider from="deep" to="surface" />
 
-      {/* 6. Quick planner pitch */}
-      <Section>
-        <div className="flex flex-col gap-10 rounded-3xl border border-line bg-surface p-8 sm:p-12 md:flex-row md:items-center md:justify-between">
+      {/* 6. Quick planner pitch (light: surface) */}
+      <Section tone="surface" className="pt-12">
+        <div className="flex flex-col gap-10 rounded-3xl border border-line bg-bg p-8 sm:p-12 md:flex-row md:items-center md:justify-between">
           <SectionHeading
             className=""
             eyebrow="Quick planner"
@@ -182,24 +174,19 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 7. Right now in Kashmir */}
+      {/* 7. Right now in Kashmir (light: bg) */}
       <Section
-        tone="surface"
-        glows={[{ tone: "cool", className: "-right-[15%] bottom-0 w-[65vw] max-w-[820px]", duration: 55 }]}
+        tone="bg"
+        glows={[{ tone: "warm", className: "-right-[15%] bottom-0 w-[65vw] max-w-[820px]", duration: 55 }]}
       >
         <Suspense fallback={null}>
           <RightNow />
         </Suspense>
       </Section>
 
-      <MountainDivider />
-
-      {/* 8. Beyond the views */}
-      <Section
-        bordered={false}
-        className="pt-12"
-        glows={[{ tone: "warm", className: "-left-[20%] top-[5%] w-[70vw] max-w-[880px]", duration: 46 }]}
-      >
+      {/* 8. Beyond the views (dark band) */}
+      <MountainDivider from="bg" to="deep" />
+      <Section tone="deep" className="pt-12">
         <SectionHeading
           eyebrow="Culture"
           title="Beyond the views"
@@ -207,9 +194,10 @@ export default function Home() {
         />
         <CultureMarquee />
       </Section>
+      <MountainDivider from="deep" to="bg" />
 
-      {/* 9. How it works */}
-      <Section id="how-it-works">
+      {/* 9. How it works (light: bg) */}
+      <Section id="how-it-works" tone="bg" className="pt-12">
         <SectionHeading eyebrow="How it works" title="Three steps to a plan" />
         <div className="grid gap-6 md:grid-cols-3">
           {steps.map((s) => (
@@ -217,7 +205,7 @@ export default function Home() {
               key={s.n}
               className="rounded-2xl border border-line bg-surface p-8"
             >
-              <span className="font-display text-4xl font-bold tabular-nums text-accent">{s.n}</span>
+              <span className="font-display text-4xl font-bold tabular-nums text-accent-text">{s.n}</span>
               <h3 className="mt-6 font-display text-2xl">{s.title}</h3>
               <p className="mt-3 text-muted">{s.text}</p>
             </div>
@@ -225,7 +213,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 10. FAQ */}
+      {/* 10. FAQ (light: surface) */}
       <Section
         tone="surface"
         glows={[{ tone: "warm", className: "-right-[25%] bottom-[-10%] w-[70vw] max-w-[860px]", duration: 52 }]}
@@ -239,11 +227,10 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 11. Closing call to action; ridges rise out of it into the footer */}
+      {/* 11. Closing call to action (photo); the footer's own ridge rises out of it */}
       <Suspense fallback={null}>
         <ClosingCta />
       </Suspense>
-      <MountainDivider className="z-10 -mt-16 md:-mt-28" />
     </>
   );
 }

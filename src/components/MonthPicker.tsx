@@ -27,7 +27,7 @@ export default function MonthPicker({
         onChange={(e) =>
           set(e.target.value ? Number(e.target.value) : null)
         }
-        className="min-h-11 rounded-full border border-muted/60 bg-surface px-4 py-2 text-base text-fg outline-none sm:text-sm transition-colors hover:bg-surface-hover"
+        className="min-h-11 rounded-full border border-muted/80 bg-surface px-4 py-2 text-base text-fg outline-none sm:text-sm transition-colors hover:bg-surface-hover"
       >
         <option value="">Not sure yet</option>
         {MONTHS.map((m, i) => (

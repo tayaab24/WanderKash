@@ -83,7 +83,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="hero-height relative flex items-end overflow-hidden"
+      className="hero-height on-dark relative flex items-end overflow-hidden"
     >
       {/* Layers: scroll parallax > mouse parallax > slow Ken Burns > photo */}
       <motion.div
@@ -114,29 +114,29 @@ export default function Hero() {
 
       {/* Overlays (bg token, never black): bottom fade + a soft pool behind the headline.
           The top fade for the navbar comes from the navbar's own scrim. */}
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-bg/90 via-bg/35 via-25% to-transparent to-50%" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_0%_100%,color-mix(in_srgb,var(--color-bg)_75%,transparent),transparent_75%)] landscape:bg-[radial-gradient(ellipse_85%_90%_at_0%_100%,color-mix(in_srgb,var(--color-bg)_88%,transparent),color-mix(in_srgb,var(--color-bg)_45%,transparent)_45%,transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-deep/60 via-deep/25 via-25% to-transparent to-50% portrait:from-deep/80 portrait:via-deep/50" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_65%_at_0%_100%,color-mix(in_srgb,var(--color-deep)_50%,transparent),transparent_75%)] landscape:bg-[radial-gradient(ellipse_85%_90%_at_0%_100%,color-mix(in_srgb,var(--color-deep)_60%,transparent),color-mix(in_srgb,var(--color-deep)_30%,transparent)_45%,transparent_75%)]" />
       {/* Pool behind the headline itself (measured: fg text >= 3.7:1 at the worst 5% of word area).
           Portrait: over the clouds, top-left. Landscape: centred on the headline, clear of the sun. */}
-      <div className="pointer-events-none absolute inset-0 portrait:bg-[radial-gradient(ellipse_140%_45%_at_10%_20%,color-mix(in_srgb,var(--color-bg)_90%,transparent),color-mix(in_srgb,var(--color-bg)_55%,transparent)_50%,transparent_85%)] landscape:bg-[radial-gradient(ellipse_60%_60%_at_28%_62%,color-mix(in_srgb,var(--color-bg)_80%,transparent),color-mix(in_srgb,var(--color-bg)_45%,transparent)_55%,transparent_82%)]" />
+      <div className="pointer-events-none absolute inset-0 portrait:bg-[radial-gradient(ellipse_140%_45%_at_10%_20%,color-mix(in_srgb,var(--color-deep)_72%,transparent),color-mix(in_srgb,var(--color-deep)_45%,transparent)_50%,transparent_85%)] landscape:bg-[radial-gradient(ellipse_60%_60%_at_28%_62%,color-mix(in_srgb,var(--color-deep)_55%,transparent),color-mix(in_srgb,var(--color-deep)_30%,transparent)_55%,transparent_82%)]" />
 
       {/* Landscape: everything sits bottom-left. Portrait: headline at the top over the
           dark clouds, subline + buttons at the bottom over the water, so the horizon,
           sun and shikara stay clear in the middle. */}
       <motion.div
         style={reduceMotion ? undefined : { y: textY, opacity: textOpacity }}
-        className="relative mx-auto w-full max-w-6xl px-6 pb-28 pt-28 [@media(max-height:500px)]:pb-12 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
+        className="relative mx-auto w-full max-w-6xl px-6 pb-28 pt-28 md:landscape:pb-40 [@media(max-height:500px)]:pb-12 portrait:flex portrait:flex-col portrait:justify-between portrait:self-stretch portrait:pb-10 portrait:pt-28"
       >
         <div>
           <p
             style={{ "--d": "0.1s", "--dur": "0.7s", "--from-y": "-12px" } as CSSProperties}
-            className="hero-in mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-hover text-shadow-sm text-shadow-bg/70"
+            className="hero-in mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text text-shadow-sm text-shadow-deep/70"
           >
             Kashmir travel planner
           </p>
 
           {/* Headline: each word drops down from above, one by one */}
-          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.015em] text-shadow-lg text-shadow-bg/50">
+          <h1 className="max-w-4xl font-display text-[clamp(2.4rem,min(8vw,12svh)_+_0.5rem,5rem)] font-bold leading-[1.1] tracking-[-0.015em] text-shadow-lg text-shadow-deep/50">
             {words.map((word, i) => (
               <Fragment key={i}>
               <span className="mr-[0.25em] inline-block overflow-hidden pb-2 align-bottom">
@@ -157,7 +157,7 @@ export default function Hero() {
         <div>
           <p
             style={{ "--d": `${AFTER}s`, "--dur": "0.8s", "--from-y": "-16px" } as CSSProperties}
-            className="hero-in mt-6 max-w-xl text-lg text-fg/85 text-shadow-sm text-shadow-bg/60"
+            className="hero-in mt-6 max-w-xl text-lg text-fg/85 text-shadow-sm text-shadow-deep/60"
           >
             Pick your destinations, shape your itinerary, know your budget.
           </p>
@@ -185,7 +185,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         style={{ "--d": `${AFTER + 0.6}s`, "--dur": "0.6s", "--from-y": "0px" } as CSSProperties}
-        className="hero-in-fade absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[13px] font-bold uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
+        className="hero-in-fade absolute bottom-8 md:bottom-32 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[13px] font-bold uppercase tracking-[0.3em] text-muted portrait:hidden [@media(max-height:500px)]:hidden"
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">

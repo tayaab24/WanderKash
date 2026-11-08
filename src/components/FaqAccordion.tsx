@@ -16,7 +16,7 @@ function Parts({ parts }: { parts: Inline[] }) {
           <Link
             key={i}
             href={x.href}
-            className="text-fg underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+            className="text-fg underline decoration-line underline-offset-4 transition-colors hover:text-accent-text hover:decoration-accent-text"
           >
             {x.text}
           </Link>
@@ -36,7 +36,7 @@ function Answer({ blocks }: { blocks: Block[] }) {
           </p>
         ) : (
           <div key={i}>
-            <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.2em] text-accent">
+            <p className="mb-2 text-[13px] font-bold uppercase tracking-[0.2em] text-accent-text">
               {b.title}
             </p>
             <ul className="space-y-1.5">
@@ -81,7 +81,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               >
                 <span
                   className={`font-display text-xl transition-colors md:text-2xl ${
-                    open ? "text-accent" : "text-fg group-hover:text-accent"
+                    open ? "text-accent-text" : "text-fg group-hover:text-accent-text"
                   }`}
                 >
                   {item.question}
@@ -91,9 +91,9 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                   aria-hidden
                   className="relative h-8 w-8 shrink-0 rounded-full border border-line transition-colors group-hover:border-accent"
                 >
-                  <span className="absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 bg-accent" />
+                  <span className="absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 bg-accent-text" />
                   <span
-                    className={`absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 bg-accent transition-transform duration-300 motion-reduce:transition-none ${
+                    className={`absolute left-1/2 top-1/2 h-px w-3.5 -translate-x-1/2 -translate-y-1/2 bg-accent-text transition-transform duration-300 motion-reduce:transition-none ${
                       open ? "rotate-0" : "rotate-90"
                     }`}
                   />

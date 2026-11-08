@@ -4,10 +4,11 @@ import FooterReveal from "./footer/FooterReveal";
 import BestRightNow from "./footer/BestRightNow";
 import BackToTop from "./footer/BackToTop";
 import CurrentYear from "./footer/CurrentYear";
+import MountainDivider from "./atmosphere/MountainDivider";
 
 const link =
-  "inline-flex min-h-11 items-center text-muted transition-colors hover:text-accent";
-const heading = "mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent";
+  "inline-flex min-h-11 items-center text-muted transition-colors hover:text-accent-text";
+const heading = "mb-5 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text";
 
 const plan = [
   { href: "/itinerary", label: "My Trip" },
@@ -19,9 +20,11 @@ export default function Footer() {
   const destinations = getAll();
 
   return (
-    <footer className="relative bg-bg">
-      {/* Soft hairline instead of a hard border; fades out at both ends */}
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-line to-transparent" />
+    <footer className="on-dark relative bg-deep">
+      {/* Slate ridges rise out of whatever is above, so every page eases into the footer */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-full">
+        <MountainDivider to="deep" className="h-12 md:h-20" />
+      </div>
       <FooterReveal className="mx-auto max-w-6xl px-6 pb-10 pt-20">
         {/* Wordmark */}
         <div className="border-b border-line pb-10">
@@ -30,7 +33,7 @@ export default function Footer() {
             aria-label="WanderKash home"
             className="block font-display text-[clamp(2.75rem,12vw,8.5rem)] font-bold leading-[0.95] tracking-[-0.02em] text-fg"
           >
-            Wander<span className="text-accent">Kash</span>
+            Wander<span className="text-accent-text">Kash</span>
           </Link>
         </div>
 

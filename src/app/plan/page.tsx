@@ -25,7 +25,7 @@ async function PlannerWithParams({ searchParams }: Props) {
 export default function PlanPage({ searchParams }: Props) {
   return (
     <section className="min-h-screen-safe mx-auto max-w-3xl px-6 pb-28 pt-28 md:pt-36">
-      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+      <p className="mb-3 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
         Quick planner
       </p>
       <h1 className="font-display text-[clamp(2.5rem,5vw_+_1rem,3.75rem)] leading-[1.1]">

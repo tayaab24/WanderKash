@@ -28,7 +28,7 @@ export default function BudgetSummary() {
 
       {/* Per day */}
       <div className="mt-7">
-        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
+        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
           By day
         </h3>
         <dl className="mt-4 space-y-2.5">
@@ -50,7 +50,7 @@ export default function BudgetSummary() {
 
       {/* By category */}
       <div className="mt-7 border-t border-line pt-7">
-        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
+        <h3 className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
           By category
         </h3>
         <dl className="mt-4 space-y-2.5">
@@ -72,7 +72,7 @@ export default function BudgetSummary() {
           </span>
         </div>
         <div className="mt-4">
-          <span className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent">
+          <span className="text-[13px] font-bold uppercase tracking-[0.25em] text-accent-text">
             Total
           </span>
           <p className="mt-1 font-display text-[clamp(2.25rem,7vw,2.75rem)] font-bold leading-tight tabular-nums text-fg">

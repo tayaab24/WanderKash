@@ -34,7 +34,7 @@ export default function ClosingCta() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[70vh] items-center overflow-hidden border-t border-line"
+      className="on-dark relative flex min-h-[70vh] items-center overflow-hidden"
     >
       {/* Slight parallax background (static for reduced motion) */}
       <motion.div
@@ -50,8 +50,8 @@ export default function ClosingCta() {
       </motion.div>
 
       {/* Soft overlay: bg token, heavier on the left behind the text */}
-      <div className="absolute inset-0 bg-linear-to-r from-bg/90 via-bg/60 to-bg/20" />
-      <div className="absolute inset-0 bg-linear-to-t from-bg/80 via-transparent to-bg/40" />
+      <div className="absolute inset-0 bg-linear-to-r from-deep/78 via-deep/55 to-deep/15" />
+      <div className="absolute inset-0 bg-linear-to-t from-deep/55 via-transparent to-deep/35" />
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
         {/* Words rise in one by one, like the hero */}

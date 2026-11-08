@@ -36,12 +36,12 @@ function StackCard({
     >
       <motion.article
         style={reduceMotion ? undefined : { scale, transformOrigin: "top center" }}
-        className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-shade)_80%,transparent)]"
+        className="overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-fg)_12%,transparent)]"
       >
         <Link
           href={`/destination/${destination.id}`}
           aria-label={`Open ${destination.name}`}
-          className="group relative block focus-visible:outline-offset-[-4px] h-[60vh] min-h-80 overflow-hidden supports-[height:1svh]:h-[60svh] md:min-h-105"
+          className="on-dark group relative block focus-visible:outline-offset-[-4px] h-[60vh] min-h-80 overflow-hidden supports-[height:1svh]:h-[60svh] md:min-h-105"
         >
           <SafeImage
             src={destination.image}
@@ -52,7 +52,7 @@ function StackCard({
           />
 
           {/* Soft grey fade so the text is readable */}
-          <div className="absolute inset-0 bg-linear-to-t from-bg/85 via-bg/10 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-deep/60 via-deep/10 to-transparent" />
 
           {/* Number */}
           <span className="absolute left-6 top-6 text-[13px] font-bold uppercase tracking-[0.3em] text-fg/80 md:left-10 md:top-10">
@@ -71,7 +71,7 @@ function StackCard({
               </p>
             </div>
 
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-lg text-bg transition-transform duration-300 group-hover:scale-110 md:h-14 md:w-14">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-lg text-on-accent transition-transform duration-300 group-hover:scale-110 md:h-14 md:w-14">
               ↗
             </span>
           </div>

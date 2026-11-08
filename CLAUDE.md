@@ -7,43 +7,53 @@
 Headings: Playfair Display (`font-display`, weight 600-700). Body: Lato (`font-sans`, 400 and 700 only;
 never use `font-medium`/`font-semibold` on Lato text). Prices and numbers use `tabular-nums`.
 
-## Palette: "Dal Lake at dusk"
+## Palette: "Sunset over Dal Lake"
 
-Deep blue-teal grounds that contrast with the warm sunset photography. All colours are
-Tailwind tokens defined in `src/app/globals.css` (`@theme`). Use the tokens (with opacity
-modifiers or `color-mix()` if needed), never raw hex values, and never pure black or white.
-
-| Token | Hex | Use |
-| --- | --- | --- |
-| `bg` | `#0E1A22` | Deep lake blue: page background |
-| `surface` | `#15252F` | Cards, navbar, panels |
-| `surface-hover` | `#1C303C` | Hover states |
-| `line` | `#2A4150` | Borders, dividers (decorative) |
-| `fg` | `#F1ECE2` | Main text, warm cream |
-| `muted` | `#9FB0BA` | Secondary text, cool grey-blue |
-| `accent` | `#E3B26A` | Saffron: buttons, links, highlights |
-| `accent-hover` | `#EEC585` | Accent hover |
-| `warn` | `#E08B67` | Off-season warnings |
-
-Helper tokens derived from the palette:
+Taken from the hero photo: warm haze cream page, cloud slate-blue text, sky-amber accents, and a
+few dark slate bands for contrast. All colours are Tailwind tokens in `src/app/globals.css`
+(`@theme`). Use the tokens (opacity modifiers or `color-mix()` if needed), never raw hex values,
+and never pure black or white.
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `bg-lift` | `#12222C` | Lighter teal in the page background gradient |
-| `teal` | `#2E6A7A` | Cool ambient glow (~12% opacity) |
-| `shade` | `#071016` | Shadows |
+| `bg` | `#F6EEE3` | Page background (warm haze cream) |
+| `surface` | `#FCF7F0` | Cards, panels, navbar when scrolled |
+| `surface-hover` | `#F1E5D4` | Hover states |
+| `line` | `#E3D3BC` | Borders, dividers |
+| `fg` | `#2F3A4B` | Main text (cloud slate-blue) |
+| `muted` | `#5F6470` | Secondary text |
+| `accent` | `#E9A55B` | Sky amber: button fills, highlights, badges |
+| `accent-hover` | `#E39A4E` | Accent fill hover |
+| `accent-text` | `#9A5119` | Links and accent-coloured text on light backgrounds |
+| `on-accent` | `#2F3A4B` | Text on accent fills (never re-scoped) |
+| `warn` | `#A8452A` | Off-season warnings |
+| `deep` | `#2F3A4B` | Dark band background (cloud slate) |
+| `deep-fg` | `#F6EEE3` | Text on dark bands |
+| `deep-muted` | `#B8C0CC` | Secondary text on dark bands |
+| `deep-accent` | `#F2C27E` | Links and highlights on dark bands |
 
-Rules of thumb:
+How it fits together:
 
-- Page background is a subtle `bg` → `bg-lift` → `bg` gradient on `<html>`, not a flat colour.
-- Ambient glows: warm = `accent` at ~8%, cool = `teal` at ~12% (`AmbientGlow`, `ScrollWarmth`).
-- Image overlays fade into `bg` so photos blend into the page.
-- Buttons (`src/lib/ui.ts`): primary = `accent` fill with `bg` text; secondary = transparent with an `fg` border.
-- Form controls (selects, inputs, steppers) use `border-muted/60` so their edges reach 3:1; dividers use `line`.
-- `src/app/icon.svg` and the `themeColor` in `layout.tsx` can't read CSS variables; keep their hex values in sync with the tokens.
+- **Dark scopes**: add `on-dark` to a dark band or a container of text over a photo. It re-points
+  `fg`, `muted`, `accent-text` and `line` to their `deep-*` values, so `text-fg`, `text-muted`,
+  `text-accent-text`, secondary buttons and focus rings adapt automatically. Use `on-light` to
+  reset a light card that sits inside a dark scope.
+- **Home rhythm**: light sections alternate `bg` / `surface` (Intro, Seasons, Stacked destinations,
+  Quick planner, Right now, How it works, FAQ); dark `deep` bands for Ready-made trips, Beyond the
+  views and the footer. `MountainDivider from=… to=…` softens each light/dark change.
+- **Photos**: text stays `deep-fg` (via `on-dark`) over slate overlays of `deep` at 35-60%,
+  darker only where the text sits. Photo cards get a warm shadow (`fg` at 10-12%).
+- **Buttons** (`src/lib/ui.ts`): primary = `accent` fill + `on-accent` text, `accent-hover` on hover;
+  secondary = transparent with an `fg` border (`deep-fg` inside `on-dark`).
+- **Navbar**: cream text + slate scrim only over hero photos (home, destination pages); otherwise
+  and once scrolled, `surface` with blur, `fg` text and a `line` border.
+- **Atmosphere**: grain at 1.5%; ambient glows are soft amber (`accent` ~12%) on light sections only.
+- Form controls use `border-muted/80` so their edges reach 3:1 on cream.
+- `src/app/icon.svg` and `themeColor` in `layout.tsx` can't read CSS variables; keep their hex in sync.
 
-Contrast (WCAG): `fg` 15.0:1 on `bg`, 13.3:1 on `surface`; `muted` 7.9:1 on `bg`, 7.0:1 on
-`surface`; `accent` 9.1:1 on `bg`; `bg` text on `accent` 9.1:1. All pass AA.
+Contrast (WCAG AA): `fg` 10.0:1 on `bg` / 10.8:1 on `surface`; `muted` 5.2 / 5.6; `accent-text`
+5.1 / 5.5; `warn` 5.1 / 5.6; `on-accent` on `accent` 5.5:1; on `deep`: `deep-fg` 10.0:1,
+`deep-muted` 6.3:1, `deep-accent` 7.0:1.
 
 ## Motion
 

@@ -53,7 +53,7 @@ type Season = (typeof seasons)[number];
 
 function Panel({ season }: { season: Season }) {
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="on-dark relative h-full w-full overflow-hidden">
       <SafeImage
         src={season.image}
         alt={`Kashmir in ${season.name.toLowerCase()}`}
@@ -61,12 +61,12 @@ function Panel({ season }: { season: Season }) {
         sizes="100vw"
       />
       {/* Soft overlays: darker at the bottom and left, where the text sits */}
-      <div className="absolute inset-0 bg-linear-to-t from-bg/95 via-bg/40 to-bg/10" />
-      <div className="absolute inset-0 bg-linear-to-r from-bg/60 via-bg/10 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-deep/70 via-deep/30 to-deep/10" />
+      <div className="absolute inset-0 bg-linear-to-r from-deep/45 via-deep/10 to-transparent" />
 
       <div className="relative flex h-full flex-col justify-end px-6 pb-24 pt-28 md:px-16 md:pb-32">
         <div className="mx-auto w-full max-w-6xl">
-          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
             {season.range}
           </p>
           <h3 className="mt-3 font-display text-6xl font-bold leading-none tracking-[-0.015em] md:text-8xl lg:text-9xl">
@@ -80,7 +80,7 @@ function Panel({ season }: { season: Season }) {
               <li key={d.id}>
                 <Link
                   href={`/destination/${d.id}`}
-                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-bg/70 px-4 text-sm font-bold text-fg transition-colors hover:border-accent hover:text-accent"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-deep/55 px-4 text-sm font-bold text-fg transition-colors hover:border-accent hover:text-accent-text"
                 >
                   {d.name}
                 </Link>
@@ -111,9 +111,9 @@ function PinnedSeasons() {
     <section
       ref={ref}
       aria-label="Kashmir through the seasons"
-      className="relative h-[400vh] border-t border-line"
+      className="relative h-[400vh] bg-surface"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="on-dark sticky top-0 h-screen overflow-hidden">
         <motion.div style={{ x }} className="flex h-full w-[400%]">
           {seasons.map((s) => (
             <div key={s.name} className="h-full w-1/4 shrink-0">
@@ -136,7 +136,7 @@ function PinnedSeasons() {
                   key={s.name}
                   aria-current={i === active ? "step" : undefined}
                   className={`transition-colors duration-300 ${
-                    i === active ? "text-accent" : "text-muted"
+                    i === active ? "text-accent-text" : "text-muted"
                   }`}
                 >
                   {s.name}
@@ -161,9 +161,9 @@ function StackedSeasons({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <section
       aria-label="Kashmir through the seasons"
-      className="border-t border-line"
+      className="bg-surface"
     >
-      <p className="px-6 pt-20 text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+      <p className="px-6 pt-20 text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
         <span className="mx-auto block max-w-6xl">
           Kashmir through the seasons
         </span>

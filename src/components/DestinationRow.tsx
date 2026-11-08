@@ -71,7 +71,7 @@ export default function DestinationRow({
               className="transition-transform duration-700 group-hover:scale-105"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-linear-to-t from-bg/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-deep/35 via-transparent to-transparent" />
         </Link>
       </motion.div>
 
@@ -82,7 +82,7 @@ export default function DestinationRow({
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 1, delay: 0.15, ease }}
       >
-        <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+        <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
 
@@ -128,7 +128,7 @@ export default function DestinationRow({
           <AddToTripButton id={destination.id} />
           <Link
             href={`/destination/${destination.id}`}
-            className="inline-flex min-h-11 items-center text-sm text-accent transition-colors hover:text-accent-hover"
+            className="inline-flex min-h-11 items-center text-sm text-accent-text transition-colors hover:text-accent-text"
           >
             Explore {destination.name} →
           </Link>

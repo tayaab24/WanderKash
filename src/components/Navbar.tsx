@@ -31,7 +31,7 @@ function isActive(href: string, pathname: string) {
 function Badge({ count, ready }: { count: number; ready: boolean }) {
   return (
     <span
-      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-[13px] font-bold tabular-nums text-bg text-shadow-none transition-opacity ${
+      className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-1.5 text-[13px] font-bold tabular-nums text-on-accent text-shadow-none transition-opacity ${
         ready ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -63,10 +63,15 @@ export default function Navbar() {
   }, [open]);
 
   const solid = scrolled || open;
+  // Cream text + slate scrim only while it sits over a hero photo (home and destination pages)
+  const heroPage = pathname === "/" || pathname.startsWith("/destination/");
+  const overPhoto = heroPage && !solid;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        overPhoto ? "on-dark" : ""
+      } ${
         solid
           ? "border-line bg-surface/95 md:bg-surface/85 md:backdrop-blur-md"
           : "border-transparent bg-transparent"
@@ -75,17 +80,17 @@ export default function Navbar() {
       {/* Scrim: a darker backdrop at the top of any hero photo, only while transparent */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-bg/90 via-bg/70 to-transparent transition-opacity duration-300 ${
-          solid ? "opacity-0" : "opacity-100"
+        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-deep/55 via-deep/20 to-transparent transition-opacity duration-300 ${
+          overPhoto ? "opacity-100" : "opacity-0"
         }`}
       />
 
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 md:h-20">
         <Link
           href="/"
-          className="flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.015em] text-fg text-shadow-sm text-shadow-bg/50 md:text-3xl"
+          className={`flex min-h-11 items-center font-display text-2xl font-bold tracking-[-0.015em] text-fg md:text-3xl ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""}`}
         >
-          Wander<span className="text-accent">Kash</span>
+          Wander<span className="text-accent-text">Kash</span>
         </Link>
 
         {/* Desktop links */}
@@ -97,19 +102,15 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-[15px] font-bold tracking-[0.01em] text-shadow-sm text-shadow-bg/60 transition-colors lg:text-base ${
-                    active
-                      ? solid
-                        ? "text-accent"
-                        : "text-accent-hover"
-                      : "text-fg hover:text-accent"
+                  className={`group flex min-h-11 min-w-11 items-center justify-center gap-2 text-[15px] font-bold tracking-[0.01em] transition-colors lg:text-base ${overPhoto ? "text-shadow-sm text-shadow-deep/40" : ""} ${
+                    active ? "text-accent-text" : "text-fg hover:text-accent-text"
                   }`}
                 >
                   <span className="relative">
                     {l.label}
                     <span
                       aria-hidden
-                      className={`absolute inset-x-0 -bottom-1 h-px origin-left bg-accent transition-transform duration-300 ${
+                      className={`absolute inset-x-0 -bottom-1 h-px origin-left bg-accent-text transition-transform duration-300 ${
                         active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
@@ -135,17 +136,17 @@ export default function Navbar() {
           )}
           <span className="relative block h-4 w-6">
             <span
-              className={`absolute left-0 top-0 h-0.5 w-6 rounded bg-fg shadow-sm shadow-bg/50 transition-transform duration-300 ${
+              className={`absolute left-0 top-0 h-0.5 w-6 rounded bg-fg shadow-sm shadow-deep/40 transition-transform duration-300 ${
                 open ? "translate-y-[7px] rotate-45" : ""
               }`}
             />
             <span
-              className={`absolute left-0 top-[7px] h-0.5 w-6 rounded bg-fg shadow-sm shadow-bg/50 transition-opacity duration-300 ${
+              className={`absolute left-0 top-[7px] h-0.5 w-6 rounded bg-fg shadow-sm shadow-deep/40 transition-opacity duration-300 ${
                 open ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`absolute left-0 top-[14px] h-0.5 w-6 rounded bg-fg shadow-sm shadow-bg/50 transition-transform duration-300 ${
+              className={`absolute left-0 top-[14px] h-0.5 w-6 rounded bg-fg shadow-sm shadow-deep/40 transition-transform duration-300 ${
                 open ? "-translate-y-[7px] -rotate-45" : ""
               }`}
             />
@@ -174,7 +175,7 @@ export default function Navbar() {
                       aria-current={active ? "page" : undefined}
                       onClick={() => setMenuPath(null)}
                       className={`flex items-center justify-between py-4 text-xl font-bold tracking-[0.01em] transition-colors ${
-                        active ? "text-accent" : "text-fg hover:text-accent"
+                        active ? "text-accent-text" : "text-fg hover:text-accent-text"
                       }`}
                     >
                       {l.label}

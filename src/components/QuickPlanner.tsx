@@ -91,7 +91,7 @@ export default function QuickPlanner({
               />
               <span
                 className={`mt-2 block text-[13px] font-bold uppercase tracking-[0.2em] ${
-                  current ? "text-accent" : done ? "text-fg" : "text-muted"
+                  current ? "text-accent-text" : done ? "text-fg" : "text-muted"
                 }`}
               >
                 {i + 1}. {label}
@@ -129,8 +129,8 @@ export default function QuickPlanner({
                       onClick={() => setDays(n)}
                       className={`rounded-2xl border py-5 text-2xl font-bold tabular-nums transition-colors ${
                         days === n
-                          ? "border-accent bg-accent text-bg"
-                          : "border-line text-fg hover:border-accent hover:text-accent"
+                          ? "border-accent bg-accent text-on-accent"
+                          : "border-line text-fg hover:border-accent hover:text-accent-text"
                       }`}
                     >
                       {n}
@@ -177,8 +177,8 @@ export default function QuickPlanner({
                         onClick={() => toggleVibe(t)}
                         className={`rounded-full border px-5 py-2.5 transition-colors ${
                           on
-                            ? "border-accent bg-accent text-bg"
-                            : "border-line text-fg hover:border-accent hover:text-accent"
+                            ? "border-accent bg-accent text-on-accent"
+                            : "border-line text-fg hover:border-accent hover:text-accent-text"
                         }`}
                       >
                         {on && "✓ "}
@@ -197,7 +197,7 @@ export default function QuickPlanner({
                 </h2>
                 <p className="mt-2 text-muted">
                   Est. per person{" "}
-                  <span className="tabular-nums text-accent">≈ {formatINR(perPerson)}</span>{" "}
+                  <span className="tabular-nums text-accent-text">≈ {formatINR(perPerson)}</span>{" "}
                   · sample costs for stay, food and transport
                 </p>
 
@@ -228,7 +228,7 @@ export default function QuickPlanner({
                       <div className="min-w-0 flex-1">
                         <Link
                           href={`/destination/${s.destination.id}`}
-                          className="font-display text-xl transition-colors hover:text-accent"
+                          className="font-display text-xl transition-colors hover:text-accent-text"
                         >
                           {s.destination.name}
                         </Link>
@@ -252,7 +252,7 @@ export default function QuickPlanner({
             <button
               type="button"
               onClick={startOver}
-              className="text-sm text-muted transition-colors hover:text-accent"
+              className="text-sm text-muted transition-colors hover:text-accent-text"
             >
               ← Start over
             </button>
@@ -271,7 +271,7 @@ export default function QuickPlanner({
               onClick={() => go(step - 1)}
               disabled={step === 0}
               aria-hidden={step === 0}
-              className="text-sm text-muted transition-colors hover:text-accent disabled:invisible"
+              className="text-sm text-muted transition-colors hover:text-accent-text disabled:invisible"
             >
               ← Back
             </button>

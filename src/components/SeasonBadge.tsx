@@ -22,7 +22,7 @@ export default function SeasonBadge({
   const status = seasonStatus(d, m);
 
   const styles = {
-    good: "border-accent/40 bg-accent/10 text-accent",
+    good: "border-accent/40 bg-accent/10 text-accent-text",
     shoulder: "border-line text-muted",
     off: "border-warn/40 bg-warn/10 text-warn",
   }[status];

@@ -46,14 +46,14 @@ export default async function DestinationPage({ params }: Props) {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex h-[70vh] min-h-115 items-end overflow-hidden supports-[height:1svh]:h-[70svh]">
+      <section className="on-dark relative flex h-[70vh] min-h-115 items-end overflow-hidden supports-[height:1svh]:h-[70svh]">
         <SafeImage
           src={destination.image}
           alt={destination.name}
           label={destination.name}
           preload
         />
-        <div className="absolute inset-0 bg-linear-to-t from-bg via-bg/40 to-bg/20" />
+        <div className="absolute inset-0 bg-linear-to-t from-deep/75 via-deep/45 to-deep/15" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-14">
           <Link
             href="/destinations"
@@ -71,7 +71,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* Body */}
       <section className="mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 py-20 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+          <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
             About
           </p>
           <p className="mt-5 font-display text-2xl font-medium leading-snug md:text-3xl">
@@ -80,20 +80,20 @@ export default async function DestinationPage({ params }: Props) {
 
           <div className="mt-14 grid gap-10 sm:grid-cols-2">
             <div>
-              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
                 Highlights
               </h2>
               <ul className="mt-5 space-y-3">
                 {destination.highlights.map((h) => (
                   <li key={h} className="flex gap-3 text-fg">
-                    <span className="text-accent">—</span>
+                    <span className="text-accent-text">—</span>
                     {h}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent">
+              <h2 className="text-[13px] font-bold uppercase tracking-[0.3em] text-accent-text">
                 Best season
               </h2>
               <p className="mt-5 text-fg">{destination.bestSeason}</p>
@@ -117,7 +117,7 @@ export default async function DestinationPage({ params }: Props) {
             ))}
             <div className="flex justify-between border-t border-line pt-4">
               <dt>Total</dt>
-              <dd className="text-2xl font-bold tabular-nums text-accent">
+              <dd className="text-2xl font-bold tabular-nums text-accent-text">
                 {formatINR(dayCost(destination))}
               </dd>
             </div>
@@ -135,7 +135,7 @@ export default async function DestinationPage({ params }: Props) {
           <p className="text-[13px] font-bold uppercase tracking-[0.3em] text-muted">Next</p>
           <Link
             href={`/destination/${next.id}`}
-            className="mt-4 inline-block font-display text-5xl transition-colors hover:text-accent md:text-7xl"
+            className="mt-4 inline-block font-display text-5xl transition-colors hover:text-accent-text md:text-7xl"
           >
             {next.name} →
           </Link>

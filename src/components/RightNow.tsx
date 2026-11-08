@@ -78,7 +78,7 @@ export default function RightNow() {
         eyebrow="This month"
         title={
           <>
-            Right now in Kashmir <span className="text-accent">·</span> {name}
+            Right now in Kashmir <span className="text-accent-text">·</span> {name}
           </>
         }
         subline={SEASON_LINES[month]}
@@ -115,7 +115,7 @@ export default function RightNow() {
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
                   <span className="font-display text-lg">{d.name}</span>
                   {peak ? (
-                    <span className="text-[13px] font-bold text-accent">✓ In season</span>
+                    <span className="text-[13px] font-bold text-accent-text">✓ In season</span>
                   ) : (
                     <span className="text-[13px] font-bold text-muted">Edge of season</span>
                   )}
@@ -133,7 +133,7 @@ export default function RightNow() {
             <span key={d.id}>
               <Link
                 href={`/destination/${d.id}`}
-                className="transition-colors hover:text-accent"
+                className="transition-colors hover:text-accent-text"
               >
                 {d.name}
               </Link>

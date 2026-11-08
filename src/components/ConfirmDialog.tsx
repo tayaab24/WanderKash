@@ -42,7 +42,7 @@ export default function ConfirmDialog({
       }}
       aria-labelledby="confirm-title"
       aria-describedby="confirm-message"
-      className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-2xl border border-line bg-surface p-0 text-fg shadow-[0_30px_60px_-20px_color-mix(in_srgb,var(--color-shade)_85%,transparent)] backdrop:bg-bg/70 backdrop:backdrop-blur-sm"
+      className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-2xl border border-line bg-surface p-0 text-fg shadow-[0_30px_60px_-20px_color-mix(in_srgb,var(--color-fg)_12%,transparent)] backdrop:bg-deep/45 backdrop:backdrop-blur-sm"
     >
       <div className="p-7">
         <h2 id="confirm-title" className="font-display text-2xl">

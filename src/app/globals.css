@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
-/* "Dal Lake at dusk": deep blue-teal grounds that let the warm sunset photos glow */
+/* "Sunset over Dal Lake": warm haze cream, cloud slate-blue text, sky-amber accents,
+   and a few dark slate bands for contrast. Taken from the hero photo. */
 @theme {
-  --color-bg: #0e1a22; /* deep lake blue: page background */
-  --color-surface: #15252f; /* cards, navbar, panels */
-  --color-surface-hover: #1c303c; /* hover states */
-  --color-line: #2a4150; /* borders, dividers */
-  --color-fg: #f1ece2; /* main text, warm cream */
-  --color-muted: #9fb0ba; /* secondary text, cool grey-blue */
-  --color-accent: #e3b26a; /* saffron: buttons, links, highlights */
-  --color-accent-hover: #eec585;
-  --color-warn: #e08b67; /* off-season warnings */
+  --color-bg: #f6eee3; /* page background: warm haze cream */
+  --color-surface: #fcf7f0; /* cards, panels, navbar when scrolled */
+  --color-surface-hover: #f1e5d4; /* hover states */
+  --color-line: #e3d3bc; /* borders, dividers */
+  --color-fg: #2f3a4b; /* main text: cloud slate-blue */
+  --color-muted: #5f6470; /* secondary text */
+  --color-accent: #e9a55b; /* sky amber: button fills, highlights, badges */
+  --color-accent-hover: #e39a4e;
+  --color-accent-text: #9a5119; /* links and accent-coloured text on light backgrounds */
+  --color-on-accent: #2f3a4b; /* text on accent fills (never re-scoped) */
+  --color-warn: #a8452a; /* off-season warnings */
 
-  /* Helpers derived from the palette */
-  --color-bg-lift: #12222c; /* slightly lighter teal for background depth */
-  --color-teal: #2e6a7a; /* cool ambient glow */
-  --color-shade: #071016; /* deepest lake tone, for shadows (never pure black) */
+  /* Dark slate bands */
+  --color-deep: #2f3a4b; /* dark band background: cloud slate */
+  --color-deep-fg: #f6eee3; /* text on dark bands */
+  --color-deep-muted: #b8c0cc; /* secondary text on dark bands */
+  --color-deep-accent: #f2c27e; /* links and highlights on dark bands */
 }
 
 @theme inline {
@@ -49,18 +53,27 @@
 }
 
 html {
-  /* Not one flat colour: a very subtle bg -> lifted teal -> bg rhythm down the page */
-  background: linear-gradient(
-      180deg,
-      var(--color-bg) 0%,
-      var(--color-bg-lift) 22%,
-      var(--color-bg) 45%,
-      var(--color-bg-lift) 70%,
-      var(--color-bg) 100%
-    )
-    var(--color-bg);
-  /* Native controls (select menus, checkboxes, scrollbars) render in dark mode */
-  color-scheme: dark;
+  background: var(--color-bg);
+  /* Native controls (select menus, checkboxes, scrollbars) render in light mode */
+  color-scheme: light;
+}
+
+/* Dark scopes (slate bands, text over photos): re-point the text tokens to their deep-*
+   versions, so text-fg / text-muted / text-accent-text, borders and focus rings all adapt. */
+.on-dark {
+  --color-fg: var(--color-deep-fg);
+  --color-muted: var(--color-deep-muted);
+  --color-accent-text: var(--color-deep-accent);
+  --color-line: color-mix(in srgb, var(--color-deep-fg) 20%, var(--color-deep));
+  color: var(--color-fg);
+}
+/* Light islands inside a dark scope (e.g. cards on a slate band) */
+.on-light {
+  --color-fg: #2f3a4b;
+  --color-muted: #5f6470;
+  --color-accent-text: #9a5119;
+  --color-line: #e3d3bc;
+  color: var(--color-fg);
 }
 
 /* No body background: <html> paints the bg, so page-level glows can sit behind content */
@@ -75,11 +88,12 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  /* accent-text: 5.1:1 on cream; becomes deep-accent (7:1) inside dark scopes */
+  outline: 2px solid var(--color-accent-text);
   outline-offset: 3px;
 }
 
@@ -144,11 +158,11 @@ html {
 
 /* Atmosphere ------------------------------------------------------------------ */
 
-/* Static film grain over the whole page: grey noise, pointer-events none */
+/* Static film grain over the whole page: very faint on the light palette */
 .grain-overlay {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
-  opacity: 0.035;
+  opacity: 0.015; /* barely there on a light page */
 }
 
 /* Very slow drift for ambient glows (transform only) */
