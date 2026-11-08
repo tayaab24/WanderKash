@@ -6,16 +6,20 @@ import { MONTHS, getById, seasonStatus } from "@/lib/destinations";
 export default function SeasonBadge({
   id,
   withMessage = false,
+  month: monthOverride,
 }: {
   id: string;
   withMessage?: boolean;
+  /** Use this month instead of the saved trip's month */
+  month?: number;
 }) {
   const { trip, ready } = useTrip();
   const d = getById(id);
-  if (!ready || !d || !trip.month) return null;
+  const m = monthOverride ?? (ready ? trip.month : null);
+  if (!d || !m) return null;
 
-  const month = MONTHS[trip.month - 1];
-  const status = seasonStatus(d, trip.month);
+  const month = MONTHS[m - 1];
+  const status = seasonStatus(d, m);
 
   const styles = {
     good: "border-accent/40 bg-accent/10 text-accent",

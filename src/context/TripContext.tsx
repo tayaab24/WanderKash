@@ -1,5 +1,6 @@
 "use client";
 
+import type { SampleTrip } from "@/data/sampleTrips";
 import {
   createContext,
   useContext,
@@ -32,6 +33,7 @@ type Action =
   | { type: "removeDay"; day: number }
   | { type: "travelers"; n: number }
   | { type: "month"; m: number | null }
+  | { type: "load"; days: string[][]; month: number }
   | { type: "clear" };
 
 const renumber = (days: Day[]): Day[] =>
@@ -106,6 +108,19 @@ function reducer(state: State, action: Action): State {
     case "month":
       return { ...state, trip: { ...trip, month: action.m } };
 
+    case "load":
+      // Replace days and month; keep the traveller count
+      return {
+        ...state,
+        trip: {
+          ...trip,
+          month: action.month,
+          days: action.days
+            .slice(0, MAX_DAYS)
+            .map((stops, i) => ({ day: i + 1, stops: [...stops] })),
+        },
+      };
+
     case "clear":
       return { ...state, trip: emptyTrip };
 
@@ -114,7 +129,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-function loadTrip(): Trip {
+function readSavedTrip(): Trip {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyTrip;
@@ -162,6 +177,8 @@ type TripContextValue = {
   setTravelers: (n: number) => void;
   setMonth: (m: number | null) => void;
   clearTrip: () => void;
+  /** Replaces the current trip; asks first if it has stops. Returns false if cancelled. */
+  loadTrip: (trip: Pick<SampleTrip, "days" | "suggestedMonth">) => boolean;
 };
 
 const TripContext = createContext<TripContextValue | null>(null);
@@ -174,7 +191,7 @@ export function TripProvider({ children }: { children: ReactNode }) {
 
   // Load the saved trip after the page mounts
   useEffect(() => {
-    dispatch({ type: "hydrate", trip: loadTrip() });
+    dispatch({ type: "hydrate", trip: readSavedTrip() });
   }, []);
 
   // Save whenever the trip changes (only after the first load)
@@ -202,6 +219,16 @@ export function TripProvider({ children }: { children: ReactNode }) {
       setTravelers: (n) => dispatch({ type: "travelers", n }),
       setMonth: (m) => dispatch({ type: "month", m }),
       clearTrip: () => dispatch({ type: "clear" }),
+      loadTrip: (t) => {
+        if (
+          ids.length > 0 &&
+          !window.confirm("This will replace your current trip. Continue?")
+        ) {
+          return false;
+        }
+        dispatch({ type: "load", days: t.days, month: t.suggestedMonth });
+        return true;
+      },
     };
   }, [state]);
 

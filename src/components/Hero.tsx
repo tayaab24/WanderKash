@@ -32,13 +32,13 @@ export default function Hero() {
     >
       {/* Parallax background photo */}
       <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110">
-        {/* Desktop: anchor to bottom to lift the shikara. Phone: centre on the sunburst */}
+        {/* Desktop: keep the sun rays over the ridge. Phone: centre on the boatman */}
         <SafeImage
           src="/images/hero.jpg"
-          alt="Sunrise breaking over the mountains above Dal Lake, a lone shikara crossing the still water"
+          alt="Sunrise rays over the mountains above Dal Lake, a lone fisherman casting his net from a wooden boat"
           preload
           sizes="100vw"
-          className="object-[42%_50%] md:object-[50%_100%]"
+          className="object-[60%_50%] md:object-[50%_35%]"
         />
       </motion.div>
 

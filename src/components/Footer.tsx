@@ -99,12 +99,12 @@ export default function Footer() {
               <span>
                 Hero photo by{" "}
                 <a
-                  href="https://www.pexels.com/photo/sunset-sunlight-over-lake-18485298/"
+                  href="https://www.pexels.com/photo/serene-sunrise-fishing-at-dal-lake-kashmir-31543900/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-accent"
                 >
-                  Wanderwithhidayat
+                  Shah Faizan
                 </a>{" "}
                 on Pexels
               </span>

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import StackedDestinations from "@/components/StackedDestinations";
+import Seasons from "@/components/Seasons";
+import ReadyTrips from "@/components/ReadyTrips";
+import RightNow from "@/components/RightNow";
 import { getAll } from "@/lib/destinations";
 
 const steps = [
@@ -37,6 +40,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Seasons />
+
       <section className="border-t border-line px-6 pb-28 pt-28">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
@@ -57,6 +62,45 @@ export default function Home() {
           </div>
 
           <StackedDestinations destinations={destinations} />
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-serif text-4xl md:text-5xl">Ready-made trips</h2>
+          <p className="mb-14 mt-4 max-w-xl text-lg text-muted">
+            Start from a plan and make it yours.
+          </p>
+          <ReadyTrips />
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 rounded-3xl border border-line bg-surface p-8 sm:p-12 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-xl">
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-accent">
+              Quick planner
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl">
+              Plan in 30 seconds
+            </h2>
+            <p className="mt-4 text-lg text-muted">
+              Tell us how many days, which month and what you love. We&apos;ll
+              match places that are in season and build your days for you.
+            </p>
+          </div>
+          <Link
+            href="/plan"
+            className="inline-block shrink-0 self-start rounded-full bg-accent px-8 py-4 text-sm font-medium text-bg transition-colors hover:bg-accent-hover md:self-center"
+          >
+            Plan my trip →
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-6xl">
+          <RightNow />
         </div>
       </section>
 

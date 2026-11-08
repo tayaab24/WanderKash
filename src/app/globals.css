@@ -9,6 +9,7 @@
   --color-muted: #a8afb7;
   --color-accent: #d2b074;
   --color-accent-hover: #e0c28a;
+  --color-warn: #d9967a;
 }
 
 @theme inline {
