@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getAll } from "@/lib/destinations";
-import FooterReveal from "./footer/FooterReveal";
 import BestRightNow from "./footer/BestRightNow";
 import BackToTop from "./footer/BackToTop";
 import CurrentYear from "./footer/CurrentYear";
@@ -25,7 +24,7 @@ export default function Footer() {
       <div className="pointer-events-none absolute inset-x-0 bottom-full">
         <MountainDivider to="deep" className="h-12 md:h-20" />
       </div>
-      <FooterReveal className="mx-auto max-w-6xl px-6 pb-10 pt-20">
+      <div className="mx-auto max-w-6xl px-6 pb-10 pt-20">
         {/* Wordmark */}
         <div className="border-b border-line pb-10">
           <Link
@@ -86,7 +85,7 @@ export default function Footer() {
           </p>
           <BackToTop />
         </div>
-      </FooterReveal>
+      </div>
     </footer>
   );
 }

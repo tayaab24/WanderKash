@@ -13,7 +13,6 @@ import SectionHeading from "@/components/SectionHeading";
 import AmbientGlow, { type Glow } from "@/components/atmosphere/AmbientGlow";
 import ChinarLeaf from "@/components/atmosphere/ChinarLeaf";
 import MountainDivider from "@/components/atmosphere/MountainDivider";
-import ScrollWarmth from "@/components/atmosphere/ScrollWarmth";
 import { answerToText, faq } from "@/data/faq";
 import { getAll } from "@/lib/destinations";
 
@@ -54,6 +53,7 @@ function Section({
   tone = "bg",
   glows,
   leaf,
+  skip = false,
   children,
 }: {
   id?: string;
@@ -63,13 +63,15 @@ function Section({
   glows?: Glow[];
   /** Position classes for a decorative chinar leaf in a corner */
   leaf?: string;
+  /** content-visibility: auto, for heavy sections below the fold */
+  skip?: boolean;
   children: ReactNode;
 }) {
   const toneClass = { bg: "bg-bg", surface: "bg-surface", deep: "on-dark bg-deep" }[tone];
   return (
     <section
       id={id}
-      className={`relative isolate overflow-x-clip px-6 py-28 ${toneClass} ${className}`}
+      className={`relative isolate overflow-x-clip px-6 py-28 ${toneClass} ${skip ? "offscreen-skip" : ""} ${className}`}
     >
       {glows && tone !== "deep" && <AmbientGlow glows={glows} />}
       {leaf && (
@@ -93,9 +95,6 @@ export default function Home() {
           __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
         }}
       />
-
-      {/* Page-level glow: soft amber near the top */}
-      <ScrollWarmth />
 
       {/* 1. Hero (photo); on larger screens cream ridges rise out of it into the page */}
       <Hero />
@@ -144,7 +143,7 @@ export default function Home() {
 
       {/* 5. Ready-made trips (dark band) */}
       <MountainDivider from="bg" to="deep" />
-      <Section tone="deep" className="pt-12" leaf="-right-10 top-8 rotate-[18deg] md:right-4">
+      <Section tone="deep" skip className="pt-12" leaf="-right-10 top-8 rotate-[18deg] md:right-4">
         <SectionHeading
           eyebrow="Itineraries"
           title="Ready-made trips"
@@ -157,7 +156,7 @@ export default function Home() {
       <MountainDivider from="deep" to="surface" />
 
       {/* 6. Quick planner pitch (light: surface) */}
-      <Section tone="surface" className="pt-12">
+      <Section tone="surface" skip className="pt-12">
         <div className="flex flex-col gap-10 rounded-3xl border border-line bg-bg p-8 sm:p-12 md:flex-row md:items-center md:justify-between">
           <SectionHeading
             className=""
@@ -183,6 +182,7 @@ export default function Home() {
       {/* 7. Right now in Kashmir (light: bg) */}
       <Section
         tone="bg"
+        skip
         glows={[{ tone: "warm", className: "-right-[15%] bottom-0 w-[65vw] max-w-[820px]", duration: 55 }]}
       >
         <Suspense fallback={null}>
@@ -192,7 +192,7 @@ export default function Home() {
 
       {/* 8. Beyond the views (dark band) */}
       <MountainDivider from="bg" to="deep" />
-      <Section tone="deep" className="pt-12">
+      <Section tone="deep" skip className="pt-12">
         <SectionHeading
           eyebrow="Culture"
           title="Beyond the views"
@@ -203,7 +203,7 @@ export default function Home() {
       <MountainDivider from="deep" to="bg" />
 
       {/* 9. How it works (light: bg) */}
-      <Section id="how-it-works" tone="bg" className="pt-12">
+      <Section id="how-it-works" tone="bg" skip className="pt-12">
         <SectionHeading eyebrow="How it works" title="Three steps to a plan" />
         <div className="grid gap-6 md:grid-cols-3">
           {steps.map((s) => (
@@ -222,6 +222,7 @@ export default function Home() {
       {/* 10. FAQ (light: surface) */}
       <Section
         tone="surface"
+        skip
         glows={[{ tone: "warm", className: "-right-[25%] bottom-[-10%] w-[70vw] max-w-[860px]", duration: 52 }]}
         leaf="-left-14 bottom-6 -rotate-[24deg] md:left-0"
       >

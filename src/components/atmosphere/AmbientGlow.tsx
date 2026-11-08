@@ -4,7 +4,7 @@ export type Glow = {
   tone: "warm" | "cool";
   /** Position + size utilities, e.g. "-left-[10%] top-0 w-[70vw] max-w-[900px]" */
   className: string;
-  /** Drift loop length in seconds (30-60) */
+  /** Unused (glows no longer drift); kept so existing call sites still type-check */
   duration?: number;
   /** Strength, as % of the token mixed into transparent (defaults: warm 12, cool 7) */
   strength?: number;
@@ -15,7 +15,7 @@ const TOKEN = { warm: "var(--color-accent)", cool: "var(--color-accent)" };
 
 /**
  * Large, soft radial glows behind a section's content. Soft falloff comes from the
- * gradient itself (no CSS blur filter), and only `transform` animates.
+ * gradient itself (no CSS blur filter). Static: nothing moves.
  * Parent must be `relative isolate`.
  */
 export default function AmbientGlow({ glows }: { glows: Glow[] }) {
@@ -27,12 +27,10 @@ export default function AmbientGlow({ glows }: { glows: Glow[] }) {
       {glows.map((g, i) => (
         <div
           key={i}
-          className={`ambient-drift absolute aspect-square rounded-full ${g.className}`}
+          className={`absolute aspect-square rounded-full ${g.className}`}
           style={
             {
               background: `radial-gradient(closest-side, color-mix(in srgb, ${TOKEN[g.tone]} ${g.strength ?? (g.tone === "warm" ? 12 : 7)}%, transparent), transparent)`,
-              animationDuration: `${g.duration ?? 45}s`,
-              animationDelay: `${-i * 7}s`,
             } as CSSProperties
           }
         />

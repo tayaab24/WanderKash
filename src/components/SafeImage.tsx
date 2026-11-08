@@ -10,6 +10,8 @@ type Props = {
   preload?: boolean;
   sizes?: string;
   label?: string;
+  /** "eager" for images that are on screen (or about to be) at load */
+  loading?: "eager" | "lazy";
 };
 
 export default function SafeImage({
@@ -19,6 +21,7 @@ export default function SafeImage({
   preload,
   sizes = "100vw",
   label,
+  loading,
 }: Props) {
   const [failed, setFailed] = useState(false);
 
@@ -38,6 +41,8 @@ export default function SafeImage({
       alt={alt}
       fill
       preload={preload}
+      loading={preload ? undefined : loading}
+      decoding="async"
       sizes={sizes}
       onError={() => setFailed(true)}
       className={`object-cover ${className}`}

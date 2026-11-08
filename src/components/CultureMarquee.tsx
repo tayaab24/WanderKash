@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import OnScreen from "./OnScreen";
 
 type Experience = { title: string; text: string; icon: ReactNode };
 
@@ -128,8 +129,9 @@ export default function CultureMarquee() {
       </ul>
 
       {/* Desktop: marquee (two identical tracks for a seamless loop) */}
-      <div className="hidden overflow-hidden mask-x-from-90% mask-x-to-100% md:motion-safe:block">
-        <div className="animate-marquee flex w-max hover:[animation-play-state:paused]">
+      {/* Paused on hover and whenever it is off screen (OnScreen sets data-onscreen) */}
+      <OnScreen className="hidden overflow-hidden mask-x-from-90% mask-x-to-100% md:motion-safe:block">
+        <div className="animate-marquee flex w-max">
           {[0, 1].map((copy) => (
             <ul
               key={copy}
@@ -145,7 +147,7 @@ export default function CultureMarquee() {
             </ul>
           ))}
         </div>
-      </div>
+      </OnScreen>
 
       {/* Desktop + reduced motion: static grid */}
       <ul className="hidden gap-6 md:motion-reduce:grid md:grid-cols-2 lg:grid-cols-3">

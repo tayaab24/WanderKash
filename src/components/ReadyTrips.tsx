@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import SafeImage from "./SafeImage";
-import { EASE } from "@/lib/motion";
+import { reveal, revealTransition } from "@/lib/motion";
 import { btn } from "@/lib/ui";
 import { useTrip } from "@/context/TripContext";
 import { sampleTrips, type SampleTrip } from "@/data/sampleTrips";
@@ -41,24 +41,18 @@ function TripCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={
-        reduceMotion
-          ? { duration: 0 }
-          : { duration: 0.7, delay: index * 0.1, ease: EASE }
-      }
+      {...reveal}
+      transition={reduceMotion ? { duration: 0 } : revealTransition(index)}
       className="on-light group relative h-full after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:opacity-0 after:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--color-fg)_10%,transparent)] after:transition-opacity after:duration-300 group-hover:after:opacity-100"
     >
-      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,background-color] duration-300 group-hover:-translate-y-1.5 group-hover:bg-surface-hover motion-reduce:transition-colors motion-reduce:group-hover:translate-y-0">
+      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-300 group-hover:bg-surface-hover">
         <div className="relative aspect-4/3 overflow-hidden">
           <SafeImage
             src={trip.cover}
             alt={`Cover photo for the ${trip.title} trip`}
             label={trip.title}
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
-            className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            className="transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
           />
           <div className="absolute inset-0 bg-linear-to-t from-deep/55 to-transparent" />
           <span className="on-dark absolute bottom-3 left-4 text-[13px] font-medium uppercase tracking-[0.2em] text-fg">

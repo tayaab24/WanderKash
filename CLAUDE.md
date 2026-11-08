@@ -51,7 +51,7 @@ How it fits together:
   secondary = transparent with an `fg` border (`deep-fg` inside `on-dark`).
 - **Navbar**: cream text + slate scrim only over hero photos (home, destination pages); otherwise
   and once scrolled, `surface` with blur, `fg` text and a `line` border.
-- **Atmosphere**: grain at 1.5%; ambient glows are soft amber (`accent` ~12%) on light sections only.
+- **Atmosphere**: no grain; ambient glows are static soft amber (`accent` ~12%) on light sections only.
 - Form controls use `border-muted/80` so their edges reach 3:1 on cream.
 - `src/app/icon.svg` and `themeColor` in `layout.tsx` can't read CSS variables; keep their hex in sync.
 
@@ -61,6 +61,12 @@ Contrast (WCAG AA): `fg` 10.0:1 on `bg` / 10.8:1 on `surface`; `muted` 5.2 / 5.6
 
 ## Motion
 
-One easing and duration set: `src/lib/motion.ts` (JS) and the `--ease-soft` /
-`--default-transition-duration` tokens (CSS). Animate only `transform` and `opacity`, and
-respect `prefers-reduced-motion`.
+- One scroll system: `lenis/react` (`ReactLenis root`, `autoRaf: false`) driven by framer-motion's
+  `frame.update`, so Lenis and every `useScroll` value share one clock. Reduced motion: no Lenis,
+  no scroll-linked animation.
+- One motion system: `src/lib/motion.ts` (`EASE` [0.22, 1, 0.36, 1]; `DURATION` fast 0.2 / base 0.5
+  / slow 0.9; `REVEAL_Y` 20px; `STAGGER` 0.07, max 5) and the `--ease-soft` /
+  `--default-transition-duration` tokens in CSS. Use `<Reveal>` for the one standard reveal.
+- Animate only `transform` and `opacity`. Reveal section headings, key images and card groups once;
+  body text, labels and small UI appear without animation. One motion per element; no springs,
+  rotation, blur-in or text scale. Hovers: images scale to 1.03 over 0.6s; buttons change colour.

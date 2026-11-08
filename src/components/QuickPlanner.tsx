@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { EASE } from "@/lib/motion";
+import { DURATION, EASE, REVEAL_Y } from "@/lib/motion";
 import { btn } from "@/lib/ui";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -73,7 +73,7 @@ export default function QuickPlanner({
   };
 
   const canNext = step !== 1 || month !== null;
-  const offset = reduceMotion ? 0 : 40;
+  const offset = reduceMotion ? 0 : REVEAL_Y;
 
   return (
     <div className="rounded-3xl border border-line bg-surface p-6 sm:p-10">
@@ -110,7 +110,7 @@ export default function QuickPlanner({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -dir * offset }}
             transition={{
-              duration: reduceMotion ? 0 : 0.35,
+              duration: reduceMotion ? 0 : DURATION.base,
               ease: EASE,
             }}
           >

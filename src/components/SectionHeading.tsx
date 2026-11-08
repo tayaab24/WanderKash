@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Reveal from "./Reveal";
 
 /** Shared heading style for home sections: small eyebrow label + serif heading. */
 export default function SectionHeading({
@@ -18,7 +19,7 @@ export default function SectionHeading({
     <div
       className={`flex flex-wrap items-end justify-between gap-6 ${className}`}
     >
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <p className="mb-3 text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
           {eyebrow}
         </p>
@@ -26,7 +27,7 @@ export default function SectionHeading({
           {title}
         </h2>
         {subline && <p className="mt-4 text-lg text-muted">{subline}</p>}
-      </div>
+      </Reveal>
       {action}
     </div>
   );

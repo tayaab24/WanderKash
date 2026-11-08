@@ -11,7 +11,7 @@ import {
   useScroll,
 } from "framer-motion";
 import { useTrip } from "@/context/TripContext";
-import { EASE } from "@/lib/motion";
+import { DURATION, EASE } from "@/lib/motion";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -73,7 +73,7 @@ export default function Navbar() {
         overPhoto ? "on-dark" : ""
       } ${
         solid
-          ? "border-line bg-surface/95 md:bg-surface/85 md:backdrop-blur-md"
+          ? "border-line bg-surface/95 md:bg-surface/90 md:backdrop-blur-sm"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -162,7 +162,7 @@ export default function Navbar() {
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
-            transition={{ duration: reduceMotion ? 0 : 0.25, ease: EASE }}
+            transition={{ duration: reduceMotion ? 0 : DURATION.base, ease: EASE }}
             className="border-t border-line bg-surface md:hidden"
           >
             <ul className="mx-auto flex max-w-6xl flex-col px-6 py-4">

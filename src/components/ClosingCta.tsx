@@ -1,60 +1,41 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
-import { EASE } from "@/lib/motion";
+import { DURATION, EASE, STAGGER } from "@/lib/motion";
 import { btn } from "@/lib/ui";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import SafeImage from "./SafeImage";
-import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
+import { usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 const words = "Your Kashmir starts here.".split(" ");
-const ease = EASE;
-const STAGGER = 0.12;
-const AFTER = words.length * STAGGER + 0.3;
 
 export default function ClosingCta() {
-  const ref = useRef<HTMLElement>(null);
   const reduceMotion = usePrefersReducedMotion();
-  const small = useIsSmallScreen(); // no parallax on phones
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   const t = (delay: number, duration = 0.8) =>
-    reduceMotion ? { duration: 0 } : { duration, delay, ease };
+    reduceMotion ? { duration: 0 } : { duration, delay, ease: EASE };
 
   return (
     <section
-      ref={ref}
       className="on-dark relative flex min-h-[70vh] items-center overflow-hidden"
     >
-      {/* Slight parallax background (static for reduced motion) */}
-      <motion.div
-        style={reduceMotion || small ? undefined : { y: imageY }}
-        className="absolute -inset-y-[10%] inset-x-0"
-      >
+      {/* Background photo (static) */}
+      <div className="absolute inset-0">
         <SafeImage
           src="/images/pahalgam.jpg"
           alt="The Pahalgam valley: pine forest, a river and mountains"
           sizes="100vw"
           className="object-[50%_40%]"
         />
-      </motion.div>
+      </div>
 
       {/* Soft overlay: bg token, heavier on the left behind the text */}
       <div className="absolute inset-0 bg-linear-to-r from-deep/78 via-deep/55 to-deep/15" />
       <div className="absolute inset-0 bg-linear-to-t from-deep/55 via-transparent to-deep/35" />
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
-        {/* Words rise in one by one, like the hero */}
+        {/* The section's one motion: words rise in one by one, once */}
         <h2 className="max-w-3xl text-[clamp(1.9rem,4.2vw_+_0.85rem,3.3rem)] font-display font-bold leading-[1.15] tracking-[0.03em]">
           {words.map((word, i) => (
             <span
@@ -63,10 +44,10 @@ export default function ClosingCta() {
             >
               <motion.span
                 className="inline-block"
-                initial={{ y: "110%", opacity: 0 }}
+                initial={{ y: "100%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.6 }}
-                transition={t(i * STAGGER, 0.9)}
+                transition={t(i * STAGGER, DURATION.base)}
               >
                 {word}
               </motion.span>
@@ -74,24 +55,14 @@ export default function ClosingCta() {
           ))}
         </h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={t(AFTER)}
+        <p
           className="mt-6 max-w-xl text-lg text-muted"
         >
           Pick a few places, choose your month, and see your trip come
           together.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={t(AFTER + 0.2)}
-          className="mt-10 flex flex-wrap gap-4"
-        >
+        <div className="mt-10 flex flex-wrap gap-4">
           <Link
             href="/plan"
             className={btn.primary}
@@ -104,7 +75,7 @@ export default function ClosingCta() {
           >
             Browse destinations
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

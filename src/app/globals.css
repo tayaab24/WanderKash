@@ -101,15 +101,22 @@ html {
   opacity: 0.85;
 }
 
-/* Culture section marquee: two identical tracks, so -50% loops seamlessly */
+/* Culture section marquee: two identical tracks, so -50% loops seamlessly.
+   Transform only; paused on hover and whenever the section is off screen. */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
-
 .animate-marquee {
   animation: marquee 70s linear infinite;
+}
+.animate-marquee:hover,
+[data-onscreen="false"] .animate-marquee {
+  animation-play-state: paused;
+}
+[data-onscreen="true"] .animate-marquee {
+  will-change: transform;
 }
 
 /* Hero height: 100svh fits mobile screens with browser bars; 100vh is the fallback */
@@ -118,20 +125,24 @@ html {
   min-height: 100svh;
 }
 
-/* Slow, calm Ken Burns for the hero photo (transform only, GPU-friendly).
-   Origin sits near the sun and shikara so the zoom never pushes them out. */
+/* Very slow Ken Burns for the hero photo: 28s each way, 1.0 -> 1.06 at most.
+   Origin near the sun and shikara; paused (and no will-change) off screen. */
 @keyframes kenburns {
   from {
     transform: scale(1) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.08) translate3d(-1%, -0.6%, 0);
+    transform: scale(1.06) translate3d(-0.6%, -0.4%, 0);
   }
 }
-
 .animate-kenburns {
-  animation: kenburns 22s ease-in-out infinite alternate;
+  animation: kenburns 28s ease-in-out infinite alternate;
   transform-origin: 80% 60%;
+}
+[data-onscreen="false"] .animate-kenburns {
+  animation-play-state: paused;
+}
+[data-onscreen="true"] .animate-kenburns {
   will-change: transform;
 }
 
@@ -152,39 +163,10 @@ html {
   min-height: 100svh;
 }
 
-/* Atmosphere ------------------------------------------------------------------ */
-
-/* Static film grain over the whole page: very faint on the light palette */
-.grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-  opacity: 0.015; /* barely there on a light page */
-}
-
-/* Very slow drift for ambient glows (transform only) */
-@keyframes ambient-drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(4%, -3%, 0) scale(1.06);
-  }
-}
-.ambient-drift {
-  animation: ambient-drift 45s ease-in-out infinite alternate;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ambient-drift {
-    animation: none;
-  }
-}
-
-/* Phones: glows stay put (fewer moving layers to composite while scrolling) */
-@media (max-width: 767px) {
-  .ambient-drift {
-    animation: none;
-  }
+/* Heavy below-the-fold sections: the browser skips layout/paint until they're near view */
+.offscreen-skip {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* Route change: short fade-in that never blocks navigation (opacity only) */
@@ -205,7 +187,7 @@ html {
   }
 }
 
-/* Hero entrance in CSS: starts on first paint, no waiting for JavaScript.
+/* Hero headline reveal in CSS (masked, word by word): starts on first paint, no JS wait.
    Per-element timing via --d (delay), --dur (duration), --from-y (start offset). */
 @keyframes hero-in {
   from {
@@ -217,35 +199,11 @@ html {
     transform: none;
   }
 }
-@keyframes hero-in-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 .hero-in {
-  animation: hero-in var(--dur, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
-}
-.hero-in-fade {
-  animation: hero-in-fade var(--dur, 0.6s) ease var(--d, 0s) both;
-}
-@keyframes scroll-cue {
-  from {
-    transform: translate3d(0, -16px, 0);
-  }
-  to {
-    transform: translate3d(0, 40px, 0);
-  }
-}
-.scroll-cue {
-  animation: scroll-cue 1.6s ease-in-out infinite;
+  animation: hero-in var(--dur, 0.9s) cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-in,
-  .hero-in-fade,
-  .scroll-cue {
+  .hero-in {
     animation: none;
   }
 }

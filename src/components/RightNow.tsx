@@ -2,11 +2,10 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
-import { EASE } from "@/lib/motion";
 import { btn } from "@/lib/ui";
-import { motion, useReducedMotion } from "framer-motion";
 import SafeImage from "./SafeImage";
 import SectionHeading from "./SectionHeading";
+import Reveal from "./Reveal";
 import { MONTHS, getAll, seasonStatus } from "@/lib/destinations";
 
 const SEASON_LINES: Record<number, string> = {
@@ -50,7 +49,6 @@ function Skeleton() {
 
 export default function RightNow() {
   const month = useSyncExternalStore(noop, getMonth, getServerMonth);
-  const reduceMotion = useReducedMotion();
 
   if (month === null) return <Skeleton />;
 
@@ -65,14 +63,7 @@ export default function RightNow() {
   const listed = peak ? edge : [];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={
-        reduceMotion ? { duration: 0 } : { duration: 0.8, ease: EASE }
-      }
-    >
+    <div>
       <SectionHeading
         className=""
         eyebrow="This month"
@@ -92,6 +83,7 @@ export default function RightNow() {
       )}
 
       {featured.length > 0 && (
+        <Reveal>
         <ul
           className={`grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 ${
             peak ? "mt-10" : "mt-6"
@@ -109,7 +101,7 @@ export default function RightNow() {
                     alt={d.name}
                     label={d.name}
                     sizes="(min-width: 1024px) 270px, 50vw"
-                    className="transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
                   />
                 </div>
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
@@ -124,6 +116,7 @@ export default function RightNow() {
             </li>
           ))}
         </ul>
+        </Reveal>
       )}
 
       {listed.length > 0 && (
@@ -158,6 +151,6 @@ export default function RightNow() {
           Plan a trip for {name}
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }

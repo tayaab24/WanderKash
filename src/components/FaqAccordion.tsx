@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { EASE } from "@/lib/motion";
+import { DURATION, EASE } from "@/lib/motion";
 import type { Block, FaqItem, Inline } from "@/data/faq";
 
 function Parts({ parts }: { parts: Inline[] }) {
@@ -59,7 +59,7 @@ function Answer({ blocks }: { blocks: Block[] }) {
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
   const reduceMotion = useReducedMotion();
-  const duration = reduceMotion ? 0 : 0.35;
+  const duration = reduceMotion ? 0 : DURATION.base;
 
   return (
     <ul className="divide-y divide-line border-y border-line">
@@ -101,22 +101,19 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               </button>
             </h3>
 
-            <AnimatePresence initial={false}>
-              {open && (
+            {open && (
                 <motion.div
                   id={panelId}
                   role="region"
                   aria-labelledby={buttonId}
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
+                  // opacity only: the answer's height appears at once (no layout animation)
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{ duration, ease: EASE }}
-                  className="overflow-hidden"
                 >
                   <Answer blocks={item.answer} />
                 </motion.div>
-              )}
-            </AnimatePresence>
+            )}
           </li>
         );
       })}

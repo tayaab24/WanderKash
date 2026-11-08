@@ -1,21 +1,13 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
-import { EASE } from "@/lib/motion";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { reveal, revealTransition } from "@/lib/motion";
+import { motion } from "framer-motion";
 import SafeImage from "./SafeImage";
-import { useIsSmallScreen, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 import AddToTripButton from "./AddToTripButton";
 import { dayCost, type Destination } from "@/lib/destinations";
 import { formatINR } from "@/lib/format";
 import SeasonBadge from "./SeasonBadge";
-
-const ease = EASE;
 
 export default function DestinationRow({
   destination,
@@ -26,62 +18,38 @@ export default function DestinationRow({
   index: number;
   total: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const flip = index % 2 === 1; // odd rows: image on the right
 
-  // Parallax: the photo moves slightly slower than the page
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const reduceMotion = usePrefersReducedMotion();
-  const small = useIsSmallScreen(); // no image parallax on phones
-
-  // Image enters from its own side, text from the opposite side
-  const imageFrom = flip ? 140 : -140;
-  const textFrom = flip ? -80 : 80;
 
   return (
     <div
-      ref={ref}
       className="grid items-center gap-8 py-14 md:grid-cols-2 md:gap-16 md:py-24"
     >
       {/* Image */}
       <motion.div
-        initial={{ opacity: 0, x: imageFrom }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1, ease }}
+        {...reveal}
+        transition={revealTransition(0)}
         className={flip ? "md:order-2" : ""}
       >
         <Link
           href={`/destination/${destination.id}`}
           className="group relative block aspect-4/3 overflow-hidden rounded-2xl border border-line"
         >
-          <motion.div
-            style={reduceMotion || small ? undefined : { y: imageY }}
-            className="absolute -inset-[10%]"
-          >
+          <div className="absolute inset-0">
             <SafeImage
               src={destination.image}
               alt={destination.name}
               label={destination.name}
-              sizes="(min-width: 768px) 60vw, 120vw"
-              className="transition-transform duration-700 group-hover:scale-105"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
             />
-          </motion.div>
+          </div>
           <div className="absolute inset-0 bg-linear-to-t from-deep/35 via-transparent to-transparent" />
         </Link>
       </motion.div>
 
       {/* Text */}
-      <motion.div
-        initial={{ opacity: 0, x: textFrom }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1, delay: 0.15, ease }}
-      >
+      <div>
         <p className="text-[13px] font-medium uppercase tracking-[0.3em] text-accent-text">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </p>
@@ -133,7 +101,7 @@ export default function DestinationRow({
             Explore {destination.name} →
           </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

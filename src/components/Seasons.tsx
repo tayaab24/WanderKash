@@ -175,7 +175,7 @@ function StackedSeasons({ reduceMotion }: { reduceMotion: boolean }) {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.8 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.5 }}
             className="h-[80vh] min-h-120"
           >
             <Panel season={s} />
